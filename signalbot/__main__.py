@@ -74,7 +74,9 @@ def cmd_relay(cfg: Config) -> None:
         start_scheduler(svc, sched)
     tg = Telegram(cfg.token)
     log.info("bot @%s relaying %s -> %s", tg.me()["username"], cfg.source_chat, cfg.target_chat)
-    offset = None
+    # Remember the last handled update so a restart never re-posts a signal.
+    last = svc.store.get_meta("last_update_id")
+    offset = last + 1 if last is not None else None
     while True:
         try:
             updates = tg.get_updates(offset)
@@ -84,6 +86,7 @@ def cmd_relay(cfg: Config) -> None:
             continue
         for u in updates:
             offset = u["update_id"] + 1
+            svc.store.set_meta("last_update_id", u["update_id"])
             post = u.get("channel_post") or u.get("message")
             if not post:
                 continue
