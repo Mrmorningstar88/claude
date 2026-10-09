@@ -1,0 +1,5 @@
+EURUSD BUY NOW @ 1.1230 4H
+SL 1.1195
+TP1 1.1265
+TP2 1.1300
+Setup: Trendline bounce

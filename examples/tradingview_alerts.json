@@ -1,0 +1,6 @@
+[
+  {"event":"open","id":"gj-1","ticker":"OANDA:GBPJPY","side":"sell","interval":"15","entry":209.25,"tp":[208.95,208.60],"sl":209.55,"setup":"London open fade"},
+  {"event":"sl","id":"gj-1"},
+  {"event":"open","id":"nas-1","ticker":"NAS100","side":"buy","interval":"60","entry":25000,"tp_pct":[0.4,0.8],"sl_pct":0.3},
+  {"event":"close","id":"nas-1","price":25050}
+]

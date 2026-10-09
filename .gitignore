@@ -1,0 +1,7 @@
+.env
+out/
+scratch_out/
+signals.json
+*.tmp
+__pycache__/
+.pytest_cache/

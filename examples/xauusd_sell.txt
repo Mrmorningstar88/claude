@@ -1,0 +1,6 @@
+XAUUSD SELL 4185 - 4190 1H
+SL: 4202
+TP1: 4170
+TP2: 4155
+TP3: 4135
+Setup: Supply zone rejection
