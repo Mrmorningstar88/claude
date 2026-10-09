@@ -59,6 +59,14 @@ class Store:
             self.data["signals"][key].update(fields)
             self._save()
 
+    def get_meta(self, key: str, default=None):
+        return self.data.get("meta", {}).get(key, default)
+
+    def set_meta(self, key: str, value) -> None:
+        with self.lock:
+            self.data.setdefault("meta", {})[key] = value
+            self._save()
+
     @staticmethod
     def signal(rec: dict) -> Signal:
         return Signal.from_dict(rec["signal"])

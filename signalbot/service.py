@@ -114,6 +114,9 @@ class Service:
         self._post(png, update_caption(sig, st, self.cfg.brand), rec["message_id"])
 
         done = (event != "tp") or st.tp_index == len(sig.tps)
+        events = rec.get("events", []) + [{
+            "kind": event, "tp": st.tp_index, "price": st.price,
+            "at": datetime.now(timezone.utc).isoformat()}]
         self.store.update(key, tp_hit=max(rec["tp_hit"], st.tp_index),
-                          state="closed" if done else "open")
+                          state="closed" if done else "open", events=events)
         return f"update #{sig.number:04d} {event}{st.tp_index or ''} -> {png}"

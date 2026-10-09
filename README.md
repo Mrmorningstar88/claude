@@ -72,7 +72,34 @@ EURUSD closed at 1.1250                XAUUSD cancelled
 Anything else (commentary, news, chart screenshots without levels) is ignored.
 JSON in the same schema as the webhook below works too.
 
-## 3. Optional: TradingView webhook
+## 3. Weekly results recap
+
+Every week (default **Saturday 12:00, Asia/Almaty**) the bot posts a recap card
+into the group: total pips and R, win rate, wins/losses/breakeven, every signal
+opened that week with its result, and a cumulative-R curve.
+
+![](docs/example-weekly-recap.png)
+
+Numbers come only from the bot's own records: the signals it posted and the
+TP / SL / close / cancel updates you posted. Rules:
+
+| What happened | Counted as |
+|---|---|
+| Last TP hit | that TP |
+| SL hit, no TP before | loss (−1R) |
+| SL hit after a TP | breakeven by default (`RECAP_SL_AFTER_TP=best_tp` counts the highest TP, `loss` counts −1R) |
+| Closed at a price | pips to that price |
+| Cancelled | not counted |
+| No update yet | listed as running, not counted |
+
+Pips are added across instruments (gold pips count like FX pips), so R is the
+fairer total. No signals that week means no post. Configure with `RECAP_DAY`,
+`RECAP_TIME`, `RECAP_TZ`, or turn it off with `RECAP_ENABLED=0`.
+
+Preview this week's recap any time: `python -m signalbot recap`
+(add `--post` to send it to the group now).
+
+## 4. Optional: TradingView webhook
 
 Run `python -m signalbot webhook --port 8080` on a host with a public HTTPS URL,
 set `WEBHOOK_SECRET`, and point the alert's webhook at `https://your-host/webhook`.
@@ -89,7 +116,7 @@ Fields: `ticker`, `side` (buy/sell/long/short), `entry` or `entry_low`+`entry_hi
 Updates: `{"secret":"…","event":"tp","tp":1,"ticker":"{{ticker}}"}`, `"event":"sl"`,
 `"event":"close","price":{{close}}`, `"event":"cancel"`.
 
-## 4. Running 24/7
+## 5. Running 24/7
 
 The code lives on GitHub, but it needs an always-on host to run. Relay mode only
 makes outgoing connections, so no public URL or domain is needed.

@@ -4,6 +4,7 @@
   python -m signalbot webhook          HTTP endpoint for TradingView alerts
   python -m signalbot chats            list chat ids the bot has seen (setup helper)
   python -m signalbot preview FILE...  render cards from JSON/text files, no posting
+  python -m signalbot recap [--post]   render (or post) this week's results recap
 """
 from __future__ import annotations
 
@@ -20,6 +21,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+
+from .recap import Schedule, post_recap, start_scheduler
 from .service import Config, Service
 from .signal import SignalError
 from .telegram import Telegram, TelegramError
@@ -39,6 +44,18 @@ def load_dotenv(path: str = ".env") -> None:
             os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
 
 
+def recap_schedule() -> Schedule | None:
+    e = os.environ.get
+    if e("RECAP_ENABLED", "1") == "0":
+        return None
+    sched = Schedule(day=e("RECAP_DAY", Schedule.day), at=e("RECAP_TIME", Schedule.at),
+                     tz=e("RECAP_TZ", Schedule.tz),
+                     sl_after_tp=e("RECAP_SL_AFTER_TP", Schedule.sl_after_tp))
+    if sched.sl_after_tp not in ("breakeven", "best_tp", "loss"):
+        sys.exit("RECAP_SL_AFTER_TP must be breakeven, best_tp or loss")
+    return sched
+
+
 def _run(svc: Service, payload: dict) -> None:
     try:
         log.info(svc.handle(payload))
@@ -53,6 +70,8 @@ def cmd_relay(cfg: Config) -> None:
     if not (cfg.source_chat and cfg.target_chat):
         sys.exit("set SOURCE_CHAT_ID and TARGET_CHAT_ID (run `python -m signalbot chats`)")
     svc = Service(cfg)
+    if sched := recap_schedule():
+        start_scheduler(svc, sched)
     tg = Telegram(cfg.token)
     log.info("bot @%s relaying %s -> %s", tg.me()["username"], cfg.source_chat, cfg.target_chat)
     offset = None
@@ -84,6 +103,8 @@ def cmd_webhook(cfg: Config, port: int) -> None:
     if not cfg.webhook_secret:
         sys.exit("set WEBHOOK_SECRET so strangers can't post to your group")
     svc = Service(cfg)
+    if sched := recap_schedule():
+        start_scheduler(svc, sched)
     jobs: queue.Queue = queue.Queue()
 
     def worker():  # one at a time: keeps numbering and replies in order
@@ -152,6 +173,14 @@ def cmd_preview(cfg: Config, files: list[str]) -> None:
                 print(f"{f}: rejected: {e}")
 
 
+def cmd_recap(cfg: Config, post: bool) -> None:
+    sched = recap_schedule() or Schedule()
+    cfg.dry_run = not post
+    svc = Service(cfg)
+    now = datetime.now(timezone.utc).astimezone(ZoneInfo(sched.tz))
+    print(post_recap(svc, now, sched.sl_after_tp, send=post))
+
+
 def main() -> None:
     load_dotenv()
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
@@ -164,6 +193,8 @@ def main() -> None:
     sub.add_parser("chats")
     pv = sub.add_parser("preview")
     pv.add_argument("files", nargs="+")
+    rp = sub.add_parser("recap")
+    rp.add_argument("--post", action="store_true", help="send to TARGET_CHAT_ID")
     a = ap.parse_args()
     cfg = Config.from_env()
     try:
@@ -173,6 +204,8 @@ def main() -> None:
             cmd_webhook(cfg, a.port)
         elif a.cmd == "chats":
             cmd_chats(cfg)
+        elif a.cmd == "recap":
+            cmd_recap(cfg, a.post)
         else:
             cmd_preview(cfg, a.files)
     except TelegramError as e:
