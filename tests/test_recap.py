@@ -58,3 +58,14 @@ def test_week_bounds_monday_start():
     tz = ZoneInfo("Asia/Almaty")
     s, e = week_bounds(datetime(2026, 10, 10, 15, 0, tzinfo=tz))  # Saturday
     assert s == datetime(2026, 10, 5, tzinfo=tz) and (e - s).days == 7
+
+
+def test_state_seed_used_only_when_no_file(tmp_path, monkeypatch):
+    import base64, json
+    from signalbot.store import Store
+    seed = {"next": 4, "signals": {}, "meta": {"last_update_id": 7}}
+    monkeypatch.setenv("STATE_SEED_B64", base64.b64encode(json.dumps(seed).encode()).decode())
+    s = Store(tmp_path / "d" / "s.json")
+    assert s.next_number() == 4 and s.get_meta("last_update_id") == 7
+    monkeypatch.setenv("STATE_SEED_B64", base64.b64encode(b'{"next": 1, "signals": {}}').decode())
+    assert Store(tmp_path / "d" / "s.json").data["next"] == 5  # existing file wins

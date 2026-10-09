@@ -1,7 +1,9 @@
 """JSON-file store: signal numbering, open signals and their Telegram message ids."""
 from __future__ import annotations
 
+import base64
 import json
+import os
 import threading
 from pathlib import Path
 
@@ -15,6 +17,11 @@ class Store:
         self.data = {"next": 1, "signals": {}}
         if self.path.exists():
             self.data = json.loads(self.path.read_text())
+        elif os.environ.get("STATE_SEED_B64"):
+            # One-time carry-over of numbering / open trades onto a fresh host.
+            self.data = json.loads(base64.b64decode(os.environ["STATE_SEED_B64"]))
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            self._save()
 
     def _save(self):
         tmp = self.path.with_suffix(".tmp")
