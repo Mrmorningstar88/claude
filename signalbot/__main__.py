@@ -70,6 +70,9 @@ def cmd_relay(cfg: Config) -> None:
     if not (cfg.source_chat and cfg.target_chat):
         sys.exit("set SOURCE_CHAT_ID and TARGET_CHAT_ID (run `python -m signalbot chats`)")
     svc = Service(cfg)
+    open_ = sum(1 for r in svc.store.data["signals"].values() if r["state"] == "open")
+    log.info("state %s: next signal #%04d, %d open", cfg.state_file,
+             svc.store.data["next"], open_)
     if sched := recap_schedule():
         start_scheduler(svc, sched)
     tg = Telegram(cfg.token)
