@@ -88,6 +88,10 @@ def parse_text(text: str) -> dict | None:
     side = re.search(r"\b(LONG|SHORT|BUY|SELL)\b", upper)
     entry = _field(text, "entry", "entry zone", "entry price", "buy zone", "sell zone",
                    "open", "price")
+    if entry is None:  # a line holding only the entry: "📍 4182 - 4184"
+        m = re.search(rf"(?m)^[^\w\n]*{NUM}(?:\s*[-–/]\s*{NUM})?\s*$", text)
+        if m:
+            entry = " ".join(g for g in m.groups() if g)
     if entry is None:  # "XAUUSD SELL 4185-4190" / "EURUSD BUY NOW @ 1.0850"
         m = re.search(rf"\b(?:BUY|SELL|LONG|SHORT)\b[^\n\d]*{NUM}(?:\s*[-–/]\s*{NUM})?", upper)
         if m:

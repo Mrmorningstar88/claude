@@ -26,7 +26,7 @@ def test_pips_fx_jpy_gold():
     assert gj.pip_text(208.95) == "+30 pips"
     xau = parse_signal({"ticker": "XAUUSD", "side": "sell", "entry": 4188,
                         "tp": [4170], "sl": 4202})
-    assert xau.pip_text(4202) == "−140 pips"
+    assert xau.pip_text(4202) == "−1,400 pts"
 
 
 def test_rejects_wrong_side_levels():
@@ -79,3 +79,30 @@ def test_update_matches_full_pair(tmp_path):
     recs = svc.store.data["signals"]
     states = {r["signal"]["quote"]: r["tp_hit"] for r in recs.values()}
     assert states == {"JPY": 1, "USD": 0}
+
+
+AFX_SELL = """SELL XAU/USD
+
+📍 4182 - 4184
+
+❗️ Stop loss (SL): 4202
+✅ Take profit 1: 4179
+✅ Take profit 2: 4168
+✅ Take profit 3: 4150
+✅ Take profit 4: 4141"""
+
+
+def test_afx_channel_format():
+    p = parse_text(AFX_SELL)
+    assert (p["ticker"], p["side"], p["entry_low"], p["entry_high"], p["sl"]) == \
+        ("XAU/USD", "sell", 4182, 4184, 4202)
+    assert p["tp"] == [4179, 4168, 4150, 4141]
+    s = parse_signal(p)
+    assert s.symbol == "XAU/USD" and len(s.tps) == 4
+    p = parse_text("BUY USD/CHF\n\n📍 0.83140 - 0.83160\n\n❗️ Stop loss (SL): 0.82975\n"
+                   "✅ Take profit 1: 0.83237\n✅ Take profit 2: 0.83358")
+    assert parse_signal(p).fmt(0.8314) == "0.83140"
+    assert parse_text("✅ TP 1 - 4179 XAUUSD, +500 points") == \
+        {"event": "tp", "ticker": "XAUUSD", "tp": 1}
+    assert parse_text("If you’re trading conservatively, move your stop-loss on XAUUSD "
+                      "to breakeven.") is None

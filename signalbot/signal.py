@@ -72,7 +72,7 @@ class Signal:
 
     @property
     def unit(self) -> str:
-        return "pts" if self.kind == "index" else "pips"
+        return "pts" if self.kind in ("index", "metal") else "pips"
 
     def pips(self, price: float) -> float:
         """Signed distance from entry in pips (points for indices), in the trade's favour."""
@@ -169,7 +169,7 @@ def pip_size(base: str, quote: str) -> float:
     if kind == "index":
         return 0.01 if base in ("USOIL", "UKOIL") else 1.0
     if kind == "metal":
-        return 0.1 if base == "XAU" else 0.01
+        return 0.01 if base == "XAU" else 0.001  # points, as the channel quotes them
     if kind == "fx":
         return 0.01 if quote == "JPY" else 0.0001
     return 1.0  # crypto: "pips" = whole units

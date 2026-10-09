@@ -210,7 +210,7 @@ def render(sig: Signal, data: list[Candle], brand: Brand, out: str | Path,
     tiles = [
         ("RISK : REWARD", f"1 : {sig.rr:.1f}"),
         ("STOP DISTANCE", sig.pip_text(sig.sl, sign=False)),
-        ("SETUP", sig.setup or "—"),
+        ("SETUP", sig.setup) if sig.setup else ("TARGETS", f"{len(sig.tps)} TP"),
     ]
     tw = (W - 112 - 24) / 3
     for i, (label, val) in enumerate(tiles):
