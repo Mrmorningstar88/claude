@@ -302,7 +302,7 @@ def post_recap(svc, now_local: datetime, sl_after_tp: str, send: bool = True) ->
     text = caption(rc, svc.cfg.brand, note)
     png.with_suffix(".txt").write_text(text)
     if send and svc.tg is not None:
-        svc.tg.send_photo(svc.cfg.target_chat, png, text)
+        svc.tg.send_photo(svc.cfg.target_chat, png, text, thread_id=svc.cfg.target_thread)
         return f"recap {rc.week_label} posted -> {png}"
     return f"recap {rc.week_label} rendered -> {png}"
 

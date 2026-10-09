@@ -23,6 +23,7 @@ log = logging.getLogger(__name__)
 class Config:
     token: str = ""
     target_chat: str = ""        # private group that receives the cards
+    target_thread: int | None = None  # topic inside that group (t.me/c/<group>/<topic>)
     source_chat: str = ""        # channel the raw signals come from (relay mode)
     webhook_secret: str = ""
     out_dir: Path = Path("out")
@@ -36,6 +37,7 @@ class Config:
         return cls(
             token=e("TELEGRAM_BOT_TOKEN", ""),
             target_chat=e("TARGET_CHAT_ID", ""),
+            target_thread=int(e("TARGET_THREAD_ID")) if e("TARGET_THREAD_ID") else None,
             source_chat=e("SOURCE_CHAT_ID", ""),
             webhook_secret=e("WEBHOOK_SECRET", ""),
             out_dir=Path(e("OUT_DIR", "out")),
@@ -67,7 +69,8 @@ class Service:
         (png.with_suffix(".txt")).write_text(caption)
         if self.tg is None:
             return None
-        return self.tg.send_photo(self.cfg.target_chat, png, caption, reply_to)
+        return self.tg.send_photo(self.cfg.target_chat, png, caption, reply_to,
+                                  self.cfg.target_thread)
 
     def _open(self, payload: dict) -> str:
         sig = parse_signal(payload)

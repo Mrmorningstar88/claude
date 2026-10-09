@@ -30,7 +30,9 @@ python -m signalbot chats   # post a message in the channel and the group first
 ```
 
 `chats` prints the numeric ids of the channel and the group. Put them in
-`.env` as `SOURCE_CHAT_ID` (the channel) and `TARGET_CHAT_ID` (the group), and
+`.env` as `SOURCE_CHAT_ID` (the channel) and `TARGET_CHAT_ID` (the group). If the
+group uses Topics, set `TARGET_THREAD_ID` to the topic number (the last part of
+the topic link `t.me/c/<group>/<topic>`). Then
 set `BRAND_NAME` / `BRAND_HANDLE` for the card.
 
 Preview without posting anything:

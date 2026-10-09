@@ -27,8 +27,10 @@ class Telegram:
         return body["result"]
 
     def send_photo(self, chat_id: str, png: Path, caption: str,
-                   reply_to: int | None = None) -> int:
+                   reply_to: int | None = None, thread_id: int | None = None) -> int:
         data = {"chat_id": chat_id, "caption": caption, "parse_mode": "HTML"}
+        if thread_id:  # a topic inside a forum group
+            data["message_thread_id"] = thread_id
         if reply_to:
             data["reply_to_message_id"] = reply_to
             data["allow_sending_without_reply"] = "true"
