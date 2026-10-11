@@ -14,7 +14,6 @@ import json
 import logging
 import os
 import queue
-import re
 import sys
 import threading
 import time
@@ -22,10 +21,11 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from zoneinfo import ZoneInfo
 
-from .daily import Daily, post_daily, start_daily
+from .daily import Daily, post_daily, start_daily, validate
+from .telegram import redact
 from .recap import Schedule, post_recap, start_scheduler
 from .service import Config, Service
 from .signal import SignalError
@@ -33,6 +33,11 @@ from .telegram import Telegram, TelegramError
 from .textparse import parse_text
 
 log = logging.getLogger("signalbot")
+
+
+class RedactingFormatter(logging.Formatter):
+    def format(self, record: logging.LogRecord) -> str:
+        return redact(super().format(record))
 
 
 def load_dotenv(path: str = ".env") -> None:
@@ -58,21 +63,24 @@ def recap_schedule() -> Schedule | None:
     return sched
 
 
-def daily_config(cfg: Config) -> Daily | None:
+def daily_enabled() -> bool:
+    return os.environ.get("DAILY_ENABLED", "0").strip().lower() in ("1", "true", "yes", "on")
+
+
+def daily_config(cfg: Config) -> Daily:
+    """Build the daily-post settings from DAILY_*; raises ValueError if invalid."""
     e = os.environ.get
-    if e("DAILY_ENABLED", "0") != "1":
-        return None
-    if not e("DAILY_CHAT_ID"):
-        sys.exit("DAILY_ENABLED=1 needs DAILY_CHAT_ID (e.g. @arutnews)")
-    d = Daily(chat=e("DAILY_CHAT_ID"), token=e("DAILY_BOT_TOKEN") or cfg.token,
-              at=e("DAILY_TIME", Daily.at), latest=e("DAILY_LATEST", Daily.latest),
-              tz=e("DAILY_TZ", Daily.tz), start=e("DAILY_START", ""),
+    start = e("DAILY_START", "").strip()
+    try:
+        start_date = date.fromisoformat(start) if start else None
+    except ValueError:
+        raise ValueError(f"DAILY_START must be YYYY-MM-DD, got {start!r}") from None
+    d = Daily(chat=e("DAILY_CHAT_ID", "").strip(), token=e("DAILY_BOT_TOKEN") or cfg.token,
+              at=e("DAILY_TIME", Daily.at).strip(), latest=e("DAILY_LATEST", Daily.latest).strip(),
+              tz=e("DAILY_TZ", Daily.tz).strip(), start=start_date,
               cta=e("DAILY_CTA", ""), handle=e("DAILY_HANDLE", ""),
               disclaimer=e("DAILY_DISCLAIMER", Daily.disclaimer))
-    for v in (d.at, d.latest):
-        if not re.fullmatch(r"\d{1,2}:\d{2}", v):
-            sys.exit(f"DAILY_TIME/DAILY_LATEST must be HH:MM, got {v!r}")
-    ZoneInfo(d.tz)  # fails fast on a bad time zone
+    validate(d)
     return d
 
 
@@ -85,6 +93,37 @@ def _run(svc: Service, payload: dict) -> None:
         log.exception("failed to process payload")
 
 
+# --- health: lets an outside watchdog see the relay is alive ----------------
+HEALTH = {"started": time.time(), "last_poll": 0.0}
+
+
+def start_health(port: int, svc: Service) -> None:
+    """GET /health -> 200 {"ok": true, ...} while Telegram was polled in the last
+    5 minutes, else 503. Exposes no secrets and no signal content."""
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            last = HEALTH["last_poll"]
+            age = time.time() - last if last else None
+            done = svc.store.get_meta("daily_done", {}) or {}
+            body = json.dumps({
+                "ok": age is not None and age < 300,
+                "seconds_since_poll": round(age) if age is not None else None,
+                "uptime_s": round(time.time() - HEALTH["started"]),
+                "daily_last": max(done) if done else None,
+            }).encode()
+            self.send_response(200 if age is not None and age < 300 else 503)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(body)
+
+        def log_message(self, fmt, *args):
+            pass
+
+    server = ThreadingHTTPServer(("0.0.0.0", port), Handler)
+    threading.Thread(target=server.serve_forever, daemon=True, name="health").start()
+    log.info("health check on :%d/health", port)
+
+
 # --- relay: source channel -> private group -------------------------------
 def cmd_relay(cfg: Config) -> None:
     if not (cfg.source_chat and cfg.target_chat):
@@ -95,8 +134,15 @@ def cmd_relay(cfg: Config) -> None:
              svc.store.data["next"], open_)
     if sched := recap_schedule():
         start_scheduler(svc, sched)
-    if daily := daily_config(cfg):
-        start_daily(svc, daily)
+    if daily_enabled():
+        try:
+            start_daily(svc, daily_config(cfg))
+        except Exception as e:  # never let the daily post take the relay down
+            log.error("daily post DISABLED, fix the DAILY_* settings: %s", e)
+    else:
+        log.info("daily post off (DAILY_ENABLED is not set)")
+    if port := os.environ.get("HEALTH_PORT") or os.environ.get("PORT"):
+        start_health(int(port), svc)
     tg = Telegram(cfg.token)
     log.info("bot @%s relaying %s -> %s", tg.me()["username"], cfg.source_chat, cfg.target_chat)
     # Remember the last handled update so a restart never re-posts a signal.
@@ -105,6 +151,7 @@ def cmd_relay(cfg: Config) -> None:
     while True:
         try:
             updates = tg.get_updates(offset)
+            HEALTH["last_poll"] = time.time()
         except Exception as e:
             log.warning("getUpdates failed: %s; retrying", e)
             time.sleep(5)
@@ -119,7 +166,11 @@ def cmd_relay(cfg: Config) -> None:
             if str(chat["id"]) != cfg.source_chat and \
                     f"@{chat.get('username', '')}".lower() != cfg.source_chat.lower():
                 continue
-            payload = parse_text(post.get("text") or post.get("caption") or "")
+            try:
+                payload = parse_text(post.get("text") or post.get("caption") or "")
+            except Exception:  # one odd post must never stop the relay
+                log.exception("could not read source post %s", post.get("message_id"))
+                continue
             if payload is None:
                 log.info("source post %s is not a signal, ignored", post["message_id"])
                 continue
@@ -209,11 +260,16 @@ def cmd_recap(cfg: Config, post: bool) -> None:
     print(post_recap(svc, now, sched.sl_after_tp, send=post))
 
 
-def cmd_daily(cfg: Config, post: bool, at: str | None) -> None:
-    d = daily_config(cfg) if os.environ.get("DAILY_ENABLED") == "1" else None
-    d = d or Daily(chat=os.environ.get("DAILY_CHAT_ID", ""), token=cfg.token,
-                   cta=os.environ.get("DAILY_CTA", ""),
-                   handle=os.environ.get("DAILY_HANDLE", ""))
+def cmd_daily(cfg: Config, post: bool, at: str | None, force: bool) -> None:
+    if post and not force:
+        sys.exit("--post sends to the channel now. If the relay is running it may post the\n"
+                 "same day again, because each process keeps its own state. Stop the relay\n"
+                 "or add --force if you are sure.")
+    os.environ.setdefault("DAILY_CHAT_ID", "@preview")
+    try:
+        d = daily_config(cfg)
+    except ValueError as e:
+        sys.exit(str(e))
     cfg.dry_run = not post
     svc = Service(cfg)
     tz = ZoneInfo(d.tz)
@@ -226,6 +282,8 @@ def main() -> None:
     load_dotenv()
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
                         format="%(asctime)s %(levelname)s %(message)s")
+    for h in logging.getLogger().handlers:  # backstop: never print a bot token
+        h.setFormatter(RedactingFormatter("%(asctime)s %(levelname)s %(message)s"))
     ap = argparse.ArgumentParser(prog="signalbot")
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("relay")
@@ -237,6 +295,7 @@ def main() -> None:
     dp = sub.add_parser("daily")
     dp.add_argument("--post", action="store_true", help="send to DAILY_CHAT_ID now")
     dp.add_argument("--at", help="pretend local time, e.g. '2026-10-12 19:20'")
+    dp.add_argument("--force", action="store_true", help="allow --post while a relay may run")
     rp = sub.add_parser("recap")
     rp.add_argument("--post", action="store_true", help="send to TARGET_CHAT_ID")
     a = ap.parse_args()
@@ -249,7 +308,7 @@ def main() -> None:
         elif a.cmd == "chats":
             cmd_chats(cfg)
         elif a.cmd == "daily":
-            cmd_daily(cfg, a.post, a.at)
+            cmd_daily(cfg, a.post, a.at, a.force)
         elif a.cmd == "recap":
             cmd_recap(cfg, a.post)
         else:

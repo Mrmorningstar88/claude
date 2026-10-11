@@ -101,7 +101,26 @@ fairer total. No signals that week means no post. Configure with `RECAP_DAY`,
 Preview this week's recap any time: `python -m signalbot recap`
 (add `--post` to send it to the group now).
 
-## 4. Optional: TradingView webhook
+## 4. Daily signal for a second channel (Russian)
+
+With `DAILY_ENABLED=1` the relay also posts **one signal a day** to `DAILY_CHAT_ID`
+(e.g. @arutnews), in Russian: the AFX card with Russian labels plus a caption
+ending with your call to action (`DAILY_CTA`).
+
+- **When:** once between `DAILY_TIME` and `DAILY_LATEST` (default 19:20–19:50
+  Asia/Almaty), from `DAILY_START`.
+- **Which signal:** today's most recent AFX signal that is still open, preferring
+  one that has not hit a target yet. No AFX signal that day = no post.
+- **Never twice:** a day is retried inside the window only when the post certainly
+  did not happen (a 4xx refusal, or no connection at all). Timeouts and gateway
+  errors are not retried, because the post may already be in the channel.
+- The bot in `DAILY_BOT_TOKEN` must be an admin of that channel with "Post messages".
+- Preview without posting: `python -m signalbot daily --at "2026-10-12 19:20"`.
+
+**Health check:** when `PORT` (or `HEALTH_PORT`) is set, `GET /health` returns
+`{"ok": true, ...}` while Telegram was polled in the last 5 minutes, else HTTP 503.
+
+## 5. Optional: TradingView webhook
 
 Run `python -m signalbot webhook --port 8080` on a host with a public HTTPS URL,
 set `WEBHOOK_SECRET`, and point the alert's webhook at `https://your-host/webhook`.
@@ -118,7 +137,7 @@ Fields: `ticker`, `side` (buy/sell/long/short), `entry` or `entry_low`+`entry_hi
 Updates: `{"secret":"…","event":"tp","tp":1,"ticker":"{{ticker}}"}`, `"event":"sl"`,
 `"event":"close","price":{{close}}`, `"event":"cancel"`.
 
-## 5. Running 24/7
+## 6. Running 24/7
 
 The code lives on GitHub, but it needs an always-on host to run. Relay mode only
 makes outgoing connections, so no public URL or domain is needed.

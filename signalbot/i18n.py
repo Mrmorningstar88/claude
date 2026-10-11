@@ -5,7 +5,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 TZ_LABELS = {"Asia/Almaty": "АЛМАТЫ", "Asia/Dubai": "ДУБАЙ", "Europe/Moscow": "МСК"}
-MONTHS_RU = "ЯНВ ФЕВ МАР АПР МАЙ ИЮН ИЮЛ АВГ СЕН ОКТ НОЯ ДЕК".split()
+MONTHS_RU = "ЯНВ ФЕВ МАР АПР МАЯ ИЮН ИЮЛ АВГ СЕН ОКТ НОЯ ДЕК".split()
 
 
 def ru_targets(n: int) -> str:

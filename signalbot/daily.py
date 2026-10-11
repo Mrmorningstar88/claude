@@ -6,9 +6,10 @@ opened that day that has not hit a target yet, else the most recent open one.
 No AFX signal that day means no post: levels are never invented.
 
 Posting is at most once per day. The day is marked as done just before the
-photo is sent; if Telegram rejects the send outright (nothing was posted) the
-mark is cleared so it can retry within the window, but a timeout or network
-error is never retried, because the post may already be in the channel.
+photo is sent. The mark is cleared (so the window can retry) only when the
+post certainly did not happen: a 4xx refusal from Telegram, or a connection
+that never left this machine. A timeout, a dropped connection or a 5xx/gateway
+answer is never retried, because the post may already be in the channel.
 """
 from __future__ import annotations
 
@@ -16,14 +17,14 @@ import logging
 import threading
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from html import escape
 from zoneinfo import ZoneInfo
 
 from . import market
 from .card import Brand, render
 from .signal import Signal
-from .telegram import Telegram, TelegramError
+from .telegram import Telegram, TelegramError, TelegramNetworkError
 
 log = logging.getLogger(__name__)
 
@@ -35,7 +36,7 @@ class Daily:
     at: str = "19:20"               # earliest post time, local
     latest: str = "19:50"           # no post after this, local
     tz: str = "Asia/Almaty"
-    start: str = ""                 # YYYY-MM-DD, local; empty = immediately
+    start: date | None = None       # local date of the first post; None = immediately
     cta: str = ""
     handle: str = ""
     disclaimer: str = "Не финансовый совет. Торговля связана с риском."
@@ -44,6 +45,22 @@ class Daily:
 def _hm(s: str) -> tuple[int, int]:
     h, m = s.split(":")
     return int(h), int(m)
+
+
+def validate(d: Daily) -> None:
+    """Raise ValueError for settings that would silently never post."""
+    for name, v in (("DAILY_TIME", d.at), ("DAILY_LATEST", d.latest)):
+        try:
+            h, m = _hm(v)
+        except ValueError:
+            raise ValueError(f"{name} must be HH:MM, got {v!r}") from None
+        if not (0 <= h < 24 and 0 <= m < 60):
+            raise ValueError(f"{name} is not a valid time: {v!r}")
+    if _hm(d.at) > _hm(d.latest):
+        raise ValueError(f"DAILY_TIME {d.at} is after DAILY_LATEST {d.latest}")
+    ZoneInfo(d.tz)  # raises for an unknown time zone
+    if not d.chat or not d.token:
+        raise ValueError("DAILY_CHAT_ID and a bot token are required")
 
 
 def pick(store, now_local: datetime) -> dict | None:
@@ -111,6 +128,9 @@ def post_daily(svc, d: Daily, now_local: datetime, send: bool = True) -> str:
     key = f"{now_local:%Y-%m-%d}"
     done = svc.store.get_meta("daily_done", {})
     if key in done:
+        if done[key].get("message_id") is None:
+            return (f"daily {key}: #{done[key]['number']:04d} send outcome unknown "
+                    "(not retried, to avoid a double post)")
         return f"daily {key}: already posted #{done[key]['number']:04d}, skipped"
     prepared = prepare(svc, d, now_local)
     if prepared is None:
@@ -122,9 +142,13 @@ def post_daily(svc, d: Daily, now_local: datetime, send: bool = True) -> str:
     svc.store.set_meta("daily_done", {**done, key: {"number": number, "message_id": None}})
     try:
         msg = Telegram(d.token).send_photo(d.chat, png, text)
-    except TelegramError:
-        # Telegram answered and refused: nothing was posted, so allow a retry.
-        svc.store.set_meta("daily_done", done)
+    except TelegramError as e:
+        if e.refused:  # definite 4xx refusal: nothing was posted, allow a retry
+            svc.store.set_meta("daily_done", done)
+        raise
+    except TelegramNetworkError as e:
+        if e.not_sent:  # the request never left this machine
+            svc.store.set_meta("daily_done", done)
         raise
     svc.store.set_meta("daily_done", {**done, key: {"number": number, "message_id": msg}})
     return f"daily {key}: posted #{number:04d} to {d.chat} (message {msg})"
@@ -141,7 +165,7 @@ def start_daily(svc, d: Daily) -> threading.Thread:
                 now = datetime.now(timezone.utc).astimezone(tz)
                 key = f"{now:%Y-%m-%d}"
                 in_window = first <= (now.hour, now.minute) <= last
-                started = not d.start or key >= d.start
+                started = d.start is None or now.date() >= d.start
                 if in_window and started and key not in svc.store.get_meta("daily_done", {}):
                     result = post_daily(svc, d, now)
                     if "nothing posted" in result:
@@ -150,8 +174,13 @@ def start_daily(svc, d: Daily) -> threading.Thread:
                             waiting_logged = key
                     else:
                         log.info(result)
-            except TelegramError as e:
-                log.warning("daily post refused by Telegram (will retry in window): %s", e)
+            except (TelegramError, TelegramNetworkError) as e:
+                retry = getattr(e, "refused", False) or getattr(e, "not_sent", False)
+                if retry:
+                    log.warning("daily post not sent (will retry in window): %s", e)
+                else:
+                    log.error("daily post outcome unknown, not retried today "
+                              "(check the channel): %s", e)
             except Exception:
                 # Before the send (data, render) the day is not marked, so the next
                 # tick retries; during the send it is marked, so it is not repeated.
