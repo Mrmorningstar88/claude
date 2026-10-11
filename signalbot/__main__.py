@@ -14,6 +14,7 @@ import json
 import logging
 import os
 import queue
+import re
 import sys
 import threading
 import time
@@ -24,6 +25,7 @@ from urllib.parse import parse_qs, urlparse
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+from .daily import Daily, post_daily, start_daily
 from .recap import Schedule, post_recap, start_scheduler
 from .service import Config, Service
 from .signal import SignalError
@@ -56,6 +58,24 @@ def recap_schedule() -> Schedule | None:
     return sched
 
 
+def daily_config(cfg: Config) -> Daily | None:
+    e = os.environ.get
+    if e("DAILY_ENABLED", "0") != "1":
+        return None
+    if not e("DAILY_CHAT_ID"):
+        sys.exit("DAILY_ENABLED=1 needs DAILY_CHAT_ID (e.g. @arutnews)")
+    d = Daily(chat=e("DAILY_CHAT_ID"), token=e("DAILY_BOT_TOKEN") or cfg.token,
+              at=e("DAILY_TIME", Daily.at), latest=e("DAILY_LATEST", Daily.latest),
+              tz=e("DAILY_TZ", Daily.tz), start=e("DAILY_START", ""),
+              cta=e("DAILY_CTA", ""), handle=e("DAILY_HANDLE", ""),
+              disclaimer=e("DAILY_DISCLAIMER", Daily.disclaimer))
+    for v in (d.at, d.latest):
+        if not re.fullmatch(r"\d{1,2}:\d{2}", v):
+            sys.exit(f"DAILY_TIME/DAILY_LATEST must be HH:MM, got {v!r}")
+    ZoneInfo(d.tz)  # fails fast on a bad time zone
+    return d
+
+
 def _run(svc: Service, payload: dict) -> None:
     try:
         log.info(svc.handle(payload))
@@ -75,6 +95,8 @@ def cmd_relay(cfg: Config) -> None:
              svc.store.data["next"], open_)
     if sched := recap_schedule():
         start_scheduler(svc, sched)
+    if daily := daily_config(cfg):
+        start_daily(svc, daily)
     tg = Telegram(cfg.token)
     log.info("bot @%s relaying %s -> %s", tg.me()["username"], cfg.source_chat, cfg.target_chat)
     # Remember the last handled update so a restart never re-posts a signal.
@@ -187,6 +209,19 @@ def cmd_recap(cfg: Config, post: bool) -> None:
     print(post_recap(svc, now, sched.sl_after_tp, send=post))
 
 
+def cmd_daily(cfg: Config, post: bool, at: str | None) -> None:
+    d = daily_config(cfg) if os.environ.get("DAILY_ENABLED") == "1" else None
+    d = d or Daily(chat=os.environ.get("DAILY_CHAT_ID", ""), token=cfg.token,
+                   cta=os.environ.get("DAILY_CTA", ""),
+                   handle=os.environ.get("DAILY_HANDLE", ""))
+    cfg.dry_run = not post
+    svc = Service(cfg)
+    tz = ZoneInfo(d.tz)
+    now = (datetime.fromisoformat(at).replace(tzinfo=tz) if at
+           else datetime.now(timezone.utc).astimezone(tz))
+    print(post_daily(svc, d, now, send=post))
+
+
 def main() -> None:
     load_dotenv()
     logging.basicConfig(level=os.environ.get("LOG_LEVEL", "INFO"),
@@ -199,6 +234,9 @@ def main() -> None:
     sub.add_parser("chats")
     pv = sub.add_parser("preview")
     pv.add_argument("files", nargs="+")
+    dp = sub.add_parser("daily")
+    dp.add_argument("--post", action="store_true", help="send to DAILY_CHAT_ID now")
+    dp.add_argument("--at", help="pretend local time, e.g. '2026-10-12 19:20'")
     rp = sub.add_parser("recap")
     rp.add_argument("--post", action="store_true", help="send to TARGET_CHAT_ID")
     a = ap.parse_args()
@@ -210,6 +248,8 @@ def main() -> None:
             cmd_webhook(cfg, a.port)
         elif a.cmd == "chats":
             cmd_chats(cfg)
+        elif a.cmd == "daily":
+            cmd_daily(cfg, a.post, a.at)
         elif a.cmd == "recap":
             cmd_recap(cfg, a.post)
         else:

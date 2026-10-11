@@ -57,6 +57,7 @@ class Signal:
     id: str = ""
     number: int = 0
     created: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
+    lang: str = "en"          # display language only; never stored
 
     @property
     def symbol(self) -> str:
@@ -72,7 +73,14 @@ class Signal:
 
     @property
     def unit(self) -> str:
-        return "pts" if self.kind in ("index", "metal") else "pips"
+        points = self.kind in ("index", "metal")
+        if self.lang == "ru":
+            return "п." if points else "пипс"
+        return "pts" if points else "pips"
+
+    def _group(self, text: str) -> str:
+        """Thousands separator: ',' in English, a no-break space in Russian."""
+        return text.replace(",", "\u00a0") if self.lang == "ru" else text
 
     def pips(self, price: float) -> float:
         """Signed distance from entry in pips (points for indices), in the trade's favour."""
@@ -101,7 +109,7 @@ class Signal:
         v = self.pips(price) if sign else abs(self.pips(price))
         num = f"{v:{'+' if sign else ''},.0f}" if abs(v - round(v)) < 0.05 else \
             f"{v:{'+' if sign else ''},.1f}"
-        return f"{num} {self.unit}".replace("-", "−")
+        return self._group(f"{num} {self.unit}").replace("-", "−")
 
     def r_multiple(self, price: float) -> float:
         return abs(price - self.entry) / self.risk
@@ -118,7 +126,7 @@ class Signal:
         return min(d, 5 if self.kind == "fx" else d)
 
     def fmt(self, price: float) -> str:
-        return f"{price:,.{self.decimals()}f}"
+        return self._group(f"{price:,.{self.decimals()}f}")
 
     def to_dict(self) -> dict:
         return {

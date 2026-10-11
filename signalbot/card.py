@@ -13,6 +13,7 @@ from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
+from .i18n import T, stamp
 from .market import Candle
 from .signal import Signal
 
@@ -133,8 +134,11 @@ def _check(c: Canvas, x, y, color):
 
 
 def render(sig: Signal, data: list[Candle], brand: Brand, out: str | Path,
-           status: Status | None = None, when: datetime | None = None) -> Path:
+           status: Status | None = None, when: datetime | None = None,
+           lang: str = "en", tz: str = "UTC") -> Path:
     c = Canvas()
+    t = T[lang]
+    sig.lang = lang
     side_col = UP if sig.is_long else DOWN
     when = when or sig.created
 
@@ -149,9 +153,8 @@ def render(sig: Signal, data: list[Candle], brand: Brand, out: str | Path,
     c.rect((56, 48, 94, 86), fill=side_col, r=10)
     c.text((75, 67), brand.name[:1].upper(), F["bold"](22), BG, anchor="mm")
     c.text((108, 67), brand.name.upper(), F["bold"](24), TEXT, anchor="lm")
-    c.text((W - 56, 56), f"SIGNAL #{sig.number:04d}", F["monob"](22), TEXT, anchor="ra")
-    c.text((W - 56, 88), when.strftime("%d %b %Y · %H:%M UTC").upper(),
-           F["mono"](17), MUTED, anchor="ra")
+    c.text((W - 56, 56), f"{t['signal']} #{sig.number:04d}", F["monob"](22), TEXT, anchor="ra")
+    c.text((W - 56, 88), stamp(when, lang, tz), F["mono"](17), MUTED, anchor="ra")
 
     # --- ticker + chips -----------------------------------------------------
     fb = F["bold"](104)
@@ -159,58 +162,61 @@ def render(sig: Signal, data: list[Candle], brand: Brand, out: str | Path,
     c.text((52 + c.tlen(sig.base, fb) + 6, 118), "/" + sig.quote, F["med"](104), DIM)
 
     fchip = F["semi"](21)
-    x = _chip(c, 56, 252, "LONG" if sig.is_long else "SHORT", side_col, BG, fchip,
+    x = _chip(c, 56, 252, t["long"] if sig.is_long else t["short"], side_col, BG, fchip,
               tri="up" if sig.is_long else "down")
     for label in (sig.interval, sig.leverage, sig.exchange):
         if label:
             x = _chip(c, x, 252, label, PANEL, TEXT, fchip, outline=BORDER)
     if status:
-        x = _chip(c, x, 252, "UPDATE", None, AMBER, fchip, outline=AMBER)
+        x = _chip(c, x, 252, t["update"], None, AMBER, fchip, outline=AMBER)
 
     # --- chart --------------------------------------------------------------
-    _chart(c, sig, data, status, box=(56, 326, W - 56, 830))
+    _chart(c, sig, data, status, box=(56, 326, W - 56, 830), t=t)
 
     # --- ladder -------------------------------------------------------------
     hit = set()
     if status and status.kind == "tp":
         hit = set(range(1, status.tp_index + 1))
-    rows = [(f"TP{i}", tp, UP, i in hit) for i, tp in enumerate(sig.tps, 1)]
-    rows.append(("ENTRY", sig.entry, ENTRY, False))
-    rows.append(("STOP", sig.sl, DOWN, status is not None and status.kind == "sl"))
-    rows.sort(key=lambda r: -r[1])  # same order as on the chart
+    rows = [("tp", t["row_tp"].format(n=i), tp, UP, i in hit)
+            for i, tp in enumerate(sig.tps, 1)]
+    rows.append(("entry", t["row_entry"], sig.entry, ENTRY, False))
+    rows.append(("stop", t["row_stop"], sig.sl, DOWN,
+                 status is not None and status.kind == "sl"))
+    rows.sort(key=lambda r: -r[2])  # same order as on the chart
 
     top, bottom, gap = 856, 1178, 8
     rh = min(60, (bottom - top) / len(rows) - gap)
     top += ((bottom - top) - len(rows) * (rh + gap)) / 2
     fname, fprice, fpct, fr = F["semi"](21), F["monob"](25), F["monob"](21), F["mono"](19)
-    for i, (name, price, col, done) in enumerate(rows):
+    for i, (kind, name, price, col, done) in enumerate(rows):
         y0 = top + i * (rh + gap)
         y1, ym = y0 + rh, y0 + rh / 2
         c.rect((56, y0, W - 56, y1), fill=PANEL, outline=BORDER, r=12)
         c.rect((56, y0, 62, y1), fill=col, r=3)
-        c.text((84, ym), name, fname, col if name != "ENTRY" else TEXT, anchor="lm")
-        if name == "ENTRY":
+        c.text((84, ym), name, fname, col if kind != "entry" else TEXT, anchor="lm")
+        if kind == "entry":
             txt = (f"{sig.fmt(sig.entry_low)} – {sig.fmt(sig.entry_high)}"
                    if sig.is_zone else sig.fmt(price))
             c.text((210, ym), txt, fprice, TEXT, anchor="lm")
-            c.text((W - 80, ym), "zone" if sig.is_zone else "market", fr, MUTED, anchor="rm")
+            c.text((W - 80, ym), t["zone"] if sig.is_zone else t["market"], fr, MUTED,
+                   anchor="rm")
             continue
         c.text((210, ym), sig.fmt(price), fprice, TEXT, anchor="lm")
         pips = sig.pips(price)
         c.text((660, ym), sig.pip_text(price), fpct,
                UP if pips > 0 else DOWN, anchor="rm")
         r = sig.r_multiple(price)
-        c.text((790, ym), f"{'+' if name != 'STOP' else '−'}{r:.1f}R", fr, MUTED, anchor="rm")
+        c.text((790, ym), f"{'+' if kind != 'stop' else '−'}{r:.1f}R", fr, MUTED, anchor="rm")
         if done:
             c.rect((W - 200, ym - 17, W - 72, ym + 17), fill=col, r=17)
             _check(c, W - 182, ym, BG)
-            c.text((W - 154, ym), "HIT", F["bold"](18), BG, anchor="lm")
+            c.text((W - 154, ym), t["hit"], F["bold"](18), BG, anchor="lm")
 
     # --- stat tiles ---------------------------------------------------------
     tiles = [
-        ("RISK : REWARD", f"1 : {sig.rr:.1f}"),
-        ("STOP DISTANCE", sig.pip_text(sig.sl, sign=False)),
-        ("SETUP", sig.setup) if sig.setup else ("TARGETS", f"{len(sig.tps)} TP"),
+        (t["rr"], f"1 : {sig.rr:.1f}"),
+        (t["stop_dist"], sig.pip_text(sig.sl, sign=False)),
+        (t["setup"], sig.setup) if sig.setup else (t["targets"], t["n_targets"](len(sig.tps))),
     ]
     tw = (W - 112 - 24) / 3
     for i, (label, val) in enumerate(tiles):
@@ -231,7 +237,8 @@ def render(sig: Signal, data: list[Candle], brand: Brand, out: str | Path,
     return out
 
 
-def _chart(c: Canvas, sig: Signal, data: list[Candle], status: Status | None, box):
+def _chart(c: Canvas, sig: Signal, data: list[Candle], status: Status | None, box,
+           t: dict = T["en"]):
     bx0, by0, bx1, by1 = box
     c.rect(box, fill=PANEL + (235,), outline=BORDER, r=20)
     x0, x1, y0, y1 = bx0 + 24, bx1 - 24, by0 + 28, by1 - 28
@@ -283,12 +290,11 @@ def _chart(c: Canvas, sig: Signal, data: list[Candle], status: Status | None, bo
         c.alpha_rect((lx - 13, ly - 13, lx + 13, ly + 13), TEXT + (40,), r=13)
         c.rect((lx - 5, ly - 5, lx + 5, ly + 5), fill=TEXT, r=5)
     else:
-        c.text(((x0 + lines_end) / 2, y1 - 6), "live chart unavailable · levels to scale",
-               F["mono"](15), DIM, anchor="ms")
+        c.text(((x0 + lines_end) / 2, y1 - 6), t["no_chart"], F["mono"](15), DIM, anchor="ms")
 
     # level lines + tags (tags pushed apart so they never overlap)
-    tags = [(f"TP{i}", tp, UP) for i, tp in enumerate(sig.tps, 1)]
-    tags += [("ENTRY", sig.entry, ENTRY), ("SL", sig.sl, DOWN)]
+    tags = [(t["tag_tp"].format(n=i), tp, UP) for i, tp in enumerate(sig.tps, 1)]
+    tags += [(t["tag_entry"], sig.entry, ENTRY), (t["tag_stop"], sig.sl, DOWN)]
     for _, p, col in tags:
         c.dashed(x0, lines_end, Y(p), col, 2)
     tags.sort(key=lambda t: Y(t[1]))
@@ -312,26 +318,26 @@ def _chart(c: Canvas, sig: Signal, data: list[Candle], status: Status | None, bo
         c.text((x1 - 10, ty), sig.fmt(p), ft, BG, anchor="rm")
 
     if status:
-        _stamp(c, sig, status, ((x0 + lines_end) / 2, (y0 + y1) / 2))
+        _stamp(c, sig, status, ((x0 + lines_end) / 2, (y0 + y1) / 2), t)
 
 
-def _stamp(c: Canvas, sig: Signal, st: Status, center):
+def _stamp(c: Canvas, sig: Signal, st: Status, center, t: dict = T["en"]):
     if st.kind == "tp":
-        title, col = f"TP{st.tp_index} HIT", UP
+        title, col = t["tp_hit"].format(n=st.tp_index), UP
         price = sig.tps[st.tp_index - 1]
     elif st.kind == "sl":
-        title, col, price = "STOPPED OUT", DOWN, sig.sl
+        title, col, price = t["stopped"], DOWN, sig.sl
     elif st.kind == "close":
-        title, price = "CLOSED", st.price
+        title, price = t["closed"], st.price
         col = UP if price is not None and sig.pips(price) >= 0 else DOWN
     else:
-        title, col, price = "CANCELLED", AMBER, None
+        title, col, price = t["cancelled"], AMBER, None
     sub = ""
     if price is not None:
         r = sig.r_multiple(price) * (1 if sig.pips(price) >= 0 else -1)
         sub = f"{sig.pip_text(price)}  ·  {r:+.1f}R".replace("-", "−")
     elif st.kind == "cancel":
-        sub = "entry not triggered"
+        sub = t["not_triggered"]
     ft, fs = F["bold"](58), F["monob"](26)
     w = max(c.tlen(title, ft), c.tlen(sub, fs)) + 80
     cx, cy = center
