@@ -1,1 +1,256 @@
-{"id": "facebook-contagion-2014", "kind": "redpill", "title": "689 тысяч подопытных", "lane": "Соцсети · 2012–2021", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "era": "2012 (эксперимент), 2014 (публикация), 2021 (утечки)", "distraction": "Нам дали бесплатное общение. Платой стало внимание, а лента стала инструментом влияния на эмоции.", "facts": ["В январе 2012 года Facebook на неделю изменил ленты 689 003 пользователей: одним показывали меньше позитивных постов, другим меньше негативных.", "Пользователи начинали сами писать в тон показанному. Исследование опубликовали в журнале PNAS в июне 2014 года, без отдельного согласия участников.", "В 2017 году первый президент Facebook Шон Паркер публично сказал, что продукт проектировали так, чтобы забирать как можно больше времени и внимания.", "В 2021 году бывшая сотрудница Фрэнсис Хауген передала внутренние исследования. Одно из них: Instagram ухудшает восприятие тела у части девушек-подростков."], "sources": ["Kramer et al., PNAS, 2014", "Sean Parker, интервью Axios, ноябрь 2017", "WSJ «The Facebook Files», 2021; показания Хауген в Сенате США"], "adaptation": {"concept": "YOU ARE THE PRODUCT. Красная и синяя таблетка в стиле поп-культуры: ты протягиваешь зрителю две кнопки, «Like» и «Log out». Внутри лаборатория, где ленты людей настраивают, как ручки микшера. Иронично, без нападок на пользователей.", "format": "AI-видео 25–30 с, лаборатория-микшер, острый юмор", "hook": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could.", "vo": [{"t": "0–5", "text": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could."}, {"t": "5–11", "text": "Less positive posts, people wrote more negative. Less negative, more positive. Published in a science journal in 2014."}, {"t": "11–17", "text": "Its first president later said the goal was to consume as much of your time and attention as possible."}, {"t": "17–23", "text": "The app is free because you're not the customer. Your attention is the product."}, {"t": "23–28", "text": "In markets we call that an edge. Make sure it's yours, not theirs."}], "storyboard": [{"n": 1, "dur": "5 с", "frame": "Белая лаборатория, огромный микшерный пульт, на ручках подписи «Joy», «Anger», «Fear».", "overlay": "689,003 USERS", "prompt": "sterile white laboratory with a giant audio mixing console, knobs labeled joy anger fear, scientists in lab coats adjusting them, satirical, cinematic"}, {"n": 2, "dur": "6 с", "frame": "Ряды людей с телефонами, лица меняют эмоции синхронно с ручками.", "overlay": "MOOD: ADJUSTED", "prompt": "rows of people staring at phones, their facial expressions change in sync as a knob turns, eerie satire, soft blue light"}, {"n": 3, "dur": "6 с", "frame": "Песочные часы, в которые вместо песка сыплются уведомления.", "overlay": "YOUR TIME = THE PRODUCT", "prompt": "giant hourglass where notification icons fall instead of sand, dark background, surreal"}, {"n": 4, "dur": "6 с", "frame": "Ты протягиваешь две таблетки-кнопки: красная Log out, синяя Like.", "overlay": "CHOOSE", "prompt": "[ARUT character reference] holds out two glowing pills shaped like app buttons, red one labeled LOG OUT, blue one with a thumbs up icon, Matrix-inspired original framing"}, {"n": 5, "dur": "5 с", "frame": "Ты убираешь телефон в карман, смотришь в камеру.", "overlay": "Make the edge yours", "prompt": "[ARUT character reference] puts phone in pocket and looks at camera, calm, Dubai window light"}], "caption": "In 2012, 689,003 people became an experiment without knowing it 🧪\n\nComment \"PILL\" and I'll send you the 3 settings I changed to take my attention back.", "keyword": "PILL", "cta": "По ключу PILL отправляй 3 настройки телефона (уведомления, лента, экранное время)."}, "expert": {"markets": "Внимание — товар: рекламная выручка крупнейших платформ — основа их капитализации. Время в приложении (time spent) — ключевая метрика, которую смотрят инвесторы.", "macro": "Экономика внимания — один из крупнейших рынков цифровой рекламы в мире. Каждый пользователь — актив в отчётности.", "politics": "После утечек 2021 года начались слушания в Конгрессе США, а в ЕС принят Закон о цифровых услугах (DSA) с требованиями к прозрачности алгоритмов."}, "risks": ["Не утверждай, что соцсети «зомбируют всех»: говори о задокументированных экспериментах и внутренних исследованиях.", "Логотипы Facebook и Instagram в кадре не используй."], "rank": 4}
+{
+ "id": "facebook-contagion-2014",
+ "kind": "redpill",
+ "title": "689 тысяч подопытных",
+ "lane": "Соцсети · 2012–2021",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "era": "2012 (эксперимент), 2014 (публикация), 2021 (утечки)",
+ "distraction": "Нам дали бесплатное общение. Платой стало внимание, а лента стала инструментом влияния на эмоции.",
+ "facts": [
+  "В январе 2012 года Facebook на неделю изменил ленты 689 003 пользователей: одним показывали меньше позитивных постов, другим меньше негативных.",
+  "Пользователи начинали сами писать в тон показанному. Исследование опубликовали в журнале PNAS в июне 2014 года, без отдельного согласия участников.",
+  "В 2017 году первый президент Facebook Шон Паркер публично сказал, что продукт проектировали так, чтобы забирать как можно больше времени и внимания.",
+  "В 2021 году бывшая сотрудница Фрэнсис Хауген передала внутренние исследования. Одно из них: Instagram ухудшает восприятие тела у части девушек-подростков."
+ ],
+ "sources": [
+  "Kramer et al., PNAS, 2014",
+  "Sean Parker, интервью Axios, ноябрь 2017",
+  "WSJ «The Facebook Files», 2021; показания Хауген в Сенате США"
+ ],
+ "adaptation": {
+  "concept": "YOU ARE THE PRODUCT. Красная и синяя таблетка в стиле поп-культуры: ты протягиваешь зрителю две кнопки, «Like» и «Log out». Внутри лаборатория, где ленты людей настраивают, как ручки микшера. Иронично, без нападок на пользователей.",
+  "format": "AI-видео 25–30 с, лаборатория-микшер, острый юмор",
+  "hook": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could.",
+  "vo": [
+   {
+    "t": "0–5",
+    "text": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could."
+   },
+   {
+    "t": "5–11",
+    "text": "Less positive posts, people wrote more negative. Less negative, more positive. Published in a science journal in 2014."
+   },
+   {
+    "t": "11–17",
+    "text": "Its first president later said the goal was to consume as much of your time and attention as possible."
+   },
+   {
+    "t": "17–23",
+    "text": "The app is free because you're not the customer. Your attention is the product."
+   },
+   {
+    "t": "23–28",
+    "text": "In markets we call that an edge. Make sure it's yours, not theirs."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "5 с",
+    "frame": "Белая лаборатория, огромный микшерный пульт, на ручках подписи «Joy», «Anger», «Fear».",
+    "overlay": "689,003 USERS",
+    "prompt": "sterile white laboratory with a giant audio mixing console, knobs labeled joy anger fear, scientists in lab coats adjusting them, satirical, cinematic"
+   },
+   {
+    "n": 2,
+    "dur": "6 с",
+    "frame": "Ряды людей с телефонами, лица меняют эмоции синхронно с ручками.",
+    "overlay": "MOOD: ADJUSTED",
+    "prompt": "rows of people staring at phones, their facial expressions change in sync as a knob turns, eerie satire, soft blue light"
+   },
+   {
+    "n": 3,
+    "dur": "6 с",
+    "frame": "Песочные часы, в которые вместо песка сыплются уведомления.",
+    "overlay": "YOUR TIME = THE PRODUCT",
+    "prompt": "giant hourglass where notification icons fall instead of sand, dark background, surreal"
+   },
+   {
+    "n": 4,
+    "dur": "6 с",
+    "frame": "Ты протягиваешь две таблетки-кнопки: красная Log out, синяя Like.",
+    "overlay": "CHOOSE",
+    "prompt": "[ARUT character reference] holds out two glowing pills shaped like app buttons, red one labeled LOG OUT, blue one with a thumbs up icon, Matrix-inspired original framing"
+   },
+   {
+    "n": 5,
+    "dur": "5 с",
+    "frame": "Ты убираешь телефон в карман, смотришь в камеру.",
+    "overlay": "Make the edge yours",
+    "prompt": "[ARUT character reference] puts phone in pocket and looks at camera, calm, Dubai window light"
+   }
+  ],
+  "caption": "In 2012, 689,003 people became an experiment without knowing it 🧪\n\nComment \"PILL\" and I'll send you the 3 settings I changed to take my attention back.",
+  "keyword": "PILL",
+  "cta": "По ключу PILL отправляй 3 настройки телефона (уведомления, лента, экранное время)."
+ },
+ "expert": {
+  "markets": "Внимание — товар: рекламная выручка крупнейших платформ — основа их капитализации. Время в приложении (time spent) — ключевая метрика, которую смотрят инвесторы.",
+  "macro": "Экономика внимания — один из крупнейших рынков цифровой рекламы в мире. Каждый пользователь — актив в отчётности.",
+  "politics": "После утечек 2021 года начались слушания в Конгрессе США, а в ЕС принят Закон о цифровых услугах (DSA) с требованиями к прозрачности алгоритмов."
+ },
+ "risks": [
+  "Не утверждай, что соцсети «зомбируют всех»: говори о задокументированных экспериментах и внутренних исследованиях.",
+  "Логотипы Facebook и Instagram в кадре не используй."
+ ],
+ "rank": 4,
+ "i18n": {
+  "ru": {
+   "title": "689 тысяч подопытных",
+   "lane": "Соцсети · 2012–2021",
+   "era": "2012 (эксперимент), 2014 (публикация), 2021 (утечки)",
+   "distraction": "Нам дали бесплатное общение. Платой стало внимание, а лента стала инструментом влияния на эмоции.",
+   "facts": [
+    "В январе 2012 года Facebook на неделю изменил ленты 689 003 пользователей: одним показывали меньше позитивных постов, другим меньше негативных.",
+    "Пользователи начинали сами писать в тон показанному. Исследование опубликовали в журнале PNAS в июне 2014 года, без отдельного согласия участников.",
+    "В 2017 году первый президент Facebook Шон Паркер публично сказал, что продукт проектировали так, чтобы забирать как можно больше времени и внимания.",
+    "В 2021 году бывшая сотрудница Фрэнсис Хауген передала внутренние исследования. Одно из них: Instagram ухудшает восприятие тела у части девушек-подростков."
+   ],
+   "sources": [
+    "Kramer et al., PNAS, 2014",
+    "Sean Parker, интервью Axios, ноябрь 2017",
+    "WSJ «The Facebook Files», 2021; показания Хауген в Сенате США"
+   ],
+   "risks": [
+    "Не утверждай, что соцсети «зомбируют всех»: говори о задокументированных экспериментах и внутренних исследованиях.",
+    "Логотипы Facebook и Instagram в кадре не используй."
+   ],
+   "expert": {
+    "markets": "Внимание — товар: рекламная выручка крупнейших платформ — основа их капитализации. Время в приложении (time spent) — ключевая метрика, которую смотрят инвесторы.",
+    "macro": "Экономика внимания — один из крупнейших рынков цифровой рекламы в мире. Каждый пользователь — актив в отчётности.",
+    "politics": "После утечек 2021 года начались слушания в Конгрессе США, а в ЕС принят Закон о цифровых услугах (DSA) с требованиями к прозрачности алгоритмов."
+   },
+   "adaptation": {
+    "concept": "YOU ARE THE PRODUCT. Красная и синяя таблетка в стиле поп-культуры: ты протягиваешь зрителю две кнопки, «Like» и «Log out». Внутри лаборатория, где ленты людей настраивают, как ручки микшера. Иронично, без нападок на пользователей.",
+    "format": "AI-видео 25–30 с, лаборатория-микшер, острый юмор",
+    "hook": "В 2012-м Facebook подкрутил ленты 689 тысячам людей, чтобы проверить, получится ли поменять им настроение. Получилось.",
+    "vo": [
+     {
+      "t": "0–5",
+      "text": "В 2012-м Facebook подкрутил ленты 689 тысячам людей, чтобы проверить, получится ли поменять им настроение. Получилось."
+     },
+     {
+      "t": "5–11",
+      "text": "Меньше позитива в ленте — и люди сами писали негативнее. Меньше негатива — позитивнее. В 2014-м это напечатали в научном журнале."
+     },
+     {
+      "t": "11–17",
+      "text": "Первый президент компании потом признался: цель была забрать как можно больше твоего времени и внимания."
+     },
+     {
+      "t": "17–23",
+      "text": "Приложение бесплатное, потому что ты не клиент. Товар — твоё внимание."
+     },
+     {
+      "t": "23–28",
+      "text": "На рынке это называют преимуществом. Сделай так, чтобы оно было у тебя, а не у них."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Белая лаборатория, огромный микшерный пульт, на ручках подписи «Joy», «Anger», «Fear».",
+      "overlay": "689 003 ЮЗЕРА"
+     },
+     {
+      "frame": "Ряды людей с телефонами, лица меняют эмоции синхронно с ручками.",
+      "overlay": "НАСТРОЕНИЕ: ПОДКРУЧЕНО"
+     },
+     {
+      "frame": "Песочные часы, в которые вместо песка сыплются уведомления.",
+      "overlay": "ТВОЁ ВРЕМЯ = ТОВАР"
+     },
+     {
+      "frame": "Ты протягиваешь две таблетки-кнопки: красная Log out, синяя Like.",
+      "overlay": "ВЫБИРАЙ"
+     },
+     {
+      "frame": "Ты убираешь телефон в карман, смотришь в камеру.",
+      "overlay": "Преимущество — тебе"
+     }
+    ],
+    "caption": "В 2012-м 689 003 человека стали подопытными и даже не узнали об этом 🧪\n\nПиши «ТАБЛЕТКА» в комментах — пришлю 3 настройки, которые я поменял, чтобы вернуть себе внимание.",
+    "keyword": "ТАБЛЕТКА",
+    "cta": "По ключу ТАБЛЕТКА отправляй 3 настройки телефона (уведомления, лента, экранное время)."
+   }
+  },
+  "en": {
+   "title": "689,000 Test Subjects",
+   "lane": "Social Media · 2012–2021",
+   "era": "2012 (experiment), 2014 (publication), 2021 (leaks)",
+   "distraction": "We were given free communication. The price was our attention, and the feed became a tool for influencing emotions.",
+   "facts": [
+    "In January 2012, Facebook altered the feeds of 689,003 users for a week: some were shown fewer positive posts, others fewer negative ones.",
+    "Users began posting in the tone of what they were shown. The study was published in PNAS in June 2014, without separate consent from participants.",
+    "In 2017, Facebook's first president Sean Parker said publicly that the product was designed to consume as much time and attention as possible.",
+    "In 2021, former employee Frances Haugen handed over internal research. One finding: Instagram worsens body image for some teenage girls."
+   ],
+   "sources": [
+    "Kramer et al., PNAS, 2014",
+    "Sean Parker, Axios interview, November 2017",
+    "WSJ “The Facebook Files”, 2021; Haugen's testimony before the US Senate"
+   ],
+   "risks": [
+    "Don't claim social media “brainwashes everyone”: stick to documented experiments and internal research.",
+    "Don't show Facebook or Instagram logos on screen."
+   ],
+   "expert": {
+    "markets": "Attention is a commodity: ad revenue is the foundation of the largest platforms' market caps. Time spent in the app is a key metric investors watch.",
+    "macro": "The attention economy is one of the largest digital advertising markets in the world. Every user is an asset on the balance sheet.",
+    "politics": "After the 2021 leaks, US Congressional hearings began, and the EU adopted the Digital Services Act (DSA) with algorithmic transparency requirements."
+   },
+   "adaptation": {
+    "concept": "YOU ARE THE PRODUCT. A pop-culture red pill / blue pill: you hold out two buttons to the viewer, “Like” and “Log out”. Inside is a lab where people's feeds are tuned like knobs on a mixing desk. Ironic, without attacking users.",
+    "format": "AI video, 25–30 s, mixing-desk lab, sharp humor",
+    "hook": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could.",
+    "vo": [
+     {
+      "t": "0–5",
+      "text": "In 2012, Facebook changed 689,000 people's feeds to see if it could change their mood. It could."
+     },
+     {
+      "t": "5–11",
+      "text": "Less positive posts, people wrote more negative. Less negative, more positive. Published in a science journal in 2014."
+     },
+     {
+      "t": "11–17",
+      "text": "Its first president later said the goal was to consume as much of your time and attention as possible."
+     },
+     {
+      "t": "17–23",
+      "text": "The app is free because you're not the customer. Your attention is the product."
+     },
+     {
+      "t": "23–28",
+      "text": "In markets we call that an edge. Make sure it's yours, not theirs."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "A white lab with a giant mixing console; the knobs are labeled “Joy”, “Anger”, “Fear”.",
+      "overlay": "689,003 USERS"
+     },
+     {
+      "frame": "Rows of people on their phones, their expressions shifting in sync with the knobs.",
+      "overlay": "MOOD: ADJUSTED"
+     },
+     {
+      "frame": "An hourglass with notifications falling instead of sand.",
+      "overlay": "YOUR TIME = THE PRODUCT"
+     },
+     {
+      "frame": "You hold out two pill-buttons: a red Log out, a blue Like.",
+      "overlay": "CHOOSE"
+     },
+     {
+      "frame": "You put your phone in your pocket and look at the camera.",
+      "overlay": "Make the edge yours"
+     }
+    ],
+    "caption": "In 2012, 689,003 people became an experiment without knowing it 🧪\n\nComment \"PILL\" and I'll send you the 3 settings I changed to take my attention back.",
+    "keyword": "PILL",
+    "cta": "For the keyword PILL, send the 3 phone settings (notifications, feed, screen time)."
+   }
+  }
+ }
+}

@@ -1,1 +1,256 @@
-{"id": "libor-2012", "kind": "redpill", "title": "Одно число на триллионы", "lane": "Рынки · 2012", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "era": "2005–2012, штрафы 2012–2016", "distraction": "Все следили за акциями и курсами. А банки подкручивали ставку, от которой зависели ипотеки и кредиты по всему миру.", "facts": ["LIBOR — эталонная ставка, к которой были привязаны контракты на сотни триллионов долларов: деривативы, ипотеки, кредиты.", "Ставка формировалась из заявок самих банков. Трейдеры ряда банков договаривались занижать или завышать заявки в свою пользу.", "В июне 2012 года Barclays согласился заплатить около 450 миллионов долларов штрафов регуляторам США и Великобритании. Общие штрафы банкам по делу превысили 9 миллиардов.", "LIBOR заменили. Публикация основных долларовых ставок прекратилась в июне 2023 года."], "sources": ["CFTC, FSA: решения по Barclays, июнь 2012", "Financial Conduct Authority: переход с LIBOR", "ICE Benchmark Administration"], "adaptation": {"concept": "GAME SHOW. Яркое телешоу в стиле 80-х: ведущий спрашивает банкиров «Какую ставку назовём сегодня?», и они договариваются через чат. Внизу крутится счётчик «ваша ипотека». Смешно, понятно, без оскорблений.", "format": "AI-видео 25–30 с, телешоу, субтитры", "hook": "What if one number decided your mortgage, and the people setting it were cheating?", "vo": [{"t": "0–4", "text": "What if one number decided your mortgage, and the people setting it were cheating?"}, {"t": "4–10", "text": "It was called LIBOR. Hundreds of trillions of dollars in contracts were tied to it."}, {"t": "10–16", "text": "Banks reported their own rates. Some traders coordinated to push them up or down."}, {"t": "16–22", "text": "Barclays paid about 450 million in fines in 2012. Industry-wide, over 9 billion."}, {"t": "22–28", "text": "The number is gone now. The lesson isn't: always ask who sets the benchmark."}], "storyboard": [{"n": 1, "dur": "4 с", "frame": "Неоновая сцена телешоу 80-х, большое табло с одним числом.", "overlay": "TODAY'S NUMBER IS…", "prompt": "1980s TV game show set, neon lights, giant scoreboard showing one interest rate number, studio audience, retro"}, {"n": 2, "dur": "6 с", "frame": "Ведущий указывает на табло, под ним надписи «mortgages, loans, derivatives».", "overlay": "$300T+ TIED TO IT", "prompt": "flashy game show host points at a giant scoreboard, labels mortgages loans derivatives light up, retro graphics"}, {"n": 3, "dur": "6 с", "frame": "За кулисами банкиры перешёптываются у телефонов, крутят ручку на табло.", "overlay": "LET'S ADJUST IT", "prompt": "backstage of a game show, men in suits whispering on phones and secretly turning a dial that changes the scoreboard number, comedic"}, {"n": 4, "dur": "6 с", "frame": "Свет гаснет, сирены, падает огромный счёт штрафа.", "overlay": "$9B+ IN FINES", "prompt": "game show lights go out, red sirens, a giant fine bill falls from the ceiling onto the stage, dramatic and funny"}, {"n": 5, "dur": "6 с", "frame": "Ты стоишь на пустой сцене, табло погасло, говоришь в камеру.", "overlay": "Who sets the benchmark?", "prompt": "[ARUT character reference] on an empty game show stage, scoreboard turned off, speaks to camera, moody"}], "caption": "One number decided your mortgage. Some of the people setting it were cheating 📉\n\nComment \"LIBOR\" for the full case with sources.", "keyword": "LIBOR", "cta": "По ключу LIBOR отправляй разбор дела и что пришло на смену (SOFR)."}, "expert": {"markets": "На смену LIBOR в долларе пришла SOFR, ставка на основе реальных сделок репо, а не заявок банков. Отличный пример того, как бенчмарк защищают от манипуляций.", "macro": "Ставка-ориентир влияет на стоимость кредита для всей экономики. Манипуляция даже на сотые доли процента при таких объёмах означает огромные суммы.", "politics": "Скандал ударил по доверию к саморегулированию банков и привёл к реформе бенчмарков в Великобритании и ЕС."}, "risks": ["Называй только банки и суммы из официальных решений регуляторов.", "Не утверждай, что «все банки воровали»: обвинения касались конкретных трейдеров и банков."], "rank": 3}
+{
+ "id": "libor-2012",
+ "kind": "redpill",
+ "title": "Одно число на триллионы",
+ "lane": "Рынки · 2012",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "era": "2005–2012, штрафы 2012–2016",
+ "distraction": "Все следили за акциями и курсами. А банки подкручивали ставку, от которой зависели ипотеки и кредиты по всему миру.",
+ "facts": [
+  "LIBOR — эталонная ставка, к которой были привязаны контракты на сотни триллионов долларов: деривативы, ипотеки, кредиты.",
+  "Ставка формировалась из заявок самих банков. Трейдеры ряда банков договаривались занижать или завышать заявки в свою пользу.",
+  "В июне 2012 года Barclays согласился заплатить около 450 миллионов долларов штрафов регуляторам США и Великобритании. Общие штрафы банкам по делу превысили 9 миллиардов.",
+  "LIBOR заменили. Публикация основных долларовых ставок прекратилась в июне 2023 года."
+ ],
+ "sources": [
+  "CFTC, FSA: решения по Barclays, июнь 2012",
+  "Financial Conduct Authority: переход с LIBOR",
+  "ICE Benchmark Administration"
+ ],
+ "adaptation": {
+  "concept": "GAME SHOW. Яркое телешоу в стиле 80-х: ведущий спрашивает банкиров «Какую ставку назовём сегодня?», и они договариваются через чат. Внизу крутится счётчик «ваша ипотека». Смешно, понятно, без оскорблений.",
+  "format": "AI-видео 25–30 с, телешоу, субтитры",
+  "hook": "What if one number decided your mortgage, and the people setting it were cheating?",
+  "vo": [
+   {
+    "t": "0–4",
+    "text": "What if one number decided your mortgage, and the people setting it were cheating?"
+   },
+   {
+    "t": "4–10",
+    "text": "It was called LIBOR. Hundreds of trillions of dollars in contracts were tied to it."
+   },
+   {
+    "t": "10–16",
+    "text": "Banks reported their own rates. Some traders coordinated to push them up or down."
+   },
+   {
+    "t": "16–22",
+    "text": "Barclays paid about 450 million in fines in 2012. Industry-wide, over 9 billion."
+   },
+   {
+    "t": "22–28",
+    "text": "The number is gone now. The lesson isn't: always ask who sets the benchmark."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "4 с",
+    "frame": "Неоновая сцена телешоу 80-х, большое табло с одним числом.",
+    "overlay": "TODAY'S NUMBER IS…",
+    "prompt": "1980s TV game show set, neon lights, giant scoreboard showing one interest rate number, studio audience, retro"
+   },
+   {
+    "n": 2,
+    "dur": "6 с",
+    "frame": "Ведущий указывает на табло, под ним надписи «mortgages, loans, derivatives».",
+    "overlay": "HUNDREDS OF TRILLIONS",
+    "prompt": "flashy game show host points at a giant scoreboard, labels mortgages loans derivatives light up, retro graphics"
+   },
+   {
+    "n": 3,
+    "dur": "6 с",
+    "frame": "За кулисами банкиры перешёптываются у телефонов, крутят ручку на табло.",
+    "overlay": "LET'S ADJUST IT",
+    "prompt": "backstage of a game show, men in suits whispering on phones and secretly turning a dial that changes the scoreboard number, comedic"
+   },
+   {
+    "n": 4,
+    "dur": "6 с",
+    "frame": "Свет гаснет, сирены, падает огромный счёт штрафа.",
+    "overlay": "$9B+ IN FINES",
+    "prompt": "game show lights go out, red sirens, a giant fine bill falls from the ceiling onto the stage, dramatic and funny"
+   },
+   {
+    "n": 5,
+    "dur": "6 с",
+    "frame": "Ты стоишь на пустой сцене, табло погасло, говоришь в камеру.",
+    "overlay": "Who sets the benchmark?",
+    "prompt": "[ARUT character reference] on an empty game show stage, scoreboard turned off, speaks to camera, moody"
+   }
+  ],
+  "caption": "One number decided your mortgage. Some of the people setting it were cheating 📉\n\nComment \"LIBOR\" for the full case with sources.",
+  "keyword": "LIBOR",
+  "cta": "По ключу LIBOR отправляй разбор дела и что пришло на смену (SOFR)."
+ },
+ "expert": {
+  "markets": "На смену LIBOR в долларе пришла SOFR, ставка на основе реальных сделок репо, а не заявок банков. Отличный пример того, как бенчмарк защищают от манипуляций.",
+  "macro": "Ставка-ориентир влияет на стоимость кредита для всей экономики. Манипуляция даже на сотые доли процента при таких объёмах означает огромные суммы.",
+  "politics": "Скандал ударил по доверию к саморегулированию банков и привёл к реформе бенчмарков в Великобритании и ЕС."
+ },
+ "risks": [
+  "Называй только банки и суммы из официальных решений регуляторов.",
+  "Не утверждай, что «все банки воровали»: обвинения касались конкретных трейдеров и банков."
+ ],
+ "rank": 3,
+ "i18n": {
+  "ru": {
+   "title": "Одно число на триллионы",
+   "lane": "Рынки · 2012",
+   "era": "2005–2012, штрафы 2012–2016",
+   "distraction": "Все следили за акциями и курсами. А банки подкручивали ставку, от которой зависели ипотеки и кредиты по всему миру.",
+   "facts": [
+    "LIBOR — эталонная ставка, к которой были привязаны контракты на сотни триллионов долларов: деривативы, ипотеки, кредиты.",
+    "Ставка формировалась из заявок самих банков. Трейдеры ряда банков договаривались занижать или завышать заявки в свою пользу.",
+    "В июне 2012 года Barclays согласился заплатить около 450 миллионов долларов штрафов регуляторам США и Великобритании. Общие штрафы банкам по делу превысили 9 миллиардов.",
+    "LIBOR заменили. Публикация основных долларовых ставок прекратилась в июне 2023 года."
+   ],
+   "sources": [
+    "CFTC, FSA: решения по Barclays, июнь 2012",
+    "Financial Conduct Authority: переход с LIBOR",
+    "ICE Benchmark Administration"
+   ],
+   "risks": [
+    "Называй только банки и суммы из официальных решений регуляторов.",
+    "Не утверждай, что «все банки воровали»: обвинения касались конкретных трейдеров и банков."
+   ],
+   "expert": {
+    "markets": "На смену LIBOR в долларе пришла SOFR, ставка на основе реальных сделок репо, а не заявок банков. Отличный пример того, как бенчмарк защищают от манипуляций.",
+    "macro": "Ставка-ориентир влияет на стоимость кредита для всей экономики. Манипуляция даже на сотые доли процента при таких объёмах означает огромные суммы.",
+    "politics": "Скандал ударил по доверию к саморегулированию банков и привёл к реформе бенчмарков в Великобритании и ЕС."
+   },
+   "adaptation": {
+    "concept": "GAME SHOW. Яркое телешоу в стиле 80-х: ведущий спрашивает банкиров «Какую ставку назовём сегодня?», и они договариваются через чат. Внизу крутится счётчик «ваша ипотека». Смешно, понятно, без оскорблений.",
+    "format": "AI-видео 25–30 с, телешоу, субтитры",
+    "hook": "Представь: от одного числа зависит твоя ипотека. А те, кто его ставит, жульничают.",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "Представь: от одного числа зависит твоя ипотека. А те, кто его ставит, жульничают."
+     },
+     {
+      "t": "4–10",
+      "text": "Число звали LIBOR. К нему были привязаны контракты на сотни триллионов долларов."
+     },
+     {
+      "t": "10–16",
+      "text": "Банки сами сообщали свои ставки. А часть трейдеров сговаривалась тянуть их вверх или вниз."
+     },
+     {
+      "t": "16–22",
+      "text": "В 2012-м Barclays заплатил около 450 миллионов штрафов. По всей индустрии — больше 9 миллиардов."
+     },
+     {
+      "t": "22–28",
+      "text": "Числа больше нет. А урок остался: всегда спрашивай, кто ставит бенчмарк."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Неоновая сцена телешоу 80-х, большое табло с одним числом.",
+      "overlay": "СЕГОДНЯ НА ТАБЛО…"
+     },
+     {
+      "frame": "Ведущий указывает на табло, под ним надписи «mortgages, loans, derivatives».",
+      "overlay": "СОТНИ ТРИЛЛИОНОВ"
+     },
+     {
+      "frame": "За кулисами банкиры перешёптываются у телефонов, крутят ручку на табло.",
+      "overlay": "ЩАС ПОДКРУТИМ"
+     },
+     {
+      "frame": "Свет гаснет, сирены, падает огромный счёт штрафа.",
+      "overlay": "ШТРАФЫ $9 МЛРД+"
+     },
+     {
+      "frame": "Ты стоишь на пустой сцене, табло погасло, говоришь в камеру.",
+      "overlay": "Кто ставит бенчмарк?"
+     }
+    ],
+    "caption": "От одного числа зависела твоя ипотека. А часть тех, кто его выставлял, жульничала 📉\n\nПиши «СТАВКА» в комментах — пришлю полный разбор дела с источниками.",
+    "keyword": "СТАВКА",
+    "cta": "По ключу СТАВКА отправляй разбор дела и что пришло на смену (SOFR)."
+   }
+  },
+  "en": {
+   "title": "One Number for Trillions",
+   "lane": "Markets · 2012",
+   "era": "2005–2012, fines 2012–2016",
+   "distraction": "Everyone was watching stocks and exchange rates. Meanwhile, banks were tweaking the rate that mortgages and loans worldwide depended on.",
+   "facts": [
+    "LIBOR was a benchmark rate tied to hundreds of trillions of dollars in contracts: derivatives, mortgages, loans.",
+    "The rate was built from the banks' own submissions. Traders at several banks colluded to push submissions down or up in their favor.",
+    "In June 2012, Barclays agreed to pay about $450 million in fines to US and UK regulators. Total fines for banks in the case exceeded $9 billion.",
+    "LIBOR has been replaced. Publication of the main US dollar rates ended in June 2023."
+   ],
+   "sources": [
+    "CFTC, FSA: Barclays decisions, June 2012",
+    "Financial Conduct Authority: transition from LIBOR",
+    "ICE Benchmark Administration"
+   ],
+   "risks": [
+    "Name only the banks and amounts from official regulatory decisions.",
+    "Don't claim “all banks were stealing”: the charges concerned specific traders and banks."
+   ],
+   "expert": {
+    "markets": "In US dollars, LIBOR was replaced by SOFR, a rate based on actual repo transactions rather than bank submissions. A strong example of how a benchmark is protected from manipulation.",
+    "macro": "A benchmark rate drives the cost of credit across the whole economy. At these volumes, manipulation by even hundredths of a percent means enormous sums.",
+    "politics": "The scandal hit trust in bank self-regulation and led to benchmark reform in the UK and the EU."
+   },
+   "adaptation": {
+    "concept": "GAME SHOW. A bright 1980s-style TV show: the host asks the bankers “What rate are we calling today?”, and they settle it over chat. A “your mortgage” counter ticks along the bottom. Funny, clear, no insults.",
+    "format": "AI video, 25–30 s, TV show, subtitles",
+    "hook": "What if one number decided your mortgage, and the people setting it were cheating?",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "What if one number decided your mortgage, and the people setting it were cheating?"
+     },
+     {
+      "t": "4–10",
+      "text": "It was called LIBOR. Hundreds of trillions of dollars in contracts were tied to it."
+     },
+     {
+      "t": "10–16",
+      "text": "Banks reported their own rates. Some traders coordinated to push them up or down."
+     },
+     {
+      "t": "16–22",
+      "text": "Barclays paid about 450 million in fines in 2012. Industry-wide, over 9 billion."
+     },
+     {
+      "t": "22–28",
+      "text": "The number is gone now. The lesson isn't: always ask who sets the benchmark."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "A neon 1980s game show stage, a big scoreboard showing a single number.",
+      "overlay": "TODAY'S NUMBER IS…"
+     },
+     {
+      "frame": "The host points at the scoreboard; below it, the labels “mortgages, loans, derivatives”.",
+      "overlay": "HUNDREDS OF TRILLIONS"
+     },
+     {
+      "frame": "Backstage, bankers whisper into phones and turn a dial on the scoreboard.",
+      "overlay": "LET'S ADJUST IT"
+     },
+     {
+      "frame": "The lights go out, sirens blare, a giant fine bill drops down.",
+      "overlay": "$9B+ IN FINES"
+     },
+     {
+      "frame": "You stand on the empty stage, scoreboard dark, speaking to camera.",
+      "overlay": "Who sets the benchmark?"
+     }
+    ],
+    "caption": "One number decided your mortgage. Some of the people setting it were cheating 📉\n\nComment \"LIBOR\" for the full case with sources.",
+    "keyword": "LIBOR",
+    "cta": "For the keyword LIBOR, send the case breakdown and what replaced it (SOFR)."
+   }
+  }
+ }
+}

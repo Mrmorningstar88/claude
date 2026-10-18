@@ -1,1 +1,253 @@
-{"id": "sugar-research-1967", "kind": "redpill", "title": "Сахар купил науку", "lane": "Индустрия · 1967", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "era": "1965–1967, раскрыто в 2016", "distraction": "Полвека всех учили бояться жира. Исследования, которые на это направили, оплатила сахарная индустрия.", "facts": ["В 1965 году Sugar Research Foundation заказала гарвардским учёным обзор о причинах болезней сердца.", "Обзор вышел в 1967 году в New England Journal of Medicine. Он преуменьшал роль сахара и переносил вину на жиры, а финансирование не раскрыли.", "Учёным заплатили около 6 500 долларов, что сегодня примерно 50 тысяч.", "Документы нашли и опубликовали исследователи UCSF в журнале JAMA Internal Medicine в сентябре 2016 года."], "sources": ["Kearns, Schmidt, Glantz. JAMA Internal Medicine, 2016", "NEJM, 1967 (обзор McGandy, Hegsted, Stare)"], "adaptation": {"concept": "MAD MEN, 1965. Офис рекламного агентства 60-х: дым, виски, доска с надписью FAT = BAD. Индустрия «продаёт» новую научную истину. Ты в финале переводишь на язык рынков: кто платит за исследование, тот выбирает вывод.", "format": "AI-видео 25–30 с, стилистика 60-х", "hook": "In 1965, someone paid scientists to make you afraid of the wrong thing.", "vo": [{"t": "0–4", "text": "In 1965, someone paid scientists to make you afraid of the wrong thing."}, {"t": "4–10", "text": "The sugar industry funded a Harvard review on heart disease. The conclusion: blame fat."}, {"t": "10–15", "text": "It was published in a top medical journal. The funding wasn't disclosed."}, {"t": "15–20", "text": "It came out only in 2016, when researchers found the internal documents."}, {"t": "20–27", "text": "Same rule in markets: before you trust a report, ask who paid for it."}], "storyboard": [{"n": 1, "dur": "4 с", "frame": "Офис 60-х, мужчины в костюмах за столом переговоров, дым, жалюзи.", "overlay": "1965", "prompt": "1960s advertising agency boardroom, men in slim suits, cigarette smoke, venetian blinds light, Mad Men inspired original scene"}, {"n": 2, "dur": "6 с", "frame": "Конверт с деньгами скользит по столу к учёному в халате.", "overlay": "FUNDED", "prompt": "an envelope slides across a polished table toward a scientist in a white lab coat, 1960s, dramatic close up"}, {"n": 3, "dur": "5 с", "frame": "Печатается журнал, крупно заголовок «It's the fat».", "overlay": "PUBLISHED", "prompt": "1960s printing press printing a medical journal, headline focusing on dietary fat, generic journal without real logo"}, {"n": 4, "dur": "5 с", "frame": "2016 год, архив, исследователь находит пожелтевшие письма.", "overlay": "FOUND IN 2016", "prompt": "modern researcher in a university archive opens a box of yellowed letters, flashlight, discovery moment"}, {"n": 5, "dur": "7 с", "frame": "Ты в кадре, за спиной экран с аналитическим отчётом и надписью «Sponsored by?».", "overlay": "Who paid for it?", "prompt": "[ARUT character reference] speaks to camera, behind him a screen with a financial research report and a question 'sponsored by?'"}], "caption": "In 1965 the sugar industry paid for science that blamed fat. We found out 51 years later 🍬\n\nComment \"SUGAR\" for the documents and how I check who funds the research I read.", "keyword": "SUGAR", "cta": "По ключу SUGAR отправляй ссылку на публикацию JAMA 2016 и чек-лист «как проверить, кто платит за аналитику»."}, "expert": {"markets": "Аналогия для трейдера: аналитика банков и «независимые» прогнозы часто связаны с интересами эмитента или брокера. Конфликт интересов — первое, что надо проверить.", "macro": "Индустрия, влияющая на регулирование через исследования, называется regulatory capture. Это работает и в финансах.", "politics": "Рекомендации по питанию в США десятилетиями фокусировались на снижении жира. Это пример того, как частное финансирование влияет на государственную политику."}, "risks": ["Не говори, что «сахар убивает, а жир полезен»: научная картина сложнее. Тема ролика — конфликт интересов, а не диета.", "Без логотипов реальных журналов и брендов."], "rank": 2}
+{
+ "id": "sugar-research-1967",
+ "kind": "redpill",
+ "title": "Сахар купил науку",
+ "lane": "Индустрия · 1967",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "era": "1965–1967, раскрыто в 2016",
+ "distraction": "Полвека всех учили бояться жира. Исследования, которые на это направили, оплатила сахарная индустрия.",
+ "facts": [
+  "В 1965 году Sugar Research Foundation заказала гарвардским учёным обзор о причинах болезней сердца.",
+  "Обзор вышел в 1967 году в New England Journal of Medicine. Он преуменьшал роль сахара и переносил вину на жиры, а финансирование не раскрыли.",
+  "Учёным заплатили около 6 500 долларов, что сегодня примерно 50 тысяч.",
+  "Документы нашли и опубликовали исследователи UCSF в журнале JAMA Internal Medicine в сентябре 2016 года."
+ ],
+ "sources": [
+  "Kearns, Schmidt, Glantz. JAMA Internal Medicine, 2016",
+  "NEJM, 1967 (обзор McGandy, Hegsted, Stare)"
+ ],
+ "adaptation": {
+  "concept": "MAD MEN, 1965. Офис рекламного агентства 60-х: дым, виски, доска с надписью FAT = BAD. Индустрия «продаёт» новую научную истину. Ты в финале переводишь на язык рынков: кто платит за исследование, тот выбирает вывод.",
+  "format": "AI-видео 25–30 с, стилистика 60-х",
+  "hook": "In 1965, someone paid scientists to make you afraid of the wrong thing.",
+  "vo": [
+   {
+    "t": "0–4",
+    "text": "In 1965, someone paid scientists to make you afraid of the wrong thing."
+   },
+   {
+    "t": "4–10",
+    "text": "The sugar industry funded a Harvard review on heart disease. The conclusion: blame fat."
+   },
+   {
+    "t": "10–15",
+    "text": "It was published in a top medical journal. The funding wasn't disclosed."
+   },
+   {
+    "t": "15–20",
+    "text": "It came out only in 2016, when researchers found the internal documents."
+   },
+   {
+    "t": "20–27",
+    "text": "Same rule in markets: before you trust a report, ask who paid for it."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "4 с",
+    "frame": "Офис 60-х, мужчины в костюмах за столом переговоров, дым, жалюзи.",
+    "overlay": "1965",
+    "prompt": "1960s advertising agency boardroom, men in slim suits, cigarette smoke, venetian blinds light, Mad Men inspired original scene"
+   },
+   {
+    "n": 2,
+    "dur": "6 с",
+    "frame": "Конверт с деньгами скользит по столу к учёному в халате.",
+    "overlay": "FUNDED",
+    "prompt": "an envelope slides across a polished table toward a scientist in a white lab coat, 1960s, dramatic close up"
+   },
+   {
+    "n": 3,
+    "dur": "5 с",
+    "frame": "Печатается журнал, крупно заголовок «It's the fat».",
+    "overlay": "PUBLISHED",
+    "prompt": "1960s printing press printing a medical journal, headline focusing on dietary fat, generic journal without real logo"
+   },
+   {
+    "n": 4,
+    "dur": "5 с",
+    "frame": "2016 год, архив, исследователь находит пожелтевшие письма.",
+    "overlay": "FOUND IN 2016",
+    "prompt": "modern researcher in a university archive opens a box of yellowed letters, flashlight, discovery moment"
+   },
+   {
+    "n": 5,
+    "dur": "7 с",
+    "frame": "Ты в кадре, за спиной экран с аналитическим отчётом и надписью «Sponsored by?».",
+    "overlay": "Who paid for it?",
+    "prompt": "[ARUT character reference] speaks to camera, behind him a screen with a financial research report and a question 'sponsored by?'"
+   }
+  ],
+  "caption": "In 1965 the sugar industry paid for science that blamed fat. We found out 51 years later 🍬\n\nComment \"SUGAR\" for the documents and how I check who funds the research I read.",
+  "keyword": "SUGAR",
+  "cta": "По ключу SUGAR отправляй ссылку на публикацию JAMA 2016 и чек-лист «как проверить, кто платит за аналитику»."
+ },
+ "expert": {
+  "markets": "Аналогия для трейдера: аналитика банков и «независимые» прогнозы часто связаны с интересами эмитента или брокера. Конфликт интересов — первое, что надо проверить.",
+  "macro": "Индустрия, влияющая на регулирование через исследования, называется regulatory capture. Это работает и в финансах.",
+  "politics": "Рекомендации по питанию в США десятилетиями фокусировались на снижении жира. Это пример того, как частное финансирование влияет на государственную политику."
+ },
+ "risks": [
+  "Не говори, что «сахар убивает, а жир полезен»: научная картина сложнее. Тема ролика — конфликт интересов, а не диета.",
+  "Без логотипов реальных журналов и брендов."
+ ],
+ "rank": 2,
+ "i18n": {
+  "ru": {
+   "title": "Сахар купил науку",
+   "lane": "Индустрия · 1967",
+   "era": "1965–1967, раскрыто в 2016",
+   "distraction": "Полвека всех учили бояться жира. Исследования, которые на это направили, оплатила сахарная индустрия.",
+   "facts": [
+    "В 1965 году Sugar Research Foundation заказала гарвардским учёным обзор о причинах болезней сердца.",
+    "Обзор вышел в 1967 году в New England Journal of Medicine. Он преуменьшал роль сахара и переносил вину на жиры, а финансирование не раскрыли.",
+    "Учёным заплатили около 6 500 долларов, что сегодня примерно 50 тысяч.",
+    "Документы нашли и опубликовали исследователи UCSF в журнале JAMA Internal Medicine в сентябре 2016 года."
+   ],
+   "sources": [
+    "Kearns, Schmidt, Glantz. JAMA Internal Medicine, 2016",
+    "NEJM, 1967 (обзор McGandy, Hegsted, Stare)"
+   ],
+   "risks": [
+    "Не говори, что «сахар убивает, а жир полезен»: научная картина сложнее. Тема ролика — конфликт интересов, а не диета.",
+    "Без логотипов реальных журналов и брендов."
+   ],
+   "expert": {
+    "markets": "Аналогия для трейдера: аналитика банков и «независимые» прогнозы часто связаны с интересами эмитента или брокера. Конфликт интересов — первое, что надо проверить.",
+    "macro": "Индустрия, влияющая на регулирование через исследования, называется regulatory capture. Это работает и в финансах.",
+    "politics": "Рекомендации по питанию в США десятилетиями фокусировались на снижении жира. Это пример того, как частное финансирование влияет на государственную политику."
+   },
+   "adaptation": {
+    "concept": "MAD MEN, 1965. Офис рекламного агентства 60-х: дым, виски, доска с надписью FAT = BAD. Индустрия «продаёт» новую научную истину. Ты в финале переводишь на язык рынков: кто платит за исследование, тот выбирает вывод.",
+    "format": "AI-видео 25–30 с, стилистика 60-х",
+    "hook": "В 1965-м кто-то заплатил учёным, чтобы ты боялся не того.",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "В 1965-м кто-то заплатил учёным, чтобы ты боялся не того."
+     },
+     {
+      "t": "4–10",
+      "text": "Сахарная индустрия проплатила гарвардский обзор о болезнях сердца. Вывод: виноват жир."
+     },
+     {
+      "t": "10–15",
+      "text": "Его напечатали в топовом медицинском журнале. А кто платил — промолчали."
+     },
+     {
+      "t": "15–20",
+      "text": "Всплыло это только в 2016-м, когда исследователи нашли внутренние документы."
+     },
+     {
+      "t": "20–27",
+      "text": "На рынках то же правило: прежде чем верить отчёту, спроси, кто его оплатил."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Офис 60-х, мужчины в костюмах за столом переговоров, дым, жалюзи.",
+      "overlay": "1965"
+     },
+     {
+      "frame": "Конверт с деньгами скользит по столу к учёному в халате.",
+      "overlay": "ПРОПЛАЧЕНО"
+     },
+     {
+      "frame": "Печатается журнал, крупно заголовок «It's the fat».",
+      "overlay": "ОПУБЛИКОВАНО"
+     },
+     {
+      "frame": "2016 год, архив, исследователь находит пожелтевшие письма.",
+      "overlay": "НАЙДЕНО В 2016"
+     },
+     {
+      "frame": "Ты в кадре, за спиной экран с аналитическим отчётом и надписью «Sponsored by?».",
+      "overlay": "Кто заплатил?"
+     }
+    ],
+    "caption": "В 1965-м сахарная индустрия оплатила науку, которая свалила всё на жир. Узнали мы об этом через 51 год 🍬\n\nПиши «САХАР» в комментах — пришлю документы и покажу, как я проверяю, кто спонсирует исследования, которые я читаю.",
+    "keyword": "САХАР",
+    "cta": "По ключу САХАР отправляй ссылку на публикацию JAMA 2016 и чек-лист «как проверить, кто платит за аналитику»."
+   }
+  },
+  "en": {
+   "title": "Sugar Bought Science",
+   "lane": "Industry · 1967",
+   "era": "1965–1967, exposed in 2016",
+   "distraction": "For half a century, everyone was taught to fear fat. The research that pointed them there was paid for by the sugar industry.",
+   "facts": [
+    "In 1965, the Sugar Research Foundation commissioned Harvard scientists to write a review on the causes of heart disease.",
+    "The review was published in 1967 in the New England Journal of Medicine. It downplayed the role of sugar and shifted the blame to fat, and the funding was not disclosed.",
+    "The scientists were paid about $6,500, roughly $50,000 today.",
+    "The documents were found and published by UCSF researchers in JAMA Internal Medicine in September 2016."
+   ],
+   "sources": [
+    "Kearns, Schmidt, Glantz. JAMA Internal Medicine, 2016",
+    "NEJM, 1967 (review by McGandy, Hegsted, Stare)"
+   ],
+   "risks": [
+    "Don't say “sugar kills and fat is healthy”: the science is more complex. The video is about conflicts of interest, not diet.",
+    "No logos of real journals or brands."
+   ],
+   "expert": {
+    "markets": "A trader's analogy: bank research and “independent” forecasts are often tied to the interests of the issuer or broker. A conflict of interest is the first thing to check.",
+    "macro": "When an industry shapes regulation through research, it's called regulatory capture. It happens in finance too.",
+    "politics": "For decades, US dietary guidelines focused on cutting fat. It's an example of how private funding shapes public policy."
+   },
+   "adaptation": {
+    "concept": "MAD MEN, 1965. A 1960s ad agency office: smoke, whiskey, a board reading FAT = BAD. The industry is “selling” a new scientific truth. In the finale, you translate it into market terms: whoever pays for the research picks the conclusion.",
+    "format": "AI video, 25–30 s, 1960s style",
+    "hook": "In 1965, someone paid scientists to make you afraid of the wrong thing.",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "In 1965, someone paid scientists to make you afraid of the wrong thing."
+     },
+     {
+      "t": "4–10",
+      "text": "The sugar industry funded a Harvard review on heart disease. The conclusion: blame fat."
+     },
+     {
+      "t": "10–15",
+      "text": "It was published in a top medical journal. The funding wasn't disclosed."
+     },
+     {
+      "t": "15–20",
+      "text": "It came out only in 2016, when researchers found the internal documents."
+     },
+     {
+      "t": "20–27",
+      "text": "Same rule in markets: before you trust a report, ask who paid for it."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "A 1960s office: men in suits at a boardroom table, smoke, venetian blinds.",
+      "overlay": "1965"
+     },
+     {
+      "frame": "An envelope of cash slides across the table toward a scientist in a lab coat.",
+      "overlay": "FUNDED"
+     },
+     {
+      "frame": "A journal is being printed; close-up on the headline “It's the fat”.",
+      "overlay": "PUBLISHED"
+     },
+     {
+      "frame": "2016, an archive: a researcher finds yellowed letters.",
+      "overlay": "FOUND IN 2016"
+     },
+     {
+      "frame": "You on camera, behind you a screen with a research report and the words “Sponsored by?”.",
+      "overlay": "Who paid for it?"
+     }
+    ],
+    "caption": "In 1965 the sugar industry paid for science that blamed fat. We found out 51 years later 🍬\n\nComment \"SUGAR\" for the documents and how I check who funds the research I read.",
+    "keyword": "SUGAR",
+    "cta": "For the keyword SUGAR, send the link to the 2016 JAMA paper and the checklist “How to check who pays for the research”."
+   }
+  }
+ }
+}

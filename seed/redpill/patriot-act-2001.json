@@ -1,1 +1,259 @@
-{"id": "patriot-act-2001", "kind": "redpill", "title": "45 дней до слежки", "lane": "Технологии · 2001–2015", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "era": "2001 (закон), 2013 (Сноуден), 2015 и 2020 (суды)", "distraction": "После трагедии все смотрели на угрозу извне. Тем временем данные о звонках миллионов граждан начали собирать дома.", "facts": ["USA PATRIOT Act подписан 26 октября 2001 года, через 45 дней после терактов 11 сентября. Документ занимал более 300 страниц.", "В июне 2013 года Эдвард Сноуден раскрыл, что АНБ массово собирает метаданные телефонных звонков американцев по разделу 215 этого закона.", "В мае 2015 года Апелляционный суд второго округа (ACLU v. Clapper) решил, что закон не разрешал такой массовый сбор. В июне 2015 года USA Freedom Act его прекратил.", "В 2020 году Апелляционный суд девятого округа признал, что программа, вероятно, нарушала Конституцию."], "sources": ["USA PATRIOT Act, Pub.L. 107–56", "ACLU v. Clapper, 2nd Cir., 2015", "United States v. Moalin, 9th Cir., 2020", "USA Freedom Act, 2015"], "adaptation": {"concept": "FLIP PHONE ERA. Ностальгия по 2001 году: раскладушки, Windows XP, дисковые плееры. Каждая «милая вещь из 2000-х» оказывается подключена к огромному серверу. Тон спокойный и уважительный к трагедии: никаких теорий о самих терактах, только задокументированное следствие.", "format": "AI-видео 25–30 с, эстетика 2001 года", "hook": "In 2001, your phone was dumb. The law that came with it wasn't.", "vo": [{"t": "0–4", "text": "In 2001, your phone was dumb. The law that came with it wasn't."}, {"t": "4–10", "text": "Forty-five days after 9/11, the Patriot Act was signed. Over three hundred pages."}, {"t": "10–16", "text": "Twelve years later we learned it was used to collect phone records of millions of Americans."}, {"t": "16–22", "text": "In 2015 a federal court said the law never allowed it. Congress shut the program down."}, {"t": "22–28", "text": "Every crisis comes with fine print. Read it."}], "storyboard": [{"n": 1, "dur": "4 с", "frame": "Подросток 2001 года открывает телефон-раскладушку, на экране «1 new message».", "overlay": "2001", "prompt": "2001 teenager bedroom, flip phone opening with a click, small pixel screen, Y2K aesthetic, nostalgic grain"}, {"n": 2, "dur": "6 с", "frame": "Толстая стопка документов падает на стол, штамп с датой.", "overlay": "45 DAYS LATER", "prompt": "a thick 300 page legal document drops on a desk, a date stamp hits it, dramatic top light, no real logos"}, {"n": 3, "dur": "6 с", "frame": "Камера отъезжает от раскладушки по тонкой световой нити к огромному дата-центру.", "overlay": "METADATA", "prompt": "camera pulls back from a flip phone along a glowing thin data thread that leads to a gigantic data center in the desert, epic scale"}, {"n": 4, "dur": "6 с", "frame": "Зал суда, молоток, заголовки 2013 и 2015 годов.", "overlay": "RULED ILLEGAL, 2015", "prompt": "generic courtroom, judge's gavel strikes in slow motion, newspaper headlines from 2013 and 2015 fly past, no real names"}, {"n": 5, "dur": "6 с", "frame": "Ты листаешь пользовательское соглашение на телефоне, смотришь в камеру.", "overlay": "Read the fine print", "prompt": "[ARUT character reference] scrolling a long terms and conditions page on a modern phone, then looks at camera"}], "caption": "In 2001 your phone was dumb. The law that came with it wasn't 📱\n\nComment \"PRINT\" for the timeline 2001–2020 with court rulings.", "keyword": "PRINT", "cta": "По ключу PRINT отправляй таймлайн с решениями судов."}, "expert": {"markets": "После 2001 года резко выросли госзаказы на технологии наблюдения и кибербезопасности. Это отдельный сектор рынка, который до сих пор растёт.", "macro": "Кризисы ускоряют расширение государственных полномочий и расходов: так было в 2001, 2008 и 2020 годах. Это повторяющийся паттерн.", "politics": "Закон прошёл почти без обсуждения в атмосфере национального шока. Классический пример того, как кризис снижает сопротивление законам, которые в обычное время не прошли бы."}, "risks": ["Тема 11 сентября чувствительная. Никаких версий о том, кто стоит за терактами: только задокументированные последствия.", "Не показывай башни и кадры трагедии."], "rank": 5}
+{
+ "id": "patriot-act-2001",
+ "kind": "redpill",
+ "title": "45 дней до слежки",
+ "lane": "Технологии · 2001–2015",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "era": "2001 (закон), 2013 (Сноуден), 2015 и 2020 (суды)",
+ "distraction": "После трагедии все смотрели на угрозу извне. Тем временем данные о звонках миллионов граждан начали собирать дома.",
+ "facts": [
+  "USA PATRIOT Act подписан 26 октября 2001 года, через 45 дней после терактов 11 сентября. Документ занимал более 300 страниц.",
+  "В июне 2013 года Эдвард Сноуден раскрыл, что АНБ массово собирает метаданные телефонных звонков американцев по разделу 215 этого закона.",
+  "В мае 2015 года Апелляционный суд второго округа (ACLU v. Clapper) решил, что закон не разрешал такой массовый сбор. В июне 2015 года USA Freedom Act его прекратил.",
+  "В 2020 году Апелляционный суд девятого округа признал, что программа, вероятно, нарушала Конституцию."
+ ],
+ "sources": [
+  "USA PATRIOT Act, Pub.L. 107–56",
+  "ACLU v. Clapper, 2nd Cir., 2015",
+  "United States v. Moalin, 9th Cir., 2020",
+  "USA Freedom Act, 2015"
+ ],
+ "adaptation": {
+  "concept": "FLIP PHONE ERA. Ностальгия по 2001 году: раскладушки, Windows XP, дисковые плееры. Каждая «милая вещь из 2000-х» оказывается подключена к огромному серверу. Тон спокойный и уважительный к трагедии: никаких теорий о самих терактах, только задокументированное следствие.",
+  "format": "AI-видео 25–30 с, эстетика 2001 года",
+  "hook": "In 2001, your phone was dumb. The law that came with it wasn't.",
+  "vo": [
+   {
+    "t": "0–4",
+    "text": "In 2001, your phone was dumb. The law that came with it wasn't."
+   },
+   {
+    "t": "4–10",
+    "text": "Forty-five days after 9/11, the Patriot Act was signed. Over three hundred pages."
+   },
+   {
+    "t": "10–16",
+    "text": "Twelve years later we learned it was used to collect phone records of millions of Americans."
+   },
+   {
+    "t": "16–22",
+    "text": "In 2015 a federal court said the law never allowed it. Congress shut the program down."
+   },
+   {
+    "t": "22–28",
+    "text": "Every crisis comes with fine print. Read it."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "4 с",
+    "frame": "Подросток 2001 года открывает телефон-раскладушку, на экране «1 new message».",
+    "overlay": "2001",
+    "prompt": "2001 teenager bedroom, flip phone opening with a click, small pixel screen, Y2K aesthetic, nostalgic grain"
+   },
+   {
+    "n": 2,
+    "dur": "6 с",
+    "frame": "Толстая стопка документов падает на стол, штамп с датой.",
+    "overlay": "45 DAYS LATER",
+    "prompt": "a thick 300 page legal document drops on a desk, a date stamp hits it, dramatic top light, no real logos"
+   },
+   {
+    "n": 3,
+    "dur": "6 с",
+    "frame": "Камера отъезжает от раскладушки по тонкой световой нити к огромному дата-центру.",
+    "overlay": "METADATA",
+    "prompt": "camera pulls back from a flip phone along a glowing thin data thread that leads to a gigantic data center in the desert, epic scale"
+   },
+   {
+    "n": 4,
+    "dur": "6 с",
+    "frame": "Зал суда, молоток, заголовки 2013 и 2015 годов.",
+    "overlay": "RULED ILLEGAL, 2015",
+    "prompt": "generic courtroom, judge's gavel strikes in slow motion, newspaper headlines from 2013 and 2015 fly past, no real names"
+   },
+   {
+    "n": 5,
+    "dur": "6 с",
+    "frame": "Ты листаешь пользовательское соглашение на телефоне, смотришь в камеру.",
+    "overlay": "Read the fine print",
+    "prompt": "[ARUT character reference] scrolling a long terms and conditions page on a modern phone, then looks at camera"
+   }
+  ],
+  "caption": "In 2001 your phone was dumb. The law that came with it wasn't 📱\n\nComment \"PRINT\" for the timeline 2001–2020 with court rulings.",
+  "keyword": "PRINT",
+  "cta": "По ключу PRINT отправляй таймлайн с решениями судов."
+ },
+ "expert": {
+  "markets": "После 2001 года резко выросли госзаказы на технологии наблюдения и кибербезопасности. Это отдельный сектор рынка, который до сих пор растёт.",
+  "macro": "Кризисы ускоряют расширение государственных полномочий и расходов: так было в 2001, 2008 и 2020 годах. Это повторяющийся паттерн.",
+  "politics": "Закон прошёл почти без обсуждения в атмосфере национального шока. Классический пример того, как кризис снижает сопротивление законам, которые в обычное время не прошли бы."
+ },
+ "risks": [
+  "Тема 11 сентября чувствительная. Никаких версий о том, кто стоит за терактами: только задокументированные последствия.",
+  "Не показывай башни и кадры трагедии."
+ ],
+ "rank": 5,
+ "i18n": {
+  "ru": {
+   "title": "45 дней до слежки",
+   "lane": "Технологии · 2001–2015",
+   "era": "2001 (закон), 2013 (Сноуден), 2015 и 2020 (суды)",
+   "distraction": "После трагедии все смотрели на угрозу извне. Тем временем данные о звонках миллионов граждан начали собирать дома.",
+   "facts": [
+    "USA PATRIOT Act подписан 26 октября 2001 года, через 45 дней после терактов 11 сентября. Документ занимал более 300 страниц.",
+    "В июне 2013 года Эдвард Сноуден раскрыл, что АНБ массово собирает метаданные телефонных звонков американцев по разделу 215 этого закона.",
+    "В мае 2015 года Апелляционный суд второго округа (ACLU v. Clapper) решил, что закон не разрешал такой массовый сбор. В июне 2015 года USA Freedom Act его прекратил.",
+    "В 2020 году Апелляционный суд девятого округа признал, что программа, вероятно, нарушала Конституцию."
+   ],
+   "sources": [
+    "USA PATRIOT Act, Pub.L. 107–56",
+    "ACLU v. Clapper, 2nd Cir., 2015",
+    "United States v. Moalin, 9th Cir., 2020",
+    "USA Freedom Act, 2015"
+   ],
+   "risks": [
+    "Тема 11 сентября чувствительная. Никаких версий о том, кто стоит за терактами: только задокументированные последствия.",
+    "Не показывай башни и кадры трагедии."
+   ],
+   "expert": {
+    "markets": "После 2001 года резко выросли госзаказы на технологии наблюдения и кибербезопасности. Это отдельный сектор рынка, который до сих пор растёт.",
+    "macro": "Кризисы ускоряют расширение государственных полномочий и расходов: так было в 2001, 2008 и 2020 годах. Это повторяющийся паттерн.",
+    "politics": "Закон прошёл почти без обсуждения в атмосфере национального шока. Классический пример того, как кризис снижает сопротивление законам, которые в обычное время не прошли бы."
+   },
+   "adaptation": {
+    "concept": "FLIP PHONE ERA. Ностальгия по 2001 году: раскладушки, Windows XP, дисковые плееры. Каждая «милая вещь из 2000-х» оказывается подключена к огромному серверу. Тон спокойный и уважительный к трагедии: никаких теорий о самих терактах, только задокументированное следствие.",
+    "format": "AI-видео 25–30 с, эстетика 2001 года",
+    "hook": "В 2001-м телефон у тебя был тупой. А вот закон, который пришёл вместе с ним, — нет.",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "В 2001-м телефон у тебя был тупой. А вот закон, который пришёл вместе с ним, — нет."
+     },
+     {
+      "t": "4–10",
+      "text": "Через сорок пять дней после 11 сентября подписали Patriot Act. Больше трёхсот страниц."
+     },
+     {
+      "t": "10–16",
+      "text": "Через двенадцать лет выяснилось: по нему собирали записи о звонках миллионов американцев."
+     },
+     {
+      "t": "16–22",
+      "text": "В 2015-м федеральный суд заявил, что закон такого никогда не разрешал. Конгресс программу закрыл."
+     },
+     {
+      "t": "22–28",
+      "text": "У каждого кризиса есть мелкий шрифт. Читай его."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Подросток 2001 года открывает телефон-раскладушку, на экране «1 new message».",
+      "overlay": "2001"
+     },
+     {
+      "frame": "Толстая стопка документов падает на стол, штамп с датой.",
+      "overlay": "45 ДНЕЙ СПУСТЯ"
+     },
+     {
+      "frame": "Камера отъезжает от раскладушки по тонкой световой нити к огромному дата-центру.",
+      "overlay": "МЕТАДАННЫЕ"
+     },
+     {
+      "frame": "Зал суда, молоток, заголовки 2013 и 2015 годов.",
+      "overlay": "НЕЗАКОННО, 2015"
+     },
+     {
+      "frame": "Ты листаешь пользовательское соглашение на телефоне, смотришь в камеру.",
+      "overlay": "Читай мелкий шрифт"
+     }
+    ],
+    "caption": "В 2001-м телефон у тебя был тупой. А вот закон, который пришёл вместе с ним, — нет 📱\n\nПиши «СЛЕЖКА» в комментах — пришлю таймлайн 2001–2020 с решениями судов.",
+    "keyword": "СЛЕЖКА",
+    "cta": "По ключу СЛЕЖКА отправляй таймлайн с решениями судов."
+   }
+  },
+  "en": {
+   "title": "45 Days to Surveillance",
+   "lane": "Tech · 2001–2015",
+   "era": "2001 (the law), 2013 (Snowden), 2015 and 2020 (courts)",
+   "distraction": "After the tragedy, everyone was looking at the threat from abroad. Meanwhile, call records of millions of citizens started being collected at home.",
+   "facts": [
+    "The USA PATRIOT Act was signed on October 26, 2001, 45 days after the September 11 attacks. The document ran to more than 300 pages.",
+    "In June 2013, Edward Snowden revealed that the NSA was collecting Americans' phone call metadata in bulk under Section 215 of the law.",
+    "In May 2015, the Second Circuit Court of Appeals (ACLU v. Clapper) ruled that the law did not authorize such bulk collection. In June 2015, the USA Freedom Act ended it.",
+    "In 2020, the Ninth Circuit Court of Appeals found that the program likely violated the Constitution."
+   ],
+   "sources": [
+    "USA PATRIOT Act, Pub.L. 107–56",
+    "ACLU v. Clapper, 2nd Cir., 2015",
+    "United States v. Moalin, 9th Cir., 2020",
+    "USA Freedom Act, 2015"
+   ],
+   "risks": [
+    "9/11 is a sensitive topic. No theories about who was behind the attacks: only the documented consequences.",
+    "Don't show the towers or footage of the tragedy."
+   ],
+   "expert": {
+    "markets": "After 2001, government contracts for surveillance and cybersecurity technology surged. It's a distinct market sector that is still growing.",
+    "macro": "Crises accelerate the expansion of government powers and spending: it happened in 2001, 2008 and 2020. It's a recurring pattern.",
+    "politics": "The law passed with almost no debate amid national shock. A textbook example of how a crisis lowers resistance to laws that wouldn't pass in normal times."
+   },
+   "adaptation": {
+    "concept": "FLIP PHONE ERA. Nostalgia for 2001: flip phones, Windows XP, CD players. Every “cute thing from the 2000s” turns out to be wired to a giant server. The tone is calm and respectful of the tragedy: no theories about the attacks themselves, only the documented aftermath.",
+    "format": "AI video, 25–30 s, 2001 aesthetic",
+    "hook": "In 2001, your phone was dumb. The law that came with it wasn't.",
+    "vo": [
+     {
+      "t": "0–4",
+      "text": "In 2001, your phone was dumb. The law that came with it wasn't."
+     },
+     {
+      "t": "4–10",
+      "text": "Forty-five days after 9/11, the Patriot Act was signed. Over three hundred pages."
+     },
+     {
+      "t": "10–16",
+      "text": "Twelve years later we learned it was used to collect phone records of millions of Americans."
+     },
+     {
+      "t": "16–22",
+      "text": "In 2015 a federal court said the law never allowed it. Congress shut the program down."
+     },
+     {
+      "t": "22–28",
+      "text": "Every crisis comes with fine print. Read it."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "A 2001 teenager flips open a phone; the screen reads “1 new message”.",
+      "overlay": "2001"
+     },
+     {
+      "frame": "A thick stack of documents drops onto a desk; a date stamp hits it.",
+      "overlay": "45 DAYS LATER"
+     },
+     {
+      "frame": "The camera pulls back from the flip phone along a thin glowing thread to a giant data center.",
+      "overlay": "METADATA"
+     },
+     {
+      "frame": "A courtroom, a gavel, headlines from 2013 and 2015.",
+      "overlay": "RULED ILLEGAL, 2015"
+     },
+     {
+      "frame": "You scroll through a user agreement on your phone, then look at the camera.",
+      "overlay": "Read the fine print"
+     }
+    ],
+    "caption": "In 2001 your phone was dumb. The law that came with it wasn't 📱\n\nComment \"PRINT\" for the timeline 2001–2020 with court rulings.",
+    "keyword": "PRINT",
+    "cta": "For the keyword PRINT, send the timeline with the court rulings."
+   }
+  }
+ }
+}

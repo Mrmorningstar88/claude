@@ -1,1 +1,244 @@
-{"id": "DcRfTxLAAr6", "kind": "reel", "title": "Переписала свою историю", "lane": "AI-визуал · трансформация", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "source": {"author": "higgsfield.soul", "url": "https://www.instagram.com/higgsfield.soul/reel/DcRfTxLAAr6/", "views": 11100000, "likes": 838000, "comments": 8605, "date": "2026-08-20", "caption": "She rewrote her own story. Comment GLOW to start generating."}, "why": ["Арка трансформации «до → после»: самый универсальный сюжет в коротком видео.", "Короткая подпись-заголовок, вся история в визуале.", "Ключ GLOW обещает зрителю сделать то же самое с собой."], "adaptation": {"concept": "HE REWROTE HIS OWN STORY. Тот же формат трансформации, но через реальные точки твоей биографии: где ты начинал, первый большой убыток, первая сцена, сегодня. Только реальные факты — в этом сила.", "format": "AI-видео + реальные фото, 15–20 с, 9:16", "hook": "Nobody gave me the script. So I rewrote it.", "vo": [{"t": "0–3", "text": "Nobody gave me the script."}, {"t": "3–7", "text": "[Год и место начала — реальный факт]"}, {"t": "7–11", "text": "[Первый большой урок или потеря — реальный факт]"}, {"t": "11–15", "text": "[Поворотный момент — реальный факт]"}, {"t": "15–19", "text": "So I rewrote it. Your chapter starts the day you stop waiting."}], "storyboard": [{"n": 1, "dur": "3 с", "frame": "Чёрный экран, страница книги переворачивается, на ней твоё имя.", "overlay": "Nobody gave me the script", "prompt": "close up of an old book page turning, handwritten name 'ARUT' appears in ink, dramatic side light"}, {"n": 2, "dur": "4 с", "frame": "Реальное старое фото оживает (анимация фото).", "overlay": "[год]", "prompt": "animate the uploaded real archival photo with subtle parallax and film grain, keep face identical"}, {"n": 3, "dur": "4 с", "frame": "Сцена урока: пустая комната, на экране красный график.", "overlay": "[урок]", "prompt": "[ARUT character reference, younger] alone in a dim room looking at a red falling chart on a laptop, rain on window, moody"}, {"n": 4, "dur": "4 с", "frame": "Сцена поворота: свет софитов, сцена, толпа.", "overlay": "[поворот]", "prompt": "[ARUT character reference] steps onto a concert stage into bright spotlights, crowd silhouettes, slow motion"}, {"n": 5, "dur": "4 с", "frame": "Сегодня: ты закрываешь книгу, вечерний Дубай.", "overlay": "Your chapter starts today", "prompt": "[ARUT character reference] closes the book and looks at camera, Dubai skyline at golden hour, calm confident"}], "caption": "Nobody gave me the script. So I rewrote it 📖\n\nComment \"STORY\" and I'll send you the 3 decisions that changed mine.", "keyword": "STORY", "cta": "По ключу STORY отправляй 3 решения, которые изменили твою траекторию, плюс ссылку на академию."}, "expert": {"markets": "Если урок — реальная потеря на рынке, назови цифру или процент: конкретика вызывает доверие.", "macro": "Если начало пришлось на кризис (2008, 2014, 2020), сделай на этом акцент: зритель узнаёт эпоху.", "politics": "Не требуется."}, "risks": ["Все пропуски [в скобках] заполни только реальными фактами.", "Для анимации реальных фото используй только свои фото."], "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.", "rank": 4}
+{
+ "id": "DcRfTxLAAr6",
+ "kind": "reel",
+ "title": "Переписала свою историю",
+ "lane": "AI-визуал · трансформация",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "source": {
+  "author": "higgsfield.soul",
+  "url": "https://www.instagram.com/higgsfield.soul/reel/DcRfTxLAAr6/",
+  "views": 11100000,
+  "likes": 838000,
+  "comments": 8605,
+  "date": "2026-08-20",
+  "caption": "She rewrote her own story. Comment GLOW to start generating."
+ },
+ "why": [
+  "Арка трансформации «до → после»: самый универсальный сюжет в коротком видео.",
+  "Короткая подпись-заголовок, вся история в визуале.",
+  "Ключ GLOW обещает зрителю сделать то же самое с собой."
+ ],
+ "adaptation": {
+  "concept": "HE REWROTE HIS OWN STORY. Тот же формат трансформации, но через реальные точки твоей биографии: где ты начинал, первый большой убыток, первая сцена, сегодня. Только реальные факты — в этом сила.",
+  "format": "AI-видео + реальные фото, 15–20 с, 9:16",
+  "hook": "Nobody gave me the script. So I rewrote it.",
+  "vo": [
+   {
+    "t": "0–3",
+    "text": "Nobody gave me the script."
+   },
+   {
+    "t": "3–7",
+    "text": "[Год и место начала — реальный факт]"
+   },
+   {
+    "t": "7–11",
+    "text": "[Первый большой урок или потеря — реальный факт]"
+   },
+   {
+    "t": "11–15",
+    "text": "[Поворотный момент — реальный факт]"
+   },
+   {
+    "t": "15–19",
+    "text": "So I rewrote it. Your chapter starts the day you stop waiting."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "3 с",
+    "frame": "Чёрный экран, страница книги переворачивается, на ней твоё имя.",
+    "overlay": "Nobody gave me the script",
+    "prompt": "close up of an old book page turning, handwritten name 'ARUT' appears in ink, dramatic side light"
+   },
+   {
+    "n": 2,
+    "dur": "4 с",
+    "frame": "Реальное старое фото оживает (анимация фото).",
+    "overlay": "[год]",
+    "prompt": "animate the uploaded real archival photo with subtle parallax and film grain, keep face identical"
+   },
+   {
+    "n": 3,
+    "dur": "4 с",
+    "frame": "Сцена урока: пустая комната, на экране красный график.",
+    "overlay": "[урок]",
+    "prompt": "[ARUT character reference, younger] alone in a dim room looking at a red falling chart on a laptop, rain on window, moody"
+   },
+   {
+    "n": 4,
+    "dur": "4 с",
+    "frame": "Сцена поворота: свет софитов, сцена, толпа.",
+    "overlay": "[поворот]",
+    "prompt": "[ARUT character reference] steps onto a concert stage into bright spotlights, crowd silhouettes, slow motion"
+   },
+   {
+    "n": 5,
+    "dur": "4 с",
+    "frame": "Сегодня: ты закрываешь книгу, вечерний Дубай.",
+    "overlay": "Your chapter starts today",
+    "prompt": "[ARUT character reference] closes the book and looks at camera, Dubai skyline at golden hour, calm confident"
+   }
+  ],
+  "caption": "Nobody gave me the script. So I rewrote it 📖\n\nComment \"STORY\" and I'll send you the 3 decisions that changed mine.",
+  "keyword": "STORY",
+  "cta": "По ключу STORY отправляй 3 решения, которые изменили твою траекторию, плюс ссылку на академию."
+ },
+ "expert": {
+  "markets": "Если урок — реальная потеря на рынке, назови цифру или процент: конкретика вызывает доверие.",
+  "macro": "Если начало пришлось на кризис (2008, 2014, 2020), сделай на этом акцент: зритель узнаёт эпоху.",
+  "politics": "Не требуется."
+ },
+ "risks": [
+  "Все пропуски [в скобках] заполни только реальными фактами.",
+  "Для анимации реальных фото используй только свои фото."
+ ],
+ "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.",
+ "rank": 4,
+ "i18n": {
+  "ru": {
+   "title": "Переписала свою историю",
+   "lane": "AI-визуал · трансформация",
+   "why": [
+    "Арка трансформации «до → после»: самый универсальный сюжет в коротком видео.",
+    "Короткая подпись-заголовок, вся история в визуале.",
+    "Ключ GLOW обещает зрителю сделать то же самое с собой."
+   ],
+   "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.",
+   "risks": [
+    "Все пропуски [в скобках] заполни только реальными фактами.",
+    "Для анимации реальных фото используй только свои фото."
+   ],
+   "expert": {
+    "markets": "Если урок — реальная потеря на рынке, назови цифру или процент: конкретика вызывает доверие.",
+    "macro": "Если начало пришлось на кризис (2008, 2014, 2020), сделай на этом акцент: зритель узнаёт эпоху.",
+    "politics": "Не требуется."
+   },
+   "adaptation": {
+    "concept": "ОН ПЕРЕПИСАЛ СВОЮ ИСТОРИЮ. Тот же формат трансформации, но через реальные точки твоей биографии: где ты начинал, первый большой убыток, первая сцена, сегодня. Только реальные факты — в этом сила.",
+    "format": "AI-видео + реальные фото, 15–20 с, 9:16",
+    "hook": "Сценарий мне никто не дал. Поэтому я его переписал.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "Сценарий мне никто не дал."
+     },
+     {
+      "t": "3–7",
+      "text": "[Год и место начала — реальный факт]"
+     },
+     {
+      "t": "7–11",
+      "text": "[Первый большой урок или потеря — реальный факт]"
+     },
+     {
+      "t": "11–15",
+      "text": "[Поворотный момент — реальный факт]"
+     },
+     {
+      "t": "15–19",
+      "text": "Поэтому я его переписал. Твоя глава начинается в тот день, когда ты перестаёшь ждать."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Чёрный экран, страница книги переворачивается, на ней твоё имя.",
+      "overlay": "Сценария мне не дали"
+     },
+     {
+      "frame": "Реальное старое фото оживает (анимация фото).",
+      "overlay": "[год]"
+     },
+     {
+      "frame": "Сцена урока: пустая комната, на экране красный график.",
+      "overlay": "[урок]"
+     },
+     {
+      "frame": "Сцена поворота: свет софитов, сцена, толпа.",
+      "overlay": "[поворот]"
+     },
+     {
+      "frame": "Сегодня: ты закрываешь книгу, вечерний Дубай.",
+      "overlay": "Твоя глава начинается сегодня"
+     }
+    ],
+    "caption": "Сценарий мне никто не дал. Поэтому я его переписал 📖\n\nНапиши «ИСТОРИЯ» в комментах — пришлю 3 решения, которые изменили мою.",
+    "keyword": "ИСТОРИЯ",
+    "cta": "По ключу ИСТОРИЯ отправляй 3 решения, которые изменили твою траекторию, плюс ссылку на академию."
+   }
+  },
+  "en": {
+   "title": "She Rewrote Her Own Story",
+   "lane": "AI visuals · transformation",
+   "why": [
+    "A before → after transformation arc: the most universal storyline in short-form video.",
+    "A short headline caption; the whole story lives in the visuals.",
+    "The GLOW keyword promises viewers they can do the same for themselves."
+   ],
+   "note": "Analysis based on the caption and metrics. The full video was not watched.",
+   "risks": [
+    "Fill every [bracketed] gap with real facts only.",
+    "Animate only your own real photos."
+   ],
+   "expert": {
+    "markets": "If the lesson is a real market loss, name the figure or percentage: specifics build trust.",
+    "macro": "If your start fell during a crisis (2008, 2014, 2020), lean into it: viewers recognize the era.",
+    "politics": "Not needed."
+   },
+   "adaptation": {
+    "concept": "HE REWROTE HIS OWN STORY. The same transformation format, told through real milestones of your life: where you started, your first big loss, your first stage, today. Real facts only — that's where the power is.",
+    "format": "AI video + real photos, 15–20 s, 9:16",
+    "hook": "Nobody gave me the script. So I rewrote it.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "Nobody gave me the script."
+     },
+     {
+      "t": "3–7",
+      "text": "[Year and place where it started — real fact]"
+     },
+     {
+      "t": "7–11",
+      "text": "[First big lesson or loss — real fact]"
+     },
+     {
+      "t": "11–15",
+      "text": "[Turning point — real fact]"
+     },
+     {
+      "t": "15–19",
+      "text": "So I rewrote it. Your chapter starts the day you stop waiting."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Black screen; a book page turns and your name is on it.",
+      "overlay": "Nobody gave me the script"
+     },
+     {
+      "frame": "A real old photo comes to life (photo animation).",
+      "overlay": "[year]"
+     },
+     {
+      "frame": "Lesson scene: an empty room, a red chart on the screen.",
+      "overlay": "[lesson]"
+     },
+     {
+      "frame": "Turning point: spotlights, a stage, a crowd.",
+      "overlay": "[turning point]"
+     },
+     {
+      "frame": "Today: you close the book, Dubai in the evening.",
+      "overlay": "Your chapter starts today"
+     }
+    ],
+    "caption": "Nobody gave me the script. So I rewrote it 📖\n\nComment \"STORY\" and I'll send you the 3 decisions that changed mine.",
+    "keyword": "STORY",
+    "cta": "On the keyword STORY, send the 3 decisions that changed your trajectory, plus the academy link."
+   }
+  }
+ }
+}

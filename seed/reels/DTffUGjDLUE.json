@@ -1,1 +1,262 @@
-{"id": "DTffUGjDLUE", "kind": "reel", "title": "ChatGPT по умолчанию поддакивает", "lane": "Говорящая голова · AI-лайфхак", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "source": {"author": "samriddhiliv", "url": "https://www.instagram.com/samriddhiliv/reel/DTffUGjDLUE/", "views": 15200000, "likes": 414000, "comments": 168000, "date": "2026 (закреплён, перезалив 22 авг)", "caption": "ChatGPT agrees with you by default. One personalization prompt turns it into a fact-checker. Comment chatgpt for the prompt."}, "why": ["Провокационный тезис против привычного: «твой ИИ не умный, он просто соглашается».", "Немедленная польза: один промпт, который можно скопировать прямо сейчас.", "168K комментариев — рекорд выборки: ключ «chatgpt» за промпт работает как лид-магнит.", "Без нейро-визуала: залёт держится на идее, значит формат дешёвый в производстве."], "adaptation": {"concept": "YOUR AI IS A YES-MAN. Ты показываешь, как трейдеры заставляют ИИ спорить с их сделкой, а не поддакивать. Промпт «адвокат дьявола для сделки» перед входом в позицию. Экспертность плюс польза плюс лид-магнит в академию.", "format": "Говорящая голова 25–35 с, 9:16, запись экрана с промптом", "hook": "Your AI is lying to you about your trades. Not on purpose.", "vo": [{"t": "0–3", "text": "Your AI is lying to you about your trades. Not on purpose."}, {"t": "3–9", "text": "By default it agrees with you. You say \"Bitcoin is going up\", it finds ten reasons why you're right."}, {"t": "9–13", "text": "That's confirmation bias, on autopilot. It blows up accounts."}, {"t": "13–22", "text": "So before every trade I paste one prompt. It forces the AI to attack my idea: what kills this trade, where's my invalidation, what am I not seeing."}, {"t": "22–28", "text": "If my trade survives that, I take it. If not, I just saved money."}, {"t": "28–32", "text": "Comment PROMPT and I'll send it to you."}], "storyboard": [{"n": 1, "dur": "3 с", "frame": "Крупный план, ты смотришь в камеру, резкий джамп-кат.", "overlay": "Your AI is lying to you", "prompt": "Живая съёмка: крупный план, нейтральный тёмный фон, свет сбоку, без нейронки"}, {"n": 2, "dur": "6 с", "frame": "Запись экрана: вопрос «BTC is going up, right?» и ответ ИИ с десятком причин «да».", "overlay": "It just agrees", "prompt": "Запись экрана чата, ответ подсвечен жёлтым маркером"}, {"n": 3, "dur": "4 с", "frame": "Ты в кадре, на экране всплывает надпись CONFIRMATION BIAS.", "overlay": "Confirmation bias on autopilot", "prompt": "Живая съёмка, анимированный текст поверх"}, {"n": 4, "dur": "9 с", "frame": "Запись экрана: вставляешь промпт, ИИ выдаёт жёсткую критику сделки.", "overlay": "The prompt", "prompt": "Запись экрана с размытым текстом промпта (полный текст только по ключу)"}, {"n": 5, "dur": "10 с", "frame": "Ты в кадре, финальная мысль и CTA.", "overlay": "Comment PROMPT", "prompt": "Живая съёмка, на финале плашка с ключевым словом"}], "caption": "Your AI agrees with you by default. In trading that's expensive 💸\n\nComment \"PROMPT\" and I'll send you the exact prompt I run before every trade.", "keyword": "PROMPT", "cta": "По ключу PROMPT отправляй промпт «Pre-trade red team» и приглашение в академию.", "prompt_gift": "Act as a skeptical risk manager. I'm about to take this trade: [asset, direction, entry, stop, target, reason]. Do not agree with me. 1) List the 5 strongest reasons this trade fails. 2) Name the exact price or event that invalidates my thesis. 3) What data am I ignoring (macro calendar, funding, liquidity, correlation)? 4) Is my risk-to-reward real after fees and slippage? 5) Give a final verdict: take, reduce size, or skip."}, "expert": {"markets": "Ошибка подтверждения — одна из главных причин, почему трейдеры держат убыточные позиции. Формальная процедура «найди причины против» снижает её влияние.", "macro": "В промпте обязателен пункт про макро-календарь (CPI, FOMC, NFP): большинство резких движений приходится на эти даты.", "politics": "Не требуется."}, "risks": ["Не обещай прибыль от промпта: говори о снижении ошибок, а не о гарантии.", "Добавь в подпись «not financial advice» коротко."], "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.", "rank": 2}
+{
+ "id": "DTffUGjDLUE",
+ "kind": "reel",
+ "title": "ChatGPT по умолчанию поддакивает",
+ "lane": "Говорящая голова · AI-лайфхак",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "source": {
+  "author": "samriddhiliv",
+  "url": "https://www.instagram.com/samriddhiliv/reel/DTffUGjDLUE/",
+  "views": 15200000,
+  "likes": 414000,
+  "comments": 168000,
+  "date": "2026 (закреплён, перезалив 22 авг)",
+  "caption": "ChatGPT agrees with you by default. One personalization prompt turns it into a fact-checker. Comment chatgpt for the prompt."
+ },
+ "why": [
+  "Провокационный тезис против привычного: «твой ИИ не умный, он просто соглашается».",
+  "Немедленная польза: один промпт, который можно скопировать прямо сейчас.",
+  "168K комментариев — рекорд выборки: ключ «chatgpt» за промпт работает как лид-магнит.",
+  "Без нейро-визуала: залёт держится на идее, значит формат дешёвый в производстве."
+ ],
+ "adaptation": {
+  "concept": "YOUR AI IS A YES-MAN. Ты показываешь, как трейдеры заставляют ИИ спорить с их сделкой, а не поддакивать. Промпт «адвокат дьявола для сделки» перед входом в позицию. Экспертность плюс польза плюс лид-магнит в академию.",
+  "format": "Говорящая голова 25–35 с, 9:16, запись экрана с промптом",
+  "hook": "Your AI is lying to you about your trades. Not on purpose.",
+  "vo": [
+   {
+    "t": "0–3",
+    "text": "Your AI is lying to you about your trades. Not on purpose."
+   },
+   {
+    "t": "3–9",
+    "text": "By default it agrees with you. You say \"Bitcoin is going up\", it finds ten reasons why you're right."
+   },
+   {
+    "t": "9–13",
+    "text": "That's confirmation bias, on autopilot. It blows up accounts."
+   },
+   {
+    "t": "13–22",
+    "text": "So before every trade I paste one prompt. It forces the AI to attack my idea: what kills this trade, where's my invalidation, what am I not seeing."
+   },
+   {
+    "t": "22–28",
+    "text": "If my trade survives that, I take it. If not, I just saved money."
+   },
+   {
+    "t": "28–32",
+    "text": "Comment PROMPT and I'll send it to you."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "3 с",
+    "frame": "Крупный план, ты смотришь в камеру, резкий джамп-кат.",
+    "overlay": "Your AI is lying to you",
+    "prompt": "Живая съёмка: крупный план, нейтральный тёмный фон, свет сбоку, без нейронки"
+   },
+   {
+    "n": 2,
+    "dur": "6 с",
+    "frame": "Запись экрана: вопрос «BTC is going up, right?» и ответ ИИ с десятком причин «да».",
+    "overlay": "It just agrees",
+    "prompt": "Запись экрана чата, ответ подсвечен жёлтым маркером"
+   },
+   {
+    "n": 3,
+    "dur": "4 с",
+    "frame": "Ты в кадре, на экране всплывает надпись CONFIRMATION BIAS.",
+    "overlay": "Confirmation bias on autopilot",
+    "prompt": "Живая съёмка, анимированный текст поверх"
+   },
+   {
+    "n": 4,
+    "dur": "9 с",
+    "frame": "Запись экрана: вставляешь промпт, ИИ выдаёт жёсткую критику сделки.",
+    "overlay": "The prompt",
+    "prompt": "Запись экрана с размытым текстом промпта (полный текст только по ключу)"
+   },
+   {
+    "n": 5,
+    "dur": "10 с",
+    "frame": "Ты в кадре, финальная мысль и CTA.",
+    "overlay": "Comment PROMPT",
+    "prompt": "Живая съёмка, на финале плашка с ключевым словом"
+   }
+  ],
+  "caption": "Your AI agrees with you by default. In trading that's expensive 💸\n\nComment \"PROMPT\" and I'll send you the exact prompt I run before every trade.",
+  "keyword": "PROMPT",
+  "cta": "По ключу PROMPT отправляй промпт «Pre-trade red team» и приглашение в академию.",
+  "prompt_gift": "Act as a skeptical risk manager. I'm about to take this trade: [asset, direction, entry, stop, target, reason]. Do not agree with me. 1) List the 5 strongest reasons this trade fails. 2) Name the exact price or event that invalidates my thesis. 3) What data am I ignoring (macro calendar, funding, liquidity, correlation)? 4) Is my risk-to-reward real after fees and slippage? 5) Give a final verdict: take, reduce size, or skip."
+ },
+ "expert": {
+  "markets": "Ошибка подтверждения — одна из главных причин, почему трейдеры держат убыточные позиции. Формальная процедура «найди причины против» снижает её влияние.",
+  "macro": "В промпте обязателен пункт про макро-календарь (CPI, FOMC, NFP): большинство резких движений приходится на эти даты.",
+  "politics": "Не требуется."
+ },
+ "risks": [
+  "Не обещай прибыль от промпта: говори о снижении ошибок, а не о гарантии.",
+  "Добавь в подпись «not financial advice» коротко."
+ ],
+ "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.",
+ "rank": 2,
+ "i18n": {
+  "ru": {
+   "title": "ChatGPT по умолчанию поддакивает",
+   "lane": "Говорящая голова · AI-лайфхак",
+   "why": [
+    "Провокационный тезис против привычного: «твой ИИ не умный, он просто соглашается».",
+    "Немедленная польза: один промпт, который можно скопировать прямо сейчас.",
+    "168K комментариев — рекорд выборки: ключ «chatgpt» за промпт работает как лид-магнит.",
+    "Без нейро-визуала: залёт держится на идее, значит формат дешёвый в производстве."
+   ],
+   "note": "Разбор по подписи и метрикам. Видео целиком не просматривалось.",
+   "risks": [
+    "Не обещай прибыль от промпта: говори о снижении ошибок, а не о гарантии.",
+    "Добавь в подпись «not financial advice» коротко."
+   ],
+   "expert": {
+    "markets": "Ошибка подтверждения — одна из главных причин, почему трейдеры держат убыточные позиции. Формальная процедура «найди причины против» снижает её влияние.",
+    "macro": "В промпте обязателен пункт про макро-календарь (CPI, FOMC, NFP): большинство резких движений приходится на эти даты.",
+    "politics": "Не требуется."
+   },
+   "adaptation": {
+    "concept": "YOUR AI IS A YES-MAN. Ты показываешь, как трейдеры заставляют ИИ спорить с их сделкой, а не поддакивать. Промпт «адвокат дьявола для сделки» перед входом в позицию. Экспертность плюс польза плюс лид-магнит в академию.",
+    "format": "Говорящая голова 25–35 с, 9:16, запись экрана с промптом",
+    "hook": "Твой ИИ врёт тебе про твои сделки. Не специально.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "Твой ИИ врёт тебе про твои сделки. Не специально."
+     },
+     {
+      "t": "3–9",
+      "text": "По умолчанию он с тобой соглашается. Пишешь «Биткоин пойдёт вверх» — он находит десять причин, почему ты прав."
+     },
+     {
+      "t": "9–13",
+      "text": "Это ошибка подтверждения на автопилоте. Именно она сливает депозиты."
+     },
+     {
+      "t": "13–22",
+      "text": "Поэтому перед каждой сделкой я вставляю один промпт. Он заставляет ИИ разносить мою идею: что убьёт эту сделку, где моя точка отмены, чего я не вижу."
+     },
+     {
+      "t": "22–28",
+      "text": "Если сделка это пережила — захожу. Если нет — я только что сэкономил деньги."
+     },
+     {
+      "t": "28–32",
+      "text": "Пиши ПРОМПТ в комментах — скину тебе."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Крупный план, ты смотришь в камеру, резкий джамп-кат.",
+      "overlay": "Твой ИИ тебе врёт"
+     },
+     {
+      "frame": "Запись экрана: вопрос «Биткоин пойдёт вверх, да?» и ответ ИИ с десятком причин «да».",
+      "overlay": "Он просто поддакивает"
+     },
+     {
+      "frame": "Ты в кадре, на экране всплывает надпись ОШИБКА ПОДТВЕРЖДЕНИЯ.",
+      "overlay": "Ошибка подтверждения на автопилоте"
+     },
+     {
+      "frame": "Запись экрана: вставляешь промпт, ИИ выдаёт жёсткую критику сделки.",
+      "overlay": "Тот самый промпт"
+     },
+     {
+      "frame": "Ты в кадре, финальная мысль и CTA.",
+      "overlay": "Пиши ПРОМПТ"
+     }
+    ],
+    "caption": "Твой ИИ по умолчанию с тобой соглашается. В трейдинге это дорого стоит 💸\n\nПиши «ПРОМПТ» в комментах — скину тот самый промпт, который я запускаю перед каждой сделкой.",
+    "keyword": "ПРОМПТ",
+    "cta": "По ключу ПРОМПТ отправляй промпт «Pre-trade red team» и приглашение в академию.",
+    "prompt_gift": "Act as a skeptical risk manager. I'm about to take this trade: [asset, direction, entry, stop, target, reason]. Do not agree with me. 1) List the 5 strongest reasons this trade fails. 2) Name the exact price or event that invalidates my thesis. 3) What data am I ignoring (macro calendar, funding, liquidity, correlation)? 4) Is my risk-to-reward real after fees and slippage? 5) Give a final verdict: take, reduce size, or skip."
+   }
+  },
+  "en": {
+   "title": "ChatGPT agrees with you by default",
+   "lane": "Talking head · AI life hack",
+   "why": [
+    "A provocative claim against common belief: \"your AI isn't smart, it just agrees with you.\"",
+    "Immediate value: one prompt you can copy right now.",
+    "168K comments, the record in the sample: the \"chatgpt\" keyword for the prompt works as a lead magnet.",
+    "No AI visuals: the hit rests on the idea, so the format is cheap to produce."
+   ],
+   "note": "Analysis based on the caption and metrics. The full video was not watched.",
+   "risks": [
+    "Don't promise profit from the prompt: talk about reducing mistakes, not about guarantees.",
+    "Add a short \"not financial advice\" to the caption."
+   ],
+   "expert": {
+    "markets": "Confirmation bias is one of the main reasons traders hold losing positions. A formal \"find the reasons against\" procedure reduces its impact.",
+    "macro": "The prompt must include a point on the macro calendar (CPI, FOMC, NFP): most sharp moves happen on those dates.",
+    "politics": "Not needed."
+   },
+   "adaptation": {
+    "concept": "YOUR AI IS A YES-MAN. You show how traders make AI argue with their trade instead of nodding along. A \"devil's advocate for your trade\" prompt before entering a position. Expertise plus value plus a lead magnet for the academy.",
+    "format": "Talking head, 25–35 s, 9:16, screen recording with the prompt",
+    "hook": "Your AI is lying to you about your trades. Not on purpose.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "Your AI is lying to you about your trades. Not on purpose."
+     },
+     {
+      "t": "3–9",
+      "text": "By default it agrees with you. You say \"Bitcoin is going up\", it finds ten reasons why you're right."
+     },
+     {
+      "t": "9–13",
+      "text": "That's confirmation bias, on autopilot. It blows up accounts."
+     },
+     {
+      "t": "13–22",
+      "text": "So before every trade I paste one prompt. It forces the AI to attack my idea: what kills this trade, where's my invalidation, what am I not seeing."
+     },
+     {
+      "t": "22–28",
+      "text": "If my trade survives that, I take it. If not, I just saved money."
+     },
+     {
+      "t": "28–32",
+      "text": "Comment PROMPT and I'll send it to you."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Close-up, you look into the camera, sharp jump cut.",
+      "overlay": "Your AI is lying to you"
+     },
+     {
+      "frame": "Screen recording: the question \"BTC is going up, right?\" and the AI's answer with a dozen reasons why \"yes\".",
+      "overlay": "It just agrees"
+     },
+     {
+      "frame": "You on camera, CONFIRMATION BIAS pops up on screen.",
+      "overlay": "Confirmation bias on autopilot"
+     },
+     {
+      "frame": "Screen recording: you paste the prompt, the AI delivers a harsh critique of the trade.",
+      "overlay": "The prompt"
+     },
+     {
+      "frame": "You on camera, closing thought and CTA.",
+      "overlay": "Comment PROMPT"
+     }
+    ],
+    "caption": "Your AI agrees with you by default. In trading that's expensive 💸\n\nComment \"PROMPT\" and I'll send you the exact prompt I run before every trade.",
+    "keyword": "PROMPT",
+    "cta": "For the PROMPT keyword, send the \"Pre-trade red team\" prompt and an invitation to the academy.",
+    "prompt_gift": "Act as a skeptical risk manager. I'm about to take this trade: [asset, direction, entry, stop, target, reason]. Do not agree with me. 1) List the 5 strongest reasons this trade fails. 2) Name the exact price or event that invalidates my thesis. 3) What data am I ignoring (macro calendar, funding, liquidity, correlation)? 4) Is my risk-to-reward real after fees and slippage? 5) Give a final verdict: take, reduce size, or skip."
+   }
+  }
+ }
+}

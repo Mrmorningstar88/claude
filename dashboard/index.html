@@ -129,86 +129,225 @@ input.f:focus-visible,textarea.f:focus-visible{outline:2px solid var(--blue);out
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}.card:hover{border-color:var(--muted)}}
 </style>
 
+<style>
+.langs{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-left:auto}
+.sh-top .langs{margin-left:auto;margin-right:8px}
+.langs button{border:0;background:var(--surface);color:var(--muted);font:700 12px var(--f-mono);padding:6px 12px;cursor:pointer}
+.langs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.brand{width:100%}
+/* storyboard filmstrip */
+.strip{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x proximity}
+.panel{flex:0 0 auto;width:min(42vw,168px);display:grid;gap:6px;scroll-snap-align:start;cursor:pointer;background:none;border:0;padding:0;text-align:left;color:var(--ink);font:inherit}
+.frame{position:relative;aspect-ratio:9/16;max-width:100%;border-radius:12px;overflow:hidden;background:var(--raised);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.frame .fx{position:absolute;inset:0}
+.frame .tl{position:absolute;top:8px;left:8px;right:8px;display:flex;justify-content:space-between;gap:6px;font:700 10px var(--f-mono);letter-spacing:.04em;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.frame .num{font:700 22px var(--f-mono);color:#fff}
+.frame .ovtext{position:absolute;left:8px;right:8px;bottom:30px;text-align:center;font:700 12px/1.2 var(--f-body);color:#fff;background:rgba(0,0,0,.55);border-radius:6px;padding:5px 6px;text-wrap:balance}
+.frame .cam{position:absolute;left:8px;bottom:8px;font:600 10px var(--f-mono);color:#fff;opacity:.85;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.frame .dur{position:absolute;right:8px;bottom:8px;font:700 10px var(--f-mono);color:#fff;background:rgba(0,0,0,.45);border-radius:4px;padding:1px 5px}
+.frame .glyph{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.panel .cap{font-size:12px;line-height:1.35;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.panel:focus-visible .frame{outline:2px solid var(--blue);outline-offset:2px}
+.mini{display:flex;gap:4px;overflow:hidden;border-radius:8px}
+.mini .m{flex:1 1 0;min-width:0;aspect-ratio:9/16;max-height:72px;border-radius:5px;position:relative;overflow:hidden}
+.mini .m img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.shot .thumb{width:44px}
+.shot .thumb .frame{border-radius:8px}
+.upl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.upl label.btn{cursor:pointer}
+.upl input[type=file]{position:absolute;width:1px;height:1px;opacity:0}
+.legend{font-size:12px;color:var(--muted)}
+.lang-note{font-size:12px;color:var(--muted)}
+</style>
+
 <div class="wrap">
   <header class="top">
-    <div class="brand"><h1>ARUT <b>Viral</b> Radar</h1><span class="meta" id="meta">Загрузка базы…</span></div>
+    <div class="brand"><h1>ARUT <b>Viral</b> Radar</h1><span class="meta" id="meta"></span>
+      <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="ru" aria-pressed="true">RU</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+    </div>
     <form class="addbar" id="addform" autocomplete="off">
-      <label for="addurl" class="label">Нашёл ролик сам? Вставь ссылку, и радар разберёт его в ближайший запуск</label>
+      <label for="addurl" class="label" data-t="addLabel"></label>
       <div class="addrow">
         <input class="f" id="addurl" type="url" inputmode="url" placeholder="https://www.instagram.com/reel/…" required>
-        <input class="f" id="addnote" type="text" placeholder="Что зацепило или какой поворот хочешь (необязательно)">
-        <button class="btn primary" type="submit">В очередь</button>
+        <input class="f" id="addnote" type="text" data-tp="addNote">
+        <button class="btn primary" type="submit" data-t="addBtn"></button>
       </div>
       <div class="queue" id="queue"></div>
     </form>
   </header>
-  <nav class="tabs" role="tablist" aria-label="Разделы">
-    <button class="tab" role="tab" id="tab-reels" aria-selected="true" data-tab="reels">Залёты <span class="n" id="n-reels">0</span></button>
-    <button class="tab red" role="tab" id="tab-redpill" aria-selected="false" data-tab="redpill">Red Pill <span class="n" id="n-redpill">0</span></button>
-    <button class="tab" role="tab" id="tab-work" aria-selected="false" data-tab="work">В работе <span class="n" id="n-work">0</span></button>
-    <button class="tab" role="tab" id="tab-shot" aria-selected="false" data-tab="shot">Снято <span class="n" id="n-shot">0</span></button>
-    <button class="tab" role="tab" id="tab-persona" aria-selected="false" data-tab="persona">Персонаж</button>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" aria-selected="true" data-tab="reels"><span data-t="tabReels"></span> <span class="n" id="n-reels">0</span></button>
+    <button class="tab red" role="tab" aria-selected="false" data-tab="redpill">Red Pill <span class="n" id="n-redpill">0</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="work"><span data-t="tabWork"></span> <span class="n" id="n-work">0</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="shot"><span data-t="tabShot"></span> <span class="n" id="n-shot">0</span></button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="persona" data-t="tabPersona"></button>
   </nav>
   <p class="lede" id="lede"></p>
   <div class="tools" id="tools">
-    <input class="f" id="search" type="search" placeholder="Поиск по названию, автору, ключу">
-    <select id="sort" aria-label="Сортировка"><option value="views">По просмотрам</option><option value="new">Сначала новые</option></select>
+    <input class="f" id="search" type="search" data-tp="search">
+    <select id="sort" aria-label="Sort"><option value="views" data-t="sortViews"></option><option value="new" data-t="sortNew"></option></select>
   </div>
   <main id="list" class="grid" aria-live="polite"></main>
   <div id="empty" class="empty" hidden></div>
   <form class="persona" id="persona" hidden autocomplete="off">
-    <label for="p-facts">Реальные факты обо мне
-      <span class="hint">Возраст, город детства, первые шаги в музыке и трейдинге, реальные цифры и даты. Радар и кнопка «Переписать» подставляют их вместо пропусков [в скобках] и никогда не выдумывают биографию.</span>
+    <label for="p-facts"><span data-t="pFacts"></span>
+      <span class="hint" data-t="pFactsHint"></span>
       <textarea class="f" id="p-facts" rows="7"></textarea></label>
-    <label for="p-voice">Мой голос и подача
-      <span class="hint">Как ты говоришь: короткие фразы, юмор, любимые выражения, язык роликов.</span>
+    <label for="p-voice"><span data-t="pVoice"></span>
+      <span class="hint" data-t="pVoiceHint"></span>
       <textarea class="f" id="p-voice" rows="4"></textarea></label>
-    <label for="p-taboo">Нельзя
-      <span class="hint">Темы, слова и форматы, которые ты не используешь.</span>
+    <label for="p-taboo"><span data-t="pTaboo"></span>
+      <span class="hint" data-t="pTabooHint"></span>
       <textarea class="f" id="p-taboo" rows="3"></textarea></label>
-    <div><button class="btn primary" type="submit">Сохранить персонажа</button></div>
+    <div><button class="btn primary" type="submit" data-t="pSave"></button></div>
   </form>
 </div>
 
 <div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title" hidden>
   <div class="sheet-head"><div class="inner">
     <div class="sh-top">
-      <button class="btn small" id="close" type="button">← Назад</button>
-      <div class="seg" role="group" aria-label="Статус">
-        <button type="button" class="s-new" data-st="new" aria-pressed="false">Новое</button>
-        <button type="button" class="s-work" data-st="work" aria-pressed="false">В работе</button>
-        <button type="button" class="s-shot" data-st="shot" aria-pressed="false">Снято</button>
+      <button class="btn small" id="close" type="button" data-t="back"></button>
+      <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="ru" aria-pressed="true">RU</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+      <div class="seg" role="group" aria-label="Status">
+        <button type="button" class="s-new" data-st="new" aria-pressed="false" data-t="stNew"></button>
+        <button type="button" class="s-work" data-st="work" aria-pressed="false" data-t="stWork"></button>
+        <button type="button" class="s-shot" data-st="shot" aria-pressed="false" data-t="stShot"></button>
       </div>
     </div>
     <h2 class="sh-title" id="sh-title"></h2>
-    <nav class="jump" id="jump" aria-label="Разделы адаптации"></nav>
+    <nav class="jump" id="jump" aria-label="Adaptation sections"></nav>
   </div></div>
   <div class="sheet-body" id="sheet-body"></div>
 </div>
 <div id="toast" class="toast" hidden></div>
 
 <script>
-const LEDE={
-  reels:"Ролики от 10M просмотров из Instagram Reels. Нажми «Адаптация»: хук, сценарий, сториборд с промптами, подпись и экспертный слой.",
-  redpill:"Сюжеты, подтверждённые документами и решениями судов: на что отвлекали внимание людей. Каждый упакован в поп-формат с источниками.",
-  work:"То, что ты взял в работу.",
-  shot:"Отснятые ролики.",
-  persona:"Заполни один раз. Радар и кнопка «Переписать под мою идею» берут отсюда реальные факты и твой голос."
+const T={
+ru:{addLabel:"Нашёл ролик сам? Вставь ссылку, и радар разберёт его в ближайший запуск",addNote:"Что зацепило или какой поворот хочешь (необязательно)",addBtn:"В очередь",
+ tabReels:"Залёты",tabWork:"В работе",tabShot:"Снято",tabPersona:"Персонаж",search:"Поиск по названию, автору, ключу",sortViews:"По просмотрам",sortNew:"Сначала новые",
+ pFacts:"Реальные факты обо мне",pFactsHint:"Возраст, город детства, первые шаги в музыке и трейдинге, реальные цифры и даты. Радар и кнопка «Переписать» подставляют их вместо пропусков [в скобках] и никогда не выдумывают биографию.",
+ pVoice:"Мой голос и подача",pVoiceHint:"Как ты говоришь: короткие фразы, юмор, любимые выражения, язык роликов.",pTaboo:"Нельзя",pTabooHint:"Темы, слова и форматы, которые ты не используешь.",pSave:"Сохранить персонажа",
+ back:"← Назад",stNew:"Новое",stWork:"В работе",stShot:"Снято",
+ lede:{reels:"Ролики от 10M просмотров из Instagram Reels. Нажми «Адаптация»: раскадровка, хук, сценарий, подпись и экспертный слой.",redpill:"Сюжеты, подтверждённые документами и решениями судов: на что отвлекали внимание людей. Каждый упакован в поп-формат с источниками.",work:"То, что ты взял в работу.",shot:"Отснятые ролики.",persona:"Заполни один раз. Радар и кнопка «Переписать под мою идею» берут отсюда реальные факты и твой голос."},
+ views:"просмотров",key:"Ключ",variantsN:"Вариантов",hasNote:"Есть заметка",adapt:"Адаптация",orig:"Оригинал ↗",
+ updated:"Обновлено",dubai:"Дубай",runs:"поиск в 08:58 и 19:58",emptyDb:"База пока пустая",
+ eNoDb:"База недоступна в этом окне. Открой страницу в claude.ai.",eLoad:"Загружаю ролики…",eSearch:"Ничего не нашлось по запросу.",eShot:"Пока ничего не снято. Открой адаптацию и нажми «Снято», когда ролик готов.",eWork:"Нет роликов в работе. Открой адаптацию и нажми «В работе».",eNew:"Новые ролики появятся после следующего запуска поиска (08:58 и 19:58 по Дубаю).",
+ qDone:"готово",qErr:"не удалось",qWait:"ждёт запуска",
+ sBoard:"Раскадровка",sWhy:"Почему залетел",sFacts:"Факты",sHook:"Хук",sScript:"Сценарий",sShots:"Кадры и промпты",sCaption:"Подпись",sExpert:"Экспертный слой",sRisks:"Риски",sMine:"Моя версия",sNotes:"Заметки",
+ boardHint:"Нажми на кадр, чтобы открыть промпт. Цвет и подпись показывают настроение, план и движение камеры; загрузи готовый кадр из нейронки, и он встанет на место.",
+ distr:"От чего отвлекали",facts:"Подтверждённые факты",sources:"Источники",hookIdea:"Хук и идея",yourIdea:"Твоя идея",
+ scriptLbl:"Сценарий / текст",copyAll:"Копировать всё",copy:"Копировать",copyPrompt:"Копировать промпт",allPrompts:"Все промпты",frames:"кадров",
+ charRef:"[ARUT character reference] — подставь своего персонажа (Soul ID или фото-референсы) в Higgsfield, Kling или Hypit. Промпты всегда на английском: так нейронки работают точнее.",
+ captionLbl:"Подпись и ключ",keyword:"Ключевое слово",gift:"Что отправлять по ключу",expert:"Экспертный слой",mk:"Рынки",mc:"Макро",pol:"Политика",checkBefore:"Проверь перед съёмкой",
+ rewriteLbl:"Переписать под мою идею",ideaPh:"Например: сделай про золото вместо биткоина; добавь жену в финал; короче, 12 секунд",rewrite:"Переписать",stop:"Стоп",
+ aiHint:"Claude перепишет хук, сценарий, раскадровку и подпись на двух языках с учётом вкладки «Персонаж». Тратит лимит твоего аккаунта Claude.",
+ notesLbl:"Мои заметки",notesPh:"Локация, кто снимает, музыка, что поменять",saveNote:"Сохранить заметку",
+ main:"Основной",variant:"Вариант",draft:"Новый вариант (не сохранён)",saveVar:"Сохранить вариант",cancel:"Отменить",
+ upload:"Загрузить кадр",replace:"Заменить кадр",removeF:"Убрать",uploading:"Загружаю…",
+ tCopied:"Скопировано",tCopyManual:"Выдели и скопируй вручную",tShot:"Отмечено: снято",tWork:"Взято в работу",tNew:"Вернул в новые",tStatusErr:"Не получилось сохранить статус",tNote:"Заметка сохранена",tNoteErr:"Не получилось сохранить заметку",
+ tVar:"Вариант сохранён",tVarErr:"Не получилось сохранить вариант",tVarReady:"Новый вариант готов",tIdea:"Опиши идею в одном-двух предложениях",tNeedReel:"Нужна ссылка на Instagram Reels",tInDb:"Этот ролик уже в базе",tNoDb:"База недоступна в этом окне",tAdded:"Добавлено. Разберу в ближайший запуск",tAddErr:"Не получилось добавить",tPersona:"Персонаж сохранён",tSaveErr:"Не получилось сохранить",tFrame:"Кадр загружен",tFrameErr:"Не получилось загрузить кадр",
+ aiThinking:"Claude думает… обычно 30–90 секунд.",aiWriting:"Пишет вариант…",
+ aiErr:{cancelled:"Остановлено.",not_granted:"Доступ к Claude для этой страницы не разрешён.",rate_limited:"Слишком много запросов или закончился лимит. Попробуй позже.",invalid_json:"Ответ пришёл в неверном формате. Нажми «Переписать» ещё раз.",refused:"Claude не стал писать такой вариант. Измени формулировку."},aiErrDefault:"Не получилось. Попробуй ещё раз позже.",
+ shotType:{cu:"КРУПНЫЙ",wide:"ОБЩИЙ",aerial:"ДРОН",track:"ПРОЕЗД",mid:"СРЕДНИЙ",screen:"ЭКРАН"},cam:{push:"↗ наезд",pull:"↙ отъезд",slow:"slow-mo",lapse:"таймлапс",static:"статика"},
+ fallbackLang:"Перевод появится после ближайшего запуска; пока показан исходный текст."},
+en:{addLabel:"Found a reel yourself? Paste the link and the radar will break it down on the next run",addNote:"What hooked you or the twist you want (optional)",addBtn:"Add to queue",
+ tabReels:"Viral",tabWork:"In progress",tabShot:"Shot",tabPersona:"Persona",search:"Search title, author, keyword",sortViews:"Most views",sortNew:"Newest first",
+ pFacts:"Real facts about me",pFactsHint:"Age, hometown, first steps in music and trading, real numbers and dates. The radar and the Rewrite button use them instead of [placeholders] and never invent a biography.",
+ pVoice:"My voice and delivery",pVoiceHint:"How you talk: short lines, humor, favorite phrases, language of the videos.",pTaboo:"Never",pTabooHint:"Topics, words and formats you don't use.",pSave:"Save persona",
+ back:"← Back",stNew:"New",stWork:"In progress",stShot:"Shot",
+ lede:{reels:"Instagram Reels with 10M+ views. Tap Adaptation for the storyboard, hook, script, caption and expert layer.",redpill:"Stories backed by documents and court rulings about what people's attention was pulled away from. Each one is packaged in a pop-culture format with sources.",work:"What you're working on.",shot:"Videos you've shot.",persona:"Fill this in once. The radar and the Rewrite button take your real facts and voice from here."},
+ views:"views",key:"Keyword",variantsN:"Versions",hasNote:"Has a note",adapt:"Adaptation",orig:"Original ↗",
+ updated:"Updated",dubai:"Dubai",runs:"search at 08:58 and 19:58",emptyDb:"No entries yet",
+ eNoDb:"The database isn't available in this window. Open the page in claude.ai.",eLoad:"Loading reels…",eSearch:"Nothing matches your search.",eShot:"Nothing shot yet. Open an adaptation and tap Shot when the video is done.",eWork:"Nothing in progress. Open an adaptation and tap In progress.",eNew:"New reels appear after the next search run (08:58 and 19:58 Dubai time).",
+ qDone:"done",qErr:"failed",qWait:"waiting",
+ sBoard:"Storyboard",sWhy:"Why it went viral",sFacts:"Facts",sHook:"Hook",sScript:"Script",sShots:"Shots and prompts",sCaption:"Caption",sExpert:"Expert layer",sRisks:"Risks",sMine:"My version",sNotes:"Notes",
+ boardHint:"Tap a frame to open its prompt. Color and labels show mood, shot size and camera move; upload a finished frame from your AI tool and it takes its place.",
+ distr:"What attention was pulled away from",facts:"Confirmed facts",sources:"Sources",hookIdea:"Hook and idea",yourIdea:"Your idea",
+ scriptLbl:"Script",copyAll:"Copy all",copy:"Copy",copyPrompt:"Copy prompt",allPrompts:"All prompts",frames:"frames",
+ charRef:"[ARUT character reference] = your character (Soul ID or photo references) in Higgsfield, Kling or Hypit. Prompts stay in English because AI video models follow English best.",
+ captionLbl:"Caption and keyword",keyword:"Keyword",gift:"What to send for the keyword",expert:"Expert layer",mk:"Markets",mc:"Macro",pol:"Politics",checkBefore:"Check before shooting",
+ rewriteLbl:"Rewrite to my idea",ideaPh:"E.g.: make it about gold instead of bitcoin; add my wife in the ending; shorter, 12 seconds",rewrite:"Rewrite",stop:"Stop",
+ aiHint:"Claude rewrites the hook, script, storyboard and caption in both languages using your Persona tab. Uses your Claude account's limits.",
+ notesLbl:"My notes",notesPh:"Location, who shoots, music, what to change",saveNote:"Save note",
+ main:"Main",variant:"Version",draft:"New version (not saved)",saveVar:"Save version",cancel:"Discard",
+ upload:"Upload frame",replace:"Replace frame",removeF:"Remove",uploading:"Uploading…",
+ tCopied:"Copied",tCopyManual:"Select and copy manually",tShot:"Marked as shot",tWork:"Moved to in progress",tNew:"Moved back to new",tStatusErr:"Couldn't save the status",tNote:"Note saved",tNoteErr:"Couldn't save the note",
+ tVar:"Version saved",tVarErr:"Couldn't save the version",tVarReady:"New version is ready",tIdea:"Describe your idea in a sentence or two",tNeedReel:"Paste an Instagram Reels link",tInDb:"This reel is already in the database",tNoDb:"The database isn't available in this window",tAdded:"Added. It will be processed on the next run",tAddErr:"Couldn't add it",tPersona:"Persona saved",tSaveErr:"Couldn't save",tFrame:"Frame uploaded",tFrameErr:"Couldn't upload the frame",
+ aiThinking:"Claude is thinking… usually 30–90 seconds.",aiWriting:"Writing the version…",
+ aiErr:{cancelled:"Stopped.",not_granted:"This page isn't allowed to use Claude.",rate_limited:"Too many requests or your limit is reached. Try again later.",invalid_json:"The answer came back in the wrong format. Tap Rewrite again.",refused:"Claude declined this version. Change the wording."},aiErrDefault:"That didn't work. Try again later.",
+ shotType:{cu:"CLOSE-UP",wide:"WIDE",aerial:"AERIAL",track:"TRACKING",mid:"MEDIUM",screen:"SCREEN"},cam:{push:"↗ push in",pull:"↙ pull back",slow:"slow-mo",lapse:"time-lapse",static:"static"},
+ fallbackLang:"Translation will appear after the next run; showing the original text for now."}
 };
-const ST={new:["Новое","st-new"],work:["В работе","st-work"],shot:["Снято","st-shot"]};
-const state={reels:[],redpill:[],queue:[],persona:null,tab:"reels",open:null,variant:0,draft:null,canWrite:true,q:"",sort:"views",loaded:{reels:false,redpill:false}};
-let db=null,sample=null,aiCtl=null;
+const ST={new:["stNew","st-new"],work:["stWork","st-work"],shot:["stShot","st-shot"]};
+const state={reels:[],redpill:[],queue:[],persona:null,tab:"reels",open:null,variant:0,draft:null,canWrite:true,q:"",sort:"views",loaded:{reels:false,redpill:false},lang:"ru"};
+try{const l=localStorage.getItem("radar-lang");if(l==="en"||l==="ru")state.lang=l}catch(_){}
+let db=null,sample=null,assets=null,aiCtl=null;
+const t=k=>T[state.lang][k]??T.ru[k]??k;
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const fmtN=n=>{if(n==null)return"—";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?1:2).replace(/\.0+$/,"")+"M";if(n>=1e3)return(n/1e3).toFixed(n>=1e4?0:1).replace(/\.0$/,"")+"K";return String(n)};
-const fmtD=s=>{if(!s)return"";const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s);if(!m)return s;const mo=["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"][+m[2]-1];return`${+m[3]} ${mo} ${m[1]}`};
+const fmtN=n=>{if(n==null)return"—";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?1:2).replace(/\.?0+$/,"")+"M";if(n>=1e3)return(n/1e3).toFixed(n>=1e4?0:1).replace(/\.0$/,"")+"K";return String(n)};
+const MO={ru:["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"],en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]};
+const fmtD=s=>{if(!s)return"";const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s);if(!m)return s;const mo=MO[state.lang][+m[2]-1];return state.lang==="en"?`${mo} ${+m[3]}, ${m[1]}`:`${+m[3]} ${mo} ${m[1]}`};
+const fdur=x=>state.lang==="en"?String(x??"").replace(/\s*с$/," s"):String(x??"");
 const all=()=>[...state.reels,...state.redpill];
 const colOf=kind=>kind==="reel"?"reels":"redpill";
-function find(kind,id){return(kind==="reel"?state.reels:state.redpill).find(x=>x.id===id)}
+const find=(kind,id)=>(kind==="reel"?state.reels:state.redpill).find(x=>x.id===id);
+/* localization: doc.i18n[lang] overrides base fields */
+function L(d){return d.i18n?.[state.lang]||null}
+function lf(d,key){const l=L(d);return l&&l[key]!=null?l[key]:d[key]}
+function lexp(d){const l=L(d);return{...(d.expert||{}),...(l?.expert||{})}}
+function locAdapt(base,i18n){
+  base=base||{};const a=i18n?.[state.lang]?.adaptation||i18n?.[state.lang]||null;
+  const out={...base};
+  if(a){for(const k of["concept","format","hook","caption","keyword","cta","prompt_gift"])if(a[k]!=null)out[k]=a[k];
+    if(Array.isArray(a.vo)&&a.vo.length)out.vo=a.vo;}
+  out.storyboard=(base.storyboard||[]).map((s,i)=>({...s,...(a?.storyboard?.[i]?{frame:a.storyboard[i].frame??s.frame,overlay:a.storyboard[i].overlay??s.overlay}:{})}));
+  return out;
+}
+function adaptationOf(d,v){
+  if(state.draft&&v==="draft")return locAdapt(state.draft.adaptation,state.draft.i18n);
+  if(!v)return locAdapt(d.adaptation,d.i18n);
+  const x=(d.variants||[])[v-1];return x?locAdapt(x.adaptation,x.i18n):locAdapt(d.adaptation,d.i18n);
+}
+/* storyboard visuals derived from the English prompt */
+const MOODS=[
+ [/neon|night|dark|server|cold blue/i,["#0b1530","#4a2b8f"]],[/golden|sunset|warm|dubai|hour/i,["#f4a259","#7a3b1d"]],
+ [/sepia|1910|1913|vintage|1960|1970|1971|retro|70s|60s|archival|black and white/i,["#c8a97e","#4b3a2c"]],
+ [/red|panic|siren|alarm|chaos/i,["#e0465a","#3a0d14"]],[/laboratory|white|sterile|lab coat/i,["#e9eef7","#8aa4c8"]],
+ [/gold bar|gold/i,["#ecd078","#6b4e12"]],[/rain|moody|dim|shadow/i,["#46516a","#12151d"]],
+ [/arena|stage|concert|spotlight|crowd|game show/i,["#2a1240","#f0a94a"]],[/chart|candlestick|green/i,["#1f8a57","#0b2a1d"]],
+ [/marsh|island|drone|aerial|desert|skyline/i,["#7fb3a6","#24433f"]]];
+function mood(p){for(const[re,c]of MOODS)if(re.test(p))return c;return["#3a4152","#161a22"]}
+function shotKind(p){if(/close up|close-up|macro/i.test(p))return"cu";if(/aerial|drone/i.test(p))return"aerial";if(/screen recording|запись экрана|screen/i.test(p))return"screen";if(/tracking|runs|flies|glides|chasing|walks toward/i.test(p))return"track";if(/gigantic|massive|wide|epic scale|skyline|hall/i.test(p))return"wide";return"mid"}
+function camMove(p){if(/pulls back|pull back/i.test(p))return"pull";if(/push(es)? in|flies through|glides forward|camera flies|camera pushes/i.test(p))return"push";if(/time ?lapse|flipping/i.test(p))return"lapse";if(/slow motion|slow-mo/i.test(p))return"slow";return"static"}
+const GLYPH={cu:'<circle cx="50" cy="44" r="16" fill="none" stroke="#fff" stroke-width="2.5" opacity=".75"/><path d="M28 92c4-18 40-18 44 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".75"/>',
+ wide:'<path d="M8 110 L34 70 L52 92 L70 60 L92 110Z" fill="#fff" opacity=".22"/><circle cx="50" cy="104" r="4" fill="#fff" opacity=".8"/>',
+ aerial:'<path d="M10 120 L50 80 L90 120" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/><path d="M50 30 l-10 8 h20z" fill="#fff" opacity=".8"/>',
+ track:'<circle cx="46" cy="70" r="7" fill="#fff" opacity=".8"/><path d="M46 77 v20 m0-12 l-10 8 m10-8 l10 8 m-10 12 l-8 14 m8-14 l8 14" stroke="#fff" stroke-width="2.5" opacity=".8"/><path d="M64 70 h18 m-6 -6 l6 6 l-6 6" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>',
+ mid:'<circle cx="50" cy="56" r="10" fill="none" stroke="#fff" stroke-width="2.5" opacity=".75"/><path d="M30 100c3-22 37-22 40 0" fill="none" stroke="#fff" stroke-width="2.5" opacity=".75"/>',
+ screen:'<rect x="24" y="44" width="52" height="70" rx="6" fill="none" stroke="#fff" stroke-width="2.5" opacity=".75"/><path d="M32 60h36M32 70h28M32 80h32" stroke="#fff" stroke-width="2" opacity=".55"/>'};
+function frameHTML(d,s,idx,opts={}){
+  const p=String(s.prompt||"");const[c1,c2]=mood(p);const k=shotKind(p);const cam=camMove(p);
+  const fid=(d.frames||{})[`${state.variantKey}-${s.n}`];
+  const img=fid?`<img src="/_blob/${esc(fid)}" alt="" loading="lazy">`:"";
+  return`<div class="frame" style="background:linear-gradient(160deg,${c1},${c2})">
+    ${img?img:`<svg class="glyph" viewBox="0 0 100 160" aria-hidden="true">${GLYPH[k]}</svg>`}
+    ${opts.mini?"":`<div class="tl"><span class="num">${esc(s.n)}</span><span>${esc(t("shotType")[k])}</span></div>
+    ${s.overlay?`<div class="ovtext">${esc(s.overlay)}</div>`:""}
+    <div class="cam">${esc(t("cam")[cam])}</div><div class="dur">${esc(fdur(s.dur))}</div>`}
+  </div>`;
+}
+function applyStatic(){
+  document.documentElement.lang=state.lang;
+  document.querySelectorAll("[data-t]").forEach(el=>{el.textContent=t(el.dataset.t)});
+  document.querySelectorAll("[data-tp]").forEach(el=>{el.placeholder=t(el.dataset.tp)});
+  document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.lang===state.lang));
+}
 function visible(){
   let items=state.tab==="reels"?state.reels.filter(d=>d.status!=="shot"):state.tab==="redpill"?state.redpill.filter(d=>d.status!=="shot"):all().filter(d=>d.status===state.tab);
   const q=state.q.trim().toLowerCase();
-  if(q)items=items.filter(d=>[d.title,d.lane,d.source?.author,d.adaptation?.keyword,d.adaptation?.hook,d.era].join(" ").toLowerCase().includes(q));
+  if(q)items=items.filter(d=>[d.title,lf(d,"title"),d.lane,d.source?.author,d.adaptation?.keyword,d.adaptation?.hook,d.era].join(" ").toLowerCase().includes(q));
   const byNew=(a,b)=>String(b.foundAt||"").localeCompare(String(a.foundAt||""))||(a.rank??0)-(b.rank??0);
   if(state.sort==="new")return items.sort(byNew);
   return items.sort((a,b)=>(b.source?.views||0)-(a.source?.views||0)||(a.rank??0)-(b.rank??0));
@@ -219,174 +358,188 @@ function counts(){
   $("#n-work").textContent=all().filter(d=>d.status==="work").length;
   $("#n-shot").textContent=all().filter(d=>d.status==="shot").length;
   const last=all().map(d=>d.foundAt||"").sort().pop();
-  $("#meta").textContent=last?`Обновлено ${fmtD(last)} · ${new Date(last).toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Dubai"})} Дубай · поиск в 08:58 и 19:58`:"База пока пустая";
+  $("#meta").textContent=last?`${t("updated")} ${fmtD(last)} · ${new Date(last).toLocaleTimeString(state.lang==="en"?"en-GB":"ru-RU",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Dubai"})} ${t("dubai")} · ${t("runs")}`:t("emptyDb");
 }
 function renderQueue(){
-  const el=$("#queue");
   const items=[...state.queue].sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt))).slice(0,8);
-  el.innerHTML=items.map(q=>{const cls=q.status==="done"?"done":q.status==="error"?"error":"";const label=q.status==="done"?"готово":q.status==="error"?(q.message||"не удалось"):"ждёт запуска";
-    return`<span class="q ${cls}" title="${esc(q.url)}">${esc(q.url.replace(/^https?:\/\/(www\.)?/,"").slice(0,42))} · ${esc(label)}</span>`}).join("");
+  $("#queue").innerHTML=items.map(q=>{const cls=q.status==="done"?"done":q.status==="error"?"error":"";const label=q.status==="done"?t("qDone"):q.status==="error"?(q.message||t("qErr")):t("qWait");
+    return`<span class="q ${cls}" title="${esc(q.url)}">${esc(String(q.url||"").replace(/^https?:\/\/(www\.)?/,"").slice(0,42))} · ${esc(label)}</span>`}).join("");
 }
 function card(d){
   const st=ST[d.status]||ST.new;
-  const top=d.kind==="reel"?`<div class="views">${fmtN(d.source?.views)}<small>просмотров</small></div>`:`<div class="era">${esc(d.era)}</div>`;
-  const sub=d.kind==="reel"?`@${esc(d.source?.author)} · ${esc(fmtD(d.source?.date))} · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)}`:esc(d.lane);
-  const why=d.kind==="reel"?(d.why||[])[0]:d.distraction;
-  const link=d.kind==="reel"&&d.source?.url?`<a class="btn" href="${esc(d.source.url)}" target="_blank" rel="noopener">Оригинал ↗</a>`:"";
-  const extra=[d.kind==="reel"?`<span class="chip">${esc(d.lane)}</span>`:"",`<span class="chip">Ключ: ${esc(d.adaptation?.keyword)}</span>`,(d.variants||[]).length?`<span class="chip">Вариантов: ${d.variants.length+1}</span>`:"",d.notes?`<span class="chip">Есть заметка</span>`:""].join("");
-  return`<article class="card"><div class="row">${top}<span class="status ${st[1]}">${st[0]}</span></div>
-    <h3>${esc(d.title)}</h3><div class="sub">${sub}</div><p class="why">${esc(why)}</p><div class="chips">${extra}</div>
-    <div class="actions"><button class="btn primary" type="button" data-open="${esc(d.kind)}|${esc(d.id)}">Адаптация</button>${link}</div></article>`;
+  const a=adaptationOf(d,0);
+  state.variantKey=0;
+  const top=d.kind==="reel"?`<div class="views">${fmtN(d.source?.views)}<small>${t("views")}</small></div>`:`<div class="era">${esc(lf(d,"era"))}</div>`;
+  const sub=d.kind==="reel"?`@${esc(d.source?.author)} · ${esc(fmtD(d.source?.date))} · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)}`:esc(lf(d,"lane"));
+  const why=d.kind==="reel"?(lf(d,"why")||[])[0]:lf(d,"distraction");
+  const link=d.kind==="reel"&&d.source?.url?`<a class="btn" href="${esc(d.source.url)}" target="_blank" rel="noopener">${t("orig")}</a>`:"";
+  const strip=(a.storyboard||[]).slice(0,7).map((s,i)=>`<div class="m">${frameHTML(d,s,i,{mini:true})}</div>`).join("");
+  const extra=[d.kind==="reel"?`<span class="chip">${esc(lf(d,"lane"))}</span>`:"",`<span class="chip">${t("key")}: ${esc(a.keyword)}</span>`,(d.variants||[]).length?`<span class="chip">${t("variantsN")}: ${d.variants.length+1}</span>`:"",d.notes?`<span class="chip">${t("hasNote")}</span>`:""].join("");
+  return`<article class="card"><div class="row">${top}<span class="status ${st[1]}">${t(st[0])}</span></div>
+    <h3>${esc(lf(d,"title"))}</h3><div class="sub">${sub}</div><p class="why">${esc(why)}</p>
+    <div class="mini" aria-hidden="true">${strip}</div><div class="chips">${extra}</div>
+    <div class="actions"><button class="btn primary" type="button" data-open="${esc(d.kind)}|${esc(d.id)}">${t("adapt")}</button>${link}</div></article>`;
 }
 function render(){
-  counts();renderQueue();
-  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.tab===state.tab));
-  $("#lede").textContent=LEDE[state.tab];
+  applyStatic();counts();renderQueue();
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x.dataset.tab===state.tab));
+  $("#lede").textContent=t("lede")[state.tab];
   const isPersona=state.tab==="persona";
   $("#persona").hidden=!isPersona;$("#tools").hidden=isPersona;$("#list").hidden=isPersona;
   if(isPersona){$("#empty").hidden=true;fillPersona();if(state.open)renderSheet();return}
   const items=visible();
   $("#list").innerHTML=items.map(card).join("");
-  const empty=$("#empty");
-  const loading=!state.loaded.reels||!state.loaded.redpill;
-  if(!items.length){
-    empty.hidden=false;
-    empty.textContent=!db?"База недоступна в этом окне. Открой страницу в claude.ai.":loading?"Загружаю ролики…":state.q?"Ничего не нашлось по запросу.":
-      state.tab==="shot"?"Пока ничего не снято. Открой адаптацию и нажми «Снято», когда ролик готов.":
-      state.tab==="work"?"Нет роликов в работе. Открой адаптацию и нажми «В работе».":"Новые ролики появятся после следующего запуска поиска (08:58 и 19:58 по Дубаю).";
-  }else empty.hidden=true;
+  const empty=$("#empty");const loading=!state.loaded.reels||!state.loaded.redpill;
+  if(!items.length){empty.hidden=false;empty.textContent=!db?t("eNoDb"):loading?t("eLoad"):state.q?t("eSearch"):state.tab==="shot"?t("eShot"):state.tab==="work"?t("eWork"):t("eNew")}
+  else empty.hidden=true;
   if(state.open)renderSheet();
 }
 let personaFilled=false;
-function fillPersona(){
-  if(personaFilled||!state.persona)return;
-  $("#p-facts").value=state.persona.facts||"";$("#p-voice").value=state.persona.voice||"";$("#p-taboo").value=state.persona.taboo||"";personaFilled=true;
-}
-const copyBtn=(text,label="Копировать")=>`<button class="btn small" type="button" data-copy="${esc(text)}">${label}</button>`;
-function currentAdaptation(d){
-  const vs=[d.adaptation,...(d.variants||[]).map(v=>v.adaptation)];
-  if(state.draft)return state.draft.adaptation;
-  return vs[Math.min(state.variant,vs.length-1)]||d.adaptation||{};
-}
+function fillPersona(){if(personaFilled||!state.persona)return;$("#p-facts").value=state.persona.facts||"";$("#p-voice").value=state.persona.voice||"";$("#p-taboo").value=state.persona.taboo||"";personaFilled=true}
+const copyBtn=(text,label)=>`<button class="btn small" type="button" data-copy="${esc(text)}">${label||t("copy")}</button>`;
 function renderSheet(){
-  const [kind,id]=state.open;const d=find(kind,id);
+  const[kind,id]=state.open;const d=find(kind,id);
   if(!d){closeSheet();return}
   document.querySelectorAll(".seg button").forEach(b=>{b.setAttribute("aria-pressed",b.dataset.st===(d.status||"new"));b.disabled=!state.canWrite});
   const ae=document.activeElement;
-  if(ae&&$("#sheet-body").contains(ae)&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT"))return;
-  const a=currentAdaptation(d);
-  $("#sh-title").textContent=d.title;
+  if(ae&&$("#sheet-body").contains(ae)&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT"&&ae.type!=="file"))return;
+  const v=state.draft?"draft":state.variant;
+  state.variantKey=state.draft?"d":state.variant;
+  const a=adaptationOf(d,v);
+  const hasLang=!!(state.draft?state.draft.i18n?.[state.lang]:v?(d.variants||[])[v-1]?.i18n?.[state.lang]:L(d));
+  $("#sh-title").textContent=lf(d,"title");
   const vo=a.vo||[];
   const fullScript=`HOOK: ${a.hook}\n\n`+vo.map(l=>`[${l.t}s] ${l.text}`).join("\n")+`\n\nCAPTION:\n${a.caption}`;
   const sections=[],jump=[];
   const add=(sid,name,html)=>{jump.push(`<a href="#s-${sid}">${name}</a>`);sections.push(`<section class="block" id="s-${sid}">${html}</section>`)};
-  if(d.kind==="reel"){
-    add("src","Почему залетел",`<div class="label">Почему залетел <a class="btn small" href="${esc(d.source?.url)}" target="_blank" rel="noopener">Оригинал ↗</a></div>
-      <div class="sub">@${esc(d.source?.author)} · ${fmtN(d.source?.views)} просмотров · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)} · ${esc(fmtD(d.source?.date))}</div>
-      <ul class="list">${(d.why||[]).map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`);
-  }else{
-    add("facts","Факты",`<div class="label">От чего отвлекали</div><p class="distr">${esc(d.distraction)}</p>
-      <div class="label">Подтверждённые факты</div><ul class="list">${(d.facts||[]).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
-      <div class="src"><b>Источники:</b> ${(d.sources||[]).map(esc).join(" · ")}</div>`);
-  }
-  const names=["Основной",...(d.variants||[]).map((v,i)=>`Вариант ${i+1}`)];
-  const vbar=state.draft?`<div class="variants"><button type="button" aria-pressed="true">Новый вариант (не сохранён)</button></div>
-      <div class="actions"><button class="btn primary" type="button" id="save-draft">Сохранить вариант</button><button class="btn" type="button" id="drop-draft">Отменить</button></div>`
+  const names=[t("main"),...(d.variants||[]).map((x,i)=>`${t("variant")} ${i+1}`)];
+  const vbar=state.draft?`<div class="variants"><button type="button" aria-pressed="true">${t("draft")}</button></div>
+      <div class="actions"><button class="btn primary" type="button" id="save-draft">${t("saveVar")}</button><button class="btn" type="button" id="drop-draft">${t("cancel")}</button></div>`
     :names.length>1?`<div class="variants">${names.map((n,i)=>`<button type="button" data-variant="${i}" aria-pressed="${i===state.variant}">${esc(n)}</button>`).join("")}</div>`:"";
   const idea=state.draft?.idea||(d.variants||[])[state.variant-1]?.idea;
-  add("hook","Хук",`<div class="label">Хук и идея ${copyBtn(a.hook)}</div>${vbar}${idea?`<div class="ai-out">Твоя идея: ${esc(idea)}</div>`:""}
-    <p class="hook">${esc(a.hook)}</p><p class="concept">${esc(a.concept)}</p><div class="fmt">${esc(a.format)}</div>`);
-  add("script","Сценарий",`<div class="label">Сценарий / текст ${copyBtn(fullScript,"Копировать всё")}</div>
-    <div class="script">${vo.map(l=>`<div class="line"><span class="t">${esc(l.t)} с</span><span class="x">${esc(l.text)}</span></div>`).join("")}</div>`);
-  add("board","Сториборд",`<div class="label">Сториборд · ${(a.storyboard||[]).length} кадров ${copyBtn((a.storyboard||[]).map(s=>`#${s.n} (${s.dur}) ${s.prompt}`).join("\n\n"),"Все промпты")}</div>
-    <div class="shots">${(a.storyboard||[]).map(s=>`<div class="shot"><div class="num">${esc(s.n)}<small>${esc(s.dur)}</small></div><div class="body">
-      <div>${esc(s.frame)}</div>${s.overlay?`<span class="ovl">${esc(s.overlay)}</span>`:""}
-      <div class="prompt">${esc(s.prompt)}</div><div>${copyBtn(s.prompt,"Копировать промпт")}</div></div></div>`).join("")}</div>
-    <p class="note">[ARUT character reference] — подставь свой персонаж (Soul ID или фото-референсы) в Higgsfield, Kling или Hypit.</p>`);
-  add("caption","Подпись",`<div class="label">Подпись и ключ ${copyBtn(a.caption)}</div><pre class="caption">${esc(a.caption)}</pre>
-    <div>Ключевое слово: <span class="kw">${esc(a.keyword)}</span></div>${a.cta?`<p class="concept">${esc(a.cta)}</p>`:""}
-    ${a.prompt_gift?`<div class="label">Что отправлять по ключу ${copyBtn(a.prompt_gift)}</div><div class="prompt">${esc(a.prompt_gift)}</div>`:""}`);
-  const e=d.expert||{};
-  add("expert","Экспертный слой",`<div class="label">Экспертный слой</div><div class="exp">
-    <div><h4>Рынки</h4><p>${esc(e.markets)}</p></div><div><h4>Макро</h4><p>${esc(e.macro)}</p></div><div><h4>Политика</h4><p>${esc(e.politics)}</p></div></div>`);
-  if((d.risks||[]).length)add("risks","Риски",`<div class="label">Проверь перед съёмкой</div><div class="risk"><ul>${d.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>${d.note?`<p class="note">${esc(d.note)}</p>`:""}`);
-  if(sample)add("mine","Моя версия",`<div class="label">Переписать под мою идею</div>
-    <textarea class="f" id="idea" rows="3" placeholder="Например: сделай про золото вместо биткоина; добавь мою жену в финал; короче, 12 секунд; на русском"></textarea>
-    <div class="actions"><button class="btn primary" type="button" id="rewrite">Переписать</button><button class="btn" type="button" id="stop" hidden>Стоп</button></div>
-    <div class="ai-out" id="ai-out">Claude перепишет хук, сценарий, сториборд и подпись с учётом вкладки «Персонаж». Тратит лимит твоего аккаунта Claude.</div>`);
-  add("notes","Заметки",`<div class="label">Мои заметки</div>
-    <textarea class="f" id="notes" rows="4" placeholder="Локация, кто снимает, музыка, что поменять">${esc(d.notes||"")}</textarea>
-    <div><button class="btn" type="button" id="save-notes"${state.canWrite?"":" disabled"}>Сохранить заметку</button></div>`);
+  /* 1. storyboard first */
+  add("board",t("sBoard"),`<div class="label">${t("sBoard")} · ${(a.storyboard||[]).length} ${t("frames")} ${copyBtn((a.storyboard||[]).map(s=>`#${s.n} (${s.dur}) ${s.prompt}`).join("\n\n"),t("allPrompts"))}</div>
+    ${vbar}${idea?`<div class="ai-out">${t("yourIdea")}: ${esc(idea)}</div>`:""}
+    <p class="hook">${esc(a.hook)}</p>
+    <div class="strip">${(a.storyboard||[]).map((s,i)=>`<button type="button" class="panel" data-goshot="${esc(s.n)}">${frameHTML(d,s,i)}<span class="cap">${esc(s.frame)}</span></button>`).join("")}</div>
+    <p class="legend">${t("boardHint")}</p>${hasLang?"":`<p class="lang-note">${t("fallbackLang")}</p>`}`);
+  if(d.kind==="reel"){
+    add("src",t("sWhy"),`<div class="label">${t("sWhy")} <a class="btn small" href="${esc(d.source?.url)}" target="_blank" rel="noopener">${t("orig")}</a></div>
+      <div class="sub">@${esc(d.source?.author)} · ${fmtN(d.source?.views)} ${t("views")} · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)} · ${esc(fmtD(d.source?.date))}</div>
+      <ul class="list">${(lf(d,"why")||[]).map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`);
+  }else{
+    add("facts",t("sFacts"),`<div class="label">${t("distr")}</div><p class="distr">${esc(lf(d,"distraction"))}</p>
+      <div class="label">${t("facts")}</div><ul class="list">${(lf(d,"facts")||[]).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
+      <div class="src"><b>${t("sources")}:</b> ${(lf(d,"sources")||[]).map(esc).join(" · ")}</div>`);
+  }
+  add("hook",t("sHook"),`<div class="label">${t("hookIdea")} ${copyBtn(a.hook)}</div><p class="hook">${esc(a.hook)}</p><p class="concept">${esc(a.concept)}</p><div class="fmt">${esc(a.format)}</div>`);
+  add("script",t("sScript"),`<div class="label">${t("scriptLbl")} ${copyBtn(fullScript,t("copyAll"))}</div>
+    <div class="script">${vo.map(l=>`<div class="line"><span class="t">${esc(l.t)} ${state.lang==="en"?"s":"с"}</span><span class="x">${esc(l.text)}</span></div>`).join("")}</div>`);
+  add("shots",t("sShots"),`<div class="label">${t("sShots")}</div>
+    <div class="shots">${(a.storyboard||[]).map((s,i)=>{const key=`${state.variantKey}-${s.n}`;const has=(d.frames||{})[key];return`<div class="shot" id="shot-${esc(s.n)}"><div class="thumb">${frameHTML(d,s,i,{mini:true})}</div><div class="body">
+      <div><b>${esc(s.n)} · ${esc(fdur(s.dur))}</b> — ${esc(s.frame)}</div>${s.overlay?`<span class="ovl">${esc(s.overlay)}</span>`:""}
+      <div class="prompt">${esc(s.prompt)}</div>
+      <div class="upl">${copyBtn(s.prompt,t("copyPrompt"))}${assets&&state.canWrite?`<label class="btn small">${has?t("replace"):t("upload")}<input type="file" accept="image/*" data-frame="${esc(key)}"></label>${has?`<button class="btn small" type="button" data-unframe="${esc(key)}">${t("removeF")}</button>`:""}`:""}</div></div></div>`}).join("")}</div>
+    <p class="note">${t("charRef")}</p>`);
+  add("caption",t("sCaption"),`<div class="label">${t("captionLbl")} ${copyBtn(a.caption)}</div><pre class="caption">${esc(a.caption)}</pre>
+    <div>${t("keyword")}: <span class="kw">${esc(a.keyword)}</span></div>${a.cta?`<p class="concept">${esc(a.cta)}</p>`:""}
+    ${a.prompt_gift?`<div class="label">${t("gift")} ${copyBtn(a.prompt_gift)}</div><div class="prompt">${esc(a.prompt_gift)}</div>`:""}`);
+  const e=lexp(d);
+  add("expert",t("sExpert"),`<div class="label">${t("expert")}</div><div class="exp">
+    <div><h4>${t("mk")}</h4><p>${esc(e.markets)}</p></div><div><h4>${t("mc")}</h4><p>${esc(e.macro)}</p></div><div><h4>${t("pol")}</h4><p>${esc(e.politics)}</p></div></div>`);
+  const risks=lf(d,"risks")||[];
+  if(risks.length)add("risks",t("sRisks"),`<div class="label">${t("checkBefore")}</div><div class="risk"><ul>${risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>${lf(d,"note")?`<p class="note">${esc(lf(d,"note"))}</p>`:""}`);
+  if(sample)add("mine",t("sMine"),`<div class="label">${t("rewriteLbl")}</div>
+    <textarea class="f" id="idea" rows="3" placeholder="${esc(t("ideaPh"))}"></textarea>
+    <div class="actions"><button class="btn primary" type="button" id="rewrite">${t("rewrite")}</button><button class="btn" type="button" id="stop" hidden>${t("stop")}</button></div>
+    <div class="ai-out" id="ai-out">${t("aiHint")}</div>`);
+  add("notes",t("sNotes"),`<div class="label">${t("notesLbl")}</div>
+    <textarea class="f" id="notes" rows="4" placeholder="${esc(t("notesPh"))}">${esc(d.notes||"")}</textarea>
+    <div><button class="btn" type="button" id="save-notes"${state.canWrite?"":" disabled"}>${t("saveNote")}</button></div>`);
   $("#jump").innerHTML=jump.join("");
   $("#sheet-body").innerHTML=sections.join("");
 }
 function openSheet(kind,id){state.open=[kind==="reel"?"reel":"redpill",id];state.variant=0;state.draft=null;renderSheet();$("#sheet").hidden=false;$("#sheet").scrollTop=0;document.body.style.overflow="hidden";$("#close").focus();try{history.replaceState(null,"","#"+id)}catch(_){}}
 function closeSheet(){aiCtl?.abort();state.open=null;state.draft=null;$("#sheet").hidden=true;document.body.style.overflow="";try{history.replaceState(null,"",location.pathname+location.search)}catch(_){}}
-let tt;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2000)}
-async function save(col,id,patch){
-  if(!db)throw{code:"unavailable"};
-  try{await db.doc(`${col}/${id}`).update(patch)}catch(e){if(e&&e.code==="invalid_argument")state.canWrite=false;throw e}
-}
+let tt;function toast(m){const x=$("#toast");x.textContent=m;x.hidden=false;clearTimeout(tt);tt=setTimeout(()=>x.hidden=true,2000)}
+async function save(col,id,patch){if(!db)throw{code:"unavailable"};try{await db.doc(`${col}/${id}`).update(patch)}catch(e){if(e&&e.code==="invalid_argument")state.canWrite=false;throw e}}
 function reelIdFromUrl(u){const m=/instagram\.com\/(?:[^/]+\/)?reels?\/([A-Za-z0-9_-]+)/.exec(u);return m?m[1]:null}
+const LOC_SHAPE=`{"concept": string, "format": string, "hook": string, "vo": [{"t": "0–3", "text": string}], "storyboard": [{"frame": string, "overlay": string}], "caption": string, "keyword": string, "cta": string}`;
 async function rewrite(){
   const[kind,id]=state.open;const d=find(kind,id);const idea=$("#idea").value.trim();
-  if(!idea){toast("Опиши идею в одном-двух предложениях");return}
+  if(!idea){toast(t("tIdea"));return}
   const out=$("#ai-out"),btn=$("#rewrite"),stop=$("#stop");
-  aiCtl=new AbortController();btn.disabled=true;stop.hidden=false;out.textContent="Claude думает… обычно 30–90 секунд.";
+  aiCtl=new AbortController();btn.disabled=true;stop.hidden=false;out.textContent=t("aiThinking");
   const p=state.persona||{};
-  const base=d.adaptation;
+  const cur=adaptationOf(d,state.variant);
   const prompt=`You are the screenwriter, short-form video director, professional trader, macro analyst and political scientist behind ARUT (Arut Nazaryan): 38, Dubai, media personality, three-time platinum recording artist, investor and crypto/forex trader, founder of ARUT ACADEMY (100K+ students), 3.8M Instagram followers, husband and father of two, boxing, fitness, AI, longevity. Tagline: "One name. Many worlds. I AM ARUT."
 
-Real facts about Arut (use only these for anything personal; if a personal detail is needed and missing, write it as [real fact]):
+Real facts about Arut (use only these for anything personal; if a personal detail is needed and missing, write [real fact] / [реальный факт]):
 ${p.facts||"(not filled yet)"}
 His voice: ${p.voice||"short sentences, confident, pop culture, sharp humor, never insulting"}
-Never use: ${p.taboo||"other brands' logos, movie characters, real public figures in frame, income promises, invented biography"}
+Never use: ${p.taboo||"other brands' logos, movie characters, real public figures in frame, children's faces, income promises, invented biography"}
 
 Source ${d.kind==="reel"?"viral reel":"documented story"}: ${d.title}. ${d.kind==="reel"?`@${d.source?.author}, ${d.source?.views} views. Why it went viral: ${(d.why||[]).join(" ")}`:`Facts: ${(d.facts||[]).join(" ")} Sources: ${(d.sources||[]).join("; ")}`}
 
 Current adaptation (JSON):
-${JSON.stringify(base)}
+${JSON.stringify({...cur,storyboard:(cur.storyboard||[]).map(s=>({n:s.n,dur:s.dur,frame:s.frame,overlay:s.overlay,prompt:s.prompt}))})}
 
 Arut's request for a new version: ${idea}
 
-Rewrite the adaptation following his request. Keep facts accurate; do not invent numbers you cannot be sure of. Hook, vo texts, overlays, prompts and caption in English unless he asks for another language; concept, format and frame descriptions in Russian. Storyboard prompts must contain [ARUT character reference] where Arut appears. Reply with only one JSON object with exactly these keys: {"concept": string, "format": string, "hook": string, "vo": [{"t": "0–3", "text": string}], "storyboard": [{"n": 1, "dur": "3 с", "frame": string, "overlay": string, "prompt": string}], "caption": string, "keyword": string, "cta": string}`;
+Write the new version in BOTH languages. Russian: native Russian creator voice on "ты", punchy, modern, no calques. English: natural, punchy. Keep facts accurate and do not invent numbers. Storyboard prompts are in English only and must contain [ARUT character reference] where Arut appears. The Russian keyword is one Russian word in caps used in the Russian caption; the English keyword is one English word in caps.
+Reply with only one JSON object: {"shots": [{"n": 1, "dur": "3 с", "prompt": string}], "en": ${LOC_SHAPE}, "ru": ${LOC_SHAPE}}. The "storyboard" arrays in "en" and "ru" have the same length and order as "shots".`;
   try{
-    const res=await sample.json(prompt,{signal:aiCtl.signal,cache:false,onText:()=>{out.textContent="Пишет вариант…"}});
-    if(!res||typeof res!=="object"||!res.hook||!Array.isArray(res.vo)||!Array.isArray(res.storyboard))throw{code:"invalid_json"};
-    state.draft={idea,adaptation:res};state.open&&(document.activeElement?.blur?.(),renderSheet());
-    document.querySelector("#s-hook")?.scrollIntoView({behavior:"smooth",block:"start"});
-    toast("Новый вариант готов");
+    const res=await sample.json(prompt,{signal:aiCtl.signal,cache:false,onText:()=>{out.textContent=t("aiWriting")}});
+    if(!res||!Array.isArray(res.shots)||!res.en?.hook||!res.ru?.hook)throw{code:"invalid_json"};
+    const base={...res.en,storyboard:res.shots.map((s,i)=>({n:s.n??i+1,dur:s.dur||"",prompt:s.prompt||"",frame:res.en.storyboard?.[i]?.frame||"",overlay:res.en.storyboard?.[i]?.overlay||""}))};
+    state.draft={idea,adaptation:base,i18n:{en:{adaptation:res.en},ru:{adaptation:res.ru}}};
+    document.activeElement?.blur?.();renderSheet();$("#sheet").scrollTop=0;toast(t("tVarReady"));
   }catch(e){
-    const map={cancelled:"Остановлено.",not_granted:"Доступ к Claude для этой страницы не разрешён.",rate_limited:"Слишком много запросов или закончился лимит. Попробуй позже.",invalid_json:"Ответ пришёл в неверном формате. Нажми «Переписать» ещё раз.",refused:"Claude не стал писать такой вариант. Измени формулировку."};
-    out.textContent=map[e?.code]||"Не получилось. Попробуй ещё раз позже.";
-    if(e?.code==="not_granted"||e?.code==="sampling_disabled"){sample=null}
+    out.textContent=t("aiErr")[e?.code]||t("aiErrDefault");
+    if(e?.code==="not_granted"||e?.code==="sampling_disabled")sample=null;
   }finally{btn&&(btn.disabled=false);stop&&(stop.hidden=true);aiCtl=null}
 }
 document.addEventListener("click",async ev=>{
+  const lb=ev.target.closest("[data-lang]");if(lb){state.lang=lb.dataset.lang;try{localStorage.setItem("radar-lang",state.lang)}catch(_){}render();return}
   const tab=ev.target.closest(".tab");if(tab){state.tab=tab.dataset.tab;render();return}
   const o=ev.target.closest("[data-open]");if(o){const[k,i]=o.dataset.open.split("|");openSheet(k,i);return}
   if(ev.target.closest("#close")){closeSheet();return}
   const j=ev.target.closest(".jump a");if(j){ev.preventDefault();document.querySelector(j.getAttribute("href"))?.scrollIntoView({behavior:"smooth",block:"start"});return}
-  const c=ev.target.closest("[data-copy]");if(c){try{await navigator.clipboard.writeText(c.dataset.copy);toast("Скопировано")}catch(_){const p=c.closest(".block")?.querySelector(".prompt,.caption,.hook");if(p){const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast("Выдели и скопируй вручную")}return}
+  const gs=ev.target.closest("[data-goshot]");if(gs){document.getElementById("shot-"+gs.dataset.goshot)?.scrollIntoView({behavior:"smooth",block:"center"});return}
+  const c=ev.target.closest("[data-copy]");if(c){try{await navigator.clipboard.writeText(c.dataset.copy);toast(t("tCopied"))}catch(_){const p=c.closest(".block,.shot")?.querySelector(".prompt,.caption,.hook");if(p){const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast(t("tCopyManual"))}return}
   const v=ev.target.closest("[data-variant]");if(v){state.variant=+v.dataset.variant;renderSheet();return}
   if(ev.target.closest("#rewrite")){rewrite();return}
   if(ev.target.closest("#stop")){aiCtl?.abort();return}
   if(ev.target.closest("#drop-draft")){state.draft=null;renderSheet();return}
   if(ev.target.closest("#save-draft")&&state.open&&state.draft){
-    const[kind,id]=state.open;const d=find(kind,id);const variants=[...(d.variants||[]),{idea:state.draft.idea,createdAt:new Date().toISOString(),adaptation:state.draft.adaptation}];
-    try{await save(colOf(kind),id,{variants});d.variants=variants;state.variant=variants.length;state.draft=null;renderSheet();toast("Вариант сохранён")}catch(_){toast("Не получилось сохранить вариант")}
+    const[kind,id]=state.open;const d=find(kind,id);
+    const variants=[...(d.variants||[]),{idea:state.draft.idea,createdAt:new Date().toISOString(),adaptation:state.draft.adaptation,i18n:state.draft.i18n}];
+    try{await save(colOf(kind),id,{variants});d.variants=variants;state.variant=variants.length;state.draft=null;renderSheet();toast(t("tVar"))}catch(_){toast(t("tVarErr"))}
+    return}
+  const uf=ev.target.closest("[data-unframe]");if(uf&&state.open){
+    const[kind,id]=state.open;const d=find(kind,id);
+    try{await save(colOf(kind),id,{frames:{[uf.dataset.unframe]:{__delete__:true}}});if(d.frames)delete d.frames[uf.dataset.unframe];renderSheet()}catch(_){toast(t("tSaveErr"))}
     return}
   if(ev.target.closest("#save-notes")&&state.open){
     const[kind,id]=state.open;const d=find(kind,id);const notes=$("#notes").value;
-    try{await save(colOf(kind),id,{notes});d.notes=notes;toast("Заметка сохранена")}catch(_){toast("Не получилось сохранить заметку")}
+    try{await save(colOf(kind),id,{notes});d.notes=notes;toast(t("tNote"))}catch(_){toast(t("tNoteErr"))}
     return}
   const sb=ev.target.closest(".seg button");if(sb&&state.open&&db){
     const[kind,id]=state.open;const d=find(kind,id);
     if(!d||d.status===sb.dataset.st)return;
     const prev=d.status;d.status=sb.dataset.st;render();
-    try{await save(colOf(kind),id,{status:sb.dataset.st,statusAt:new Date().toISOString()});toast(sb.dataset.st==="shot"?"Отмечено: снято":sb.dataset.st==="work"?"Взято в работу":"Вернул в новые")}
-    catch(_){d.status=prev;render();toast("Не получилось сохранить статус")}
+    try{await save(colOf(kind),id,{status:sb.dataset.st,statusAt:new Date().toISOString()});toast(sb.dataset.st==="shot"?t("tShot"):sb.dataset.st==="work"?t("tWork"):t("tNew"))}
+    catch(_){d.status=prev;render();toast(t("tStatusErr"))}
   }
+});
+document.addEventListener("change",async ev=>{
+  const inp=ev.target.closest("input[type=file][data-frame]");if(!inp||!state.open||!assets)return;
+  const file=inp.files&&inp.files[0];if(!file)return;
+  const key=inp.dataset.frame;if(key.startsWith("d-")){toast(t("tFrameErr"));return}
+  const[kind,id]=state.open;const d=find(kind,id);
+  const lbl=inp.closest("label");if(lbl)lbl.firstChild.textContent=t("uploading");
+  try{const r=await assets.upload(file);await save(colOf(kind),id,{frames:{[key]:r.id}});d.frames={...(d.frames||{}),[key]:r.id};renderSheet();toast(t("tFrame"))}
+  catch(_){toast(t("tFrameErr"));renderSheet()}
 });
 $("#search").addEventListener("input",e=>{state.q=e.target.value;render()});
 $("#sort").addEventListener("change",e=>{state.sort=e.target.value;render()});
@@ -394,22 +547,23 @@ $("#addform").addEventListener("submit",async e=>{
   e.preventDefault();
   const url=$("#addurl").value.trim(),note=$("#addnote").value.trim();
   const rid=reelIdFromUrl(url);
-  if(!rid){toast("Нужна ссылка на Instagram Reels");return}
-  if(all().some(d=>d.id===rid)){toast("Этот ролик уже в базе");return}
-  if(!db){toast("База недоступна в этом окне");return}
-  try{await db.doc(`queue/${rid}`).set({url:url.split("?")[0],note,addedAt:new Date().toISOString(),status:"pending"});$("#addurl").value="";$("#addnote").value="";toast("Добавлено. Разберу в ближайший запуск")}
-  catch(_){toast("Не получилось добавить")}
+  if(!rid){toast(t("tNeedReel"));return}
+  if(all().some(d=>d.id===rid)){toast(t("tInDb"));return}
+  if(!db){toast(t("tNoDb"));return}
+  try{await db.doc(`queue/${rid}`).set({url:url.split("?")[0],note,addedAt:new Date().toISOString(),status:"pending"});$("#addurl").value="";$("#addnote").value="";toast(t("tAdded"))}
+  catch(_){toast(t("tAddErr"))}
 });
 $("#persona").addEventListener("submit",async e=>{
-  e.preventDefault();if(!db){toast("База недоступна в этом окне");return}
+  e.preventDefault();if(!db){toast(t("tNoDb"));return}
   const data={facts:$("#p-facts").value,voice:$("#p-voice").value,taboo:$("#p-taboo").value,updatedAt:new Date().toISOString()};
-  try{await db.doc("config/persona").set(data);state.persona=data;toast("Персонаж сохранён")}catch(_){toast("Не получилось сохранить")}
+  try{await db.doc("config/persona").set(data);state.persona=data;toast(t("tPersona"))}catch(_){toast(t("tSaveErr"))}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&state.open)closeSheet()});
 render();
 (async()=>{
   try{db=await window.claude?.use?.("db")}catch(_){db=null}
   try{sample=await window.claude?.use?.("sample")}catch(_){sample=null}
+  try{assets=await window.claude?.use?.("assets")}catch(_){assets=null}
   if(!db){render();return}
   try{const u=await window.claude.use("user");const c=u?await u.can("data.write"):null;if(c===false)state.canWrite=false}catch(_){}
   for(const col of["reels","redpill"]){
@@ -420,5 +574,6 @@ render();
   }
   db.collection("queue").onSnapshot(snap=>{state.queue=snap.docs.map(s=>({...s.data(),id:s.id}));renderQueue()},()=>{});
   db.doc("config/persona").onSnapshot(s=>{state.persona=s.exists?s.data():{};if(state.tab==="persona")fillPersona()},()=>{});
+  if(assets&&state.open)renderSheet();
 })();
 </script>

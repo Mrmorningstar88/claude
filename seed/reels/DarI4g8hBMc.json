@@ -1,1 +1,247 @@
-{"id": "DarI4g8hBMc", "kind": "reel", "title": "Дверь в другой мир", "lane": "AI-визуал · фэнтези", "status": "new", "foundAt": "2026-10-18T19:10:00+04:00", "source": {"author": "kaye.creatives", "url": "https://www.instagram.com/kaye.creatives/reel/DarI4g8hBMc/", "views": 28100000, "likes": 2100000, "comments": 39000, "date": "2026-07-11", "caption": "Come visit my fantasy world. Comment FANTASY for the prompts. A whole new world on the other side of my door."}, "why": ["Простейший жест «открываю дверь» и мгновенный контраст: обычная квартира против целого мира за порогом.", "Эмоция «хочу так же»: каждый представляет, что было бы за его дверью.", "39K комментариев с ключом FANTASY: самая сильная механика вовлечения у автора.", "28.1M при 1.1M подписчиков: в 25 раз выше аудитории, чистый алгоритмический залёт."], "adaptation": {"concept": "WHAT'S BEHIND THE DOOR. Ты открываешь обычную дверь офиса, а за ней скрытая механика денег: зал, где печатают купюры, торговый зал, серверная, через которую идут ордера. Последняя дверь ведёт в твою реальную жизнь. Формат «открой дверь» плюс red pill в одном ролике.", "format": "AI-видео 18–22 с, 9:16, серия проходов через двери", "hook": "Every chart has a door. Most people never open it.", "vo": [{"t": "0–3", "text": "Every chart has a door. Most people never open it."}, {"t": "3–7", "text": "Behind the first one, they print the money you're saving."}, {"t": "7–11", "text": "Behind the second, algorithms trade before you even click."}, {"t": "11–15", "text": "Behind the third, the crowd panics. Every single time."}, {"t": "15–20", "text": "I opened all of them. That's why I trade the way I do."}], "storyboard": [{"n": 1, "dur": "3 с", "frame": "Ты в обычном офисе подходишь к простой белой двери, на двери светится маленький свечной график.", "overlay": "Every chart has a door", "prompt": "[ARUT character reference] walks toward a plain white office door, a small glowing candlestick chart symbol on the door, cinematic, soft daylight, 9:16"}, {"n": 2, "dur": "4 с", "frame": "Дверь открывается в огромный индустриальный зал: печатные станки выпускают бесконечные ленты купюр.", "overlay": "Door 1: the printer", "prompt": "door swings open revealing a gigantic industrial hall with massive printing presses producing endless sheets of banknotes, golden light, epic scale, camera pushes in, generic currency with no real designs"}, {"n": 3, "dur": "4 с", "frame": "Вторая дверь: холодная синяя серверная, по кабелям летят световые импульсы-ордера.", "overlay": "Door 2: the machines", "prompt": "second door opens into a cold blue server room, light pulses racing through cables like orders, futuristic, camera glides forward"}, {"n": 4, "dur": "4 с", "frame": "Третья дверь: торговый зал, толпа в панике, красные экраны.", "overlay": "Door 3: the crowd", "prompt": "third door opens onto a chaotic trading floor, crowd in panic, red screens everywhere, papers flying, slow motion"}, {"n": 5, "dur": "5 с", "frame": "Ты закрываешь последнюю дверь, спокойный, за окном вечерний Дубай; говоришь в камеру.", "overlay": "I opened all of them", "prompt": "[ARUT character reference] closes the door calmly and looks at camera, evening Dubai skyline through window, warm light, confident, 4K"}], "caption": "Every chart has a door. Most people never open it 🚪\n\nComment \"DOOR\" and I'll send you what's behind each one: the 3 forces that move every market.", "keyword": "DOOR", "cta": "По ключу DOOR отправляй короткий разбор «3 силы рынка»: ликвидность центробанков, алгоритмы, поведение толпы."}, "expert": {"markets": "По оценкам, большая доля объёма на крупных рынках акций в США приходится на алгоритмическую торговлю. Розничный трейдер почти всегда последний в цепочке исполнения.", "macro": "«Печатный станок» — образ расширения денежной массы. После 2020 года денежная масса M2 в США выросла примерно на 40% за два года. Это ключевой пример того, как ликвидность двигает активы.", "politics": "Решения о денежной массе принимают центробанки, формально независимые, но работающие в политическом контексте. Это хороший мост к рубрике Red Pill."}, "risks": ["Цифры по M2 и доле алгоритмов сверь перед публикацией и давай их в подписи осторожно («по оценкам»).", "Купюры в кадре только обобщённые, без реальных банкнот."], "note": "Разбор сделан по подписи, метрикам и формату автора. Видео целиком не просматривалось.", "rank": 1}
+{
+ "id": "DarI4g8hBMc",
+ "kind": "reel",
+ "title": "Дверь в другой мир",
+ "lane": "AI-визуал · фэнтези",
+ "status": "new",
+ "foundAt": "2026-10-18T19:10:00+04:00",
+ "source": {
+  "author": "kaye.creatives",
+  "url": "https://www.instagram.com/kaye.creatives/reel/DarI4g8hBMc/",
+  "views": 28100000,
+  "likes": 2100000,
+  "comments": 39000,
+  "date": "2026-07-11",
+  "caption": "Come visit my fantasy world. Comment FANTASY for the prompts. A whole new world on the other side of my door."
+ },
+ "why": [
+  "Простейший жест «открываю дверь» и мгновенный контраст: обычная квартира против целого мира за порогом.",
+  "Эмоция «хочу так же»: каждый представляет, что было бы за его дверью.",
+  "39K комментариев с ключом FANTASY: самая сильная механика вовлечения у автора.",
+  "28.1M при 1.1M подписчиков: в 25 раз выше аудитории, чистый алгоритмический залёт."
+ ],
+ "adaptation": {
+  "concept": "WHAT'S BEHIND THE DOOR. Ты открываешь обычную дверь офиса, а за ней скрытая механика денег: зал, где печатают купюры, торговый зал, серверная, через которую идут ордера. Последняя дверь ведёт в твою реальную жизнь. Формат «открой дверь» плюс red pill в одном ролике.",
+  "format": "AI-видео 18–22 с, 9:16, серия проходов через двери",
+  "hook": "Every chart has a door. Most people never open it.",
+  "vo": [
+   {
+    "t": "0–3",
+    "text": "Every chart has a door. Most people never open it."
+   },
+   {
+    "t": "3–7",
+    "text": "Behind the first one, they print the money you're saving."
+   },
+   {
+    "t": "7–11",
+    "text": "Behind the second, algorithms trade before you even click."
+   },
+   {
+    "t": "11–15",
+    "text": "Behind the third, the crowd panics. Every single time."
+   },
+   {
+    "t": "15–20",
+    "text": "I opened all of them. That's why I trade the way I do."
+   }
+  ],
+  "storyboard": [
+   {
+    "n": 1,
+    "dur": "3 с",
+    "frame": "Ты в обычном офисе подходишь к простой белой двери, на двери светится маленький свечной график.",
+    "overlay": "Every chart has a door",
+    "prompt": "[ARUT character reference] walks toward a plain white office door, a small glowing candlestick chart symbol on the door, cinematic, soft daylight, 9:16"
+   },
+   {
+    "n": 2,
+    "dur": "4 с",
+    "frame": "Дверь открывается в огромный индустриальный зал: печатные станки выпускают бесконечные ленты купюр.",
+    "overlay": "Door 1: the printer",
+    "prompt": "door swings open revealing a gigantic industrial hall with massive printing presses producing endless sheets of banknotes, golden light, epic scale, camera pushes in, generic currency with no real designs"
+   },
+   {
+    "n": 3,
+    "dur": "4 с",
+    "frame": "Вторая дверь: холодная синяя серверная, по кабелям летят световые импульсы-ордера.",
+    "overlay": "Door 2: the machines",
+    "prompt": "second door opens into a cold blue server room, light pulses racing through cables like orders, futuristic, camera glides forward"
+   },
+   {
+    "n": 4,
+    "dur": "4 с",
+    "frame": "Третья дверь: торговый зал, толпа в панике, красные экраны.",
+    "overlay": "Door 3: the crowd",
+    "prompt": "third door opens onto a chaotic trading floor, crowd in panic, red screens everywhere, papers flying, slow motion"
+   },
+   {
+    "n": 5,
+    "dur": "5 с",
+    "frame": "Ты закрываешь последнюю дверь, спокойный, за окном вечерний Дубай; говоришь в камеру.",
+    "overlay": "I opened all of them",
+    "prompt": "[ARUT character reference] closes the door calmly and looks at camera, evening Dubai skyline through window, warm light, confident, 4K"
+   }
+  ],
+  "caption": "Every chart has a door. Most people never open it 🚪\n\nComment \"DOOR\" and I'll send you what's behind each one: the 3 forces that move every market.",
+  "keyword": "DOOR",
+  "cta": "По ключу DOOR отправляй короткий разбор «3 силы рынка»: ликвидность центробанков, алгоритмы, поведение толпы."
+ },
+ "expert": {
+  "markets": "По оценкам, большая доля объёма на крупных рынках акций в США приходится на алгоритмическую торговлю. Розничный трейдер почти всегда последний в цепочке исполнения.",
+  "macro": "«Печатный станок» — образ расширения денежной массы. После 2020 года денежная масса M2 в США выросла примерно на 40% за два года. Это ключевой пример того, как ликвидность двигает активы.",
+  "politics": "Решения о денежной массе принимают центробанки, формально независимые, но работающие в политическом контексте. Это хороший мост к рубрике Red Pill."
+ },
+ "risks": [
+  "Цифры по M2 и доле алгоритмов сверь перед публикацией и давай их в подписи осторожно («по оценкам»).",
+  "Купюры в кадре только обобщённые, без реальных банкнот."
+ ],
+ "note": "Разбор сделан по подписи, метрикам и формату автора. Видео целиком не просматривалось.",
+ "rank": 1,
+ "i18n": {
+  "ru": {
+   "title": "Дверь в другой мир",
+   "lane": "AI-визуал · фэнтези",
+   "why": [
+    "Простейший жест «открываю дверь» и мгновенный контраст: обычная квартира против целого мира за порогом.",
+    "Эмоция «хочу так же»: каждый представляет, что было бы за его дверью.",
+    "39K комментариев с ключом FANTASY: самая сильная механика вовлечения у автора.",
+    "28.1M при 1.1M подписчиков: в 25 раз выше аудитории, чистый алгоритмический залёт."
+   ],
+   "note": "Разбор сделан по подписи, метрикам и формату автора. Видео целиком не просматривалось.",
+   "risks": [
+    "Цифры по M2 и доле алгоритмов сверь перед публикацией и давай их в подписи осторожно («по оценкам»).",
+    "Купюры в кадре только обобщённые, без реальных банкнот."
+   ],
+   "expert": {
+    "markets": "По оценкам, большая доля объёма на крупных рынках акций в США приходится на алгоритмическую торговлю. Розничный трейдер почти всегда последний в цепочке исполнения.",
+    "macro": "«Печатный станок» — образ расширения денежной массы. После 2020 года денежная масса M2 в США выросла примерно на 40% за два года. Это ключевой пример того, как ликвидность двигает активы.",
+    "politics": "Решения о денежной массе принимают центробанки, формально независимые, но работающие в политическом контексте. Это хороший мост к рубрике Red Pill."
+   },
+   "adaptation": {
+    "concept": "WHAT'S BEHIND THE DOOR. Ты открываешь обычную дверь офиса, а за ней скрытая механика денег: зал, где печатают купюры, торговый зал, серверная, через которую идут ордера. Последняя дверь ведёт в твою реальную жизнь. Формат «открой дверь» плюс red pill в одном ролике.",
+    "format": "AI-видео 18–22 с, 9:16, серия проходов через двери",
+    "hook": "У каждого графика есть дверь. Большинство её так и не открывает.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "У каждого графика есть дверь. Большинство её так и не открывает."
+     },
+     {
+      "t": "3–7",
+      "text": "За первой печатают те самые деньги, которые ты копишь."
+     },
+     {
+      "t": "7–11",
+      "text": "За второй алгоритмы торгуют раньше, чем ты успеешь кликнуть."
+     },
+     {
+      "t": "11–15",
+      "text": "За третьей толпа паникует. Каждый раз, без вариантов."
+     },
+     {
+      "t": "15–20",
+      "text": "Я открыл их все. Поэтому и торгую так, как торгую."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "Ты в обычном офисе подходишь к простой белой двери, на двери светится маленький свечной график.",
+      "overlay": "У каждого графика есть дверь"
+     },
+     {
+      "frame": "Дверь открывается в огромный индустриальный зал: печатные станки выпускают бесконечные ленты купюр.",
+      "overlay": "Дверь 1: станок"
+     },
+     {
+      "frame": "Вторая дверь: холодная синяя серверная, по кабелям летят световые импульсы-ордера.",
+      "overlay": "Дверь 2: машины"
+     },
+     {
+      "frame": "Третья дверь: торговый зал, толпа в панике, красные экраны.",
+      "overlay": "Дверь 3: толпа"
+     },
+     {
+      "frame": "Ты закрываешь последнюю дверь, спокойный, за окном вечерний Дубай; говоришь в камеру.",
+      "overlay": "Я открыл их все"
+     }
+    ],
+    "caption": "У каждого графика есть дверь. Большинство её так и не открывает 🚪\n\nПиши «ДВЕРЬ» в комментах — пришлю, что за каждой из них: 3 силы, которые двигают любой рынок.",
+    "keyword": "ДВЕРЬ",
+    "cta": "По ключу ДВЕРЬ отправляй короткий разбор «3 силы рынка»: ликвидность центробанков, алгоритмы, поведение толпы."
+   }
+  },
+  "en": {
+   "title": "A door to another world",
+   "lane": "AI visuals · fantasy",
+   "why": [
+    "The simplest gesture, \"I open the door\", and an instant contrast: an ordinary apartment versus a whole world beyond the threshold.",
+    "The \"I want that too\" emotion: everyone imagines what would be behind their own door.",
+    "39K comments with the FANTASY keyword: the author's strongest engagement mechanic.",
+    "28.1M views on 1.1M followers: 25x the audience, a pure algorithmic hit."
+   ],
+   "note": "Analysis based on the author's caption, metrics and format. The full video was not watched.",
+   "risks": [
+    "Verify the M2 and algorithmic-share figures before publishing and present them cautiously in the caption (\"by estimates\").",
+    "Banknotes on screen must be generic only, no real currency."
+   ],
+   "expert": {
+    "markets": "By estimates, a large share of volume on major US equity markets comes from algorithmic trading. The retail trader is almost always last in the execution chain.",
+    "macro": "The \"printing press\" is an image of money supply expansion. After 2020, US M2 money supply grew by about 40% in two years. It's a key example of how liquidity moves assets.",
+    "politics": "Money supply decisions are made by central banks: formally independent, but operating in a political context. A good bridge to the Red Pill series."
+   },
+   "adaptation": {
+    "concept": "WHAT'S BEHIND THE DOOR. You open an ordinary office door, and behind it is the hidden machinery of money: a hall where banknotes are printed, a trading floor, a server room that orders flow through. The last door leads to your real life. The \"open the door\" format plus a red pill in one video.",
+    "format": "AI video, 18–22 s, 9:16, a series of walk-throughs from door to door",
+    "hook": "Every chart has a door. Most people never open it.",
+    "vo": [
+     {
+      "t": "0–3",
+      "text": "Every chart has a door. Most people never open it."
+     },
+     {
+      "t": "3–7",
+      "text": "Behind the first one, they print the money you're saving."
+     },
+     {
+      "t": "7–11",
+      "text": "Behind the second, algorithms trade before you even click."
+     },
+     {
+      "t": "11–15",
+      "text": "Behind the third, the crowd panics. Every single time."
+     },
+     {
+      "t": "15–20",
+      "text": "I opened all of them. That's why I trade the way I do."
+     }
+    ],
+    "storyboard": [
+     {
+      "frame": "You walk up to a plain white door in an ordinary office; a small candlestick chart glows on it.",
+      "overlay": "Every chart has a door"
+     },
+     {
+      "frame": "The door opens onto a huge industrial hall: printing presses churning out endless sheets of banknotes.",
+      "overlay": "Door 1: the printer"
+     },
+     {
+      "frame": "Second door: a cold blue server room, light-pulse orders racing through the cables.",
+      "overlay": "Door 2: the machines"
+     },
+     {
+      "frame": "Third door: a trading floor, the crowd in panic, red screens.",
+      "overlay": "Door 3: the crowd"
+     },
+     {
+      "frame": "You close the last door, calm, evening Dubai outside the window; you speak to camera.",
+      "overlay": "I opened all of them"
+     }
+    ],
+    "caption": "Every chart has a door. Most people never open it 🚪\n\nComment \"DOOR\" and I'll send you what's behind each one: the 3 forces that move every market.",
+    "keyword": "DOOR",
+    "cta": "For the DOOR keyword, send the short breakdown \"3 Market Forces\": central bank liquidity, algorithms, crowd behavior."
+   }
+  }
+ }
+}
