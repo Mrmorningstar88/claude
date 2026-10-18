@@ -1,0 +1,424 @@
+<title>ARUT Viral Radar</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: control-room list of finds; tap a card → full-screen production sheet (hook, script, storyboard, caption, expert layer). Red = the red pill. */
+:root{
+  --bg:#f3f4f7; --surface:#ffffff; --raised:#eceef3; --ink:#12151d; --muted:#5b6172; --line:#d9dce5;
+  --pill:#d42a3c; --pill-ink:#ffffff; --pill-soft:#fbe4e7; --blue:#2c5fd9; --blue-soft:#e3ebfc;
+  --ok:#1f8a57; --ok-soft:#dff3e8; --warn:#b26a00; --warn-soft:#fbefd9;
+  --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --f-body:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1017; --surface:#151a24; --raised:#1c2230; --ink:#eef0f5; --muted:#9aa1b2; --line:#2a3141;
+  --pill:#ff4d5e; --pill-ink:#14070a; --pill-soft:#3a1820; --blue:#7aa2ff; --blue-soft:#1b2747;
+  --ok:#4cc98a; --ok-soft:#14301f; --warn:#f0b04a; --warn-soft:#33270f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1017; --surface:#151a24; --raised:#1c2230; --ink:#eef0f5; --muted:#9aa1b2; --line:#2a3141;
+  --pill:#ff4d5e; --pill-ink:#14070a; --pill-soft:#3a1820; --blue:#7aa2ff; --blue-soft:#1b2747;
+  --ok:#4cc98a; --ok-soft:#14301f; --warn:#f0b04a; --warn-soft:#33270f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+header.top{display:grid;gap:14px;padding-bottom:6px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:clamp(22px,5vw,32px);letter-spacing:-.01em;margin:0;text-wrap:balance}
+.brand h1 b{color:var(--pill)}
+.meta{color:var(--muted);font-size:13px;font-family:var(--f-mono)}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:6px;padding-block:10px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--f-body);padding:8px 14px;border-radius:999px;cursor:pointer;display:flex;gap:8px;align-items:center}
+.tab .n{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab[aria-selected="true"] .n{color:inherit;opacity:.7}
+.tab.red[aria-selected="true"]{background:var(--pill);border-color:var(--pill);color:var(--pill-ink)}
+.lede{color:var(--muted);max-width:68ch;margin:14px 0 4px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:14px;margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.card .row{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.views{font-family:var(--f-mono);font-weight:700;font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.views small{display:block;font:500 11px var(--f-body);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+.era{font-family:var(--f-display);font-weight:700;font-size:18px;line-height:1.15;color:var(--pill)}
+.card h3{margin:0;font:600 17px/1.3 var(--f-body);text-wrap:balance}
+.sub{color:var(--muted);font-size:13px;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.why{margin:0;color:var(--ink);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--raised);color:var(--muted)}
+.status{font:600 11px var(--f-body);letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:6px;white-space:nowrap}
+.st-new{background:var(--blue-soft);color:var(--blue)}
+.st-work{background:var(--warn-soft);color:var(--warn)}
+.st-shot{background:var(--ok-soft);color:var(--ok)}
+.actions{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 14px var(--f-body);padding:10px 14px;border-radius:10px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{background:var(--raised)}
+.btn.primary{background:var(--pill);border-color:var(--pill);color:var(--pill-ink)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.small{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn:focus-visible,.tab:focus-visible,.seg button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.empty{border:1px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;color:var(--muted);margin-top:14px}
+/* sheet */
+.sheet{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;overscroll-behavior:contain}
+.sheet-head{position:sticky;top:0;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.sheet-head .inner{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px;display:grid;gap:10px}
+.sh-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sh-title{font:700 18px/1.25 var(--f-display);margin:0;min-width:0}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--muted);font:600 13px var(--f-body);padding:8px 12px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed="true"].s-new{background:var(--blue-soft);color:var(--blue)}
+.seg button[aria-pressed="true"].s-work{background:var(--warn-soft);color:var(--warn)}
+.seg button[aria-pressed="true"].s-shot{background:var(--ok-soft);color:var(--ok)}
+.jump{display:flex;gap:6px;overflow-x:auto}
+.jump a{flex:0 0 auto;font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.sheet-body{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 60px;display:grid;gap:26px}
+section.block{display:grid;gap:10px;min-width:0;scroll-margin-top:150px}
+.label{font:600 11px var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:8px}
+.hook{font:700 clamp(20px,4.6vw,30px)/1.2 var(--f-display);margin:0;text-wrap:balance}
+.concept{font-size:16px;max-width:68ch;margin:0}
+.fmt{font-family:var(--f-mono);font-size:13px;color:var(--muted)}
+.script{display:grid;gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.line{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:10px 14px;border-top:1px solid var(--line)}
+.line:first-child{border-top:0}
+.line .t{font-family:var(--f-mono);font-size:12px;color:var(--pill);padding-top:2px;font-variant-numeric:tabular-nums}
+.line .x{min-width:0}
+.shots{display:grid;gap:12px}
+.shot{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;grid-template-columns:44px 1fr;gap:12px;min-width:0}
+.shot .num{font:700 20px var(--f-mono);color:var(--pill);line-height:1}
+.shot .num small{display:block;font:500 11px var(--f-mono);color:var(--muted);margin-top:6px}
+.shot .body{display:grid;gap:8px;min-width:0}
+.ovl{font:600 13px var(--f-body);background:var(--ink);color:var(--bg);padding:3px 8px;border-radius:6px;justify-self:start}
+.prompt{font-family:var(--f-mono);font-size:12.5px;background:var(--raised);border-radius:10px;padding:10px 12px;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+.caption{white-space:pre-wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:0;font-family:var(--f-body)}
+.kw{font:700 15px var(--f-mono);color:var(--pill)}
+ul.list{margin:0;padding-left:20px;display:grid;gap:6px;max-width:72ch}
+.exp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
+.exp div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0}
+.exp h4{margin:0 0 6px;font:600 12px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.exp p{margin:0;font-size:14px}
+.risk{background:var(--pill-soft);border-radius:var(--r);padding:14px}
+.risk ul{margin:0;padding-left:20px;display:grid;gap:6px}
+.distr{border-left:3px solid var(--pill);padding:4px 0 4px 14px;font-size:16px;margin:0;max-width:68ch}
+.src{color:var(--muted);font-size:13px}
+.note{color:var(--muted);font-size:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;z-index:30}
+.addbar{display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.addrow{display:flex;gap:8px;flex-wrap:wrap}
+.addrow input{flex:1 1 220px;min-width:0}
+input.f,textarea.f{font:15px var(--f-body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea.f{min-height:96px;resize:vertical;line-height:1.45}
+input.f:focus-visible,textarea.f:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.queue{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.q{background:var(--raised);border-radius:8px;padding:3px 8px;color:var(--muted);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q.done{color:var(--ok)} .q.error{color:var(--pill)}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.tools input{flex:1 1 200px;min-width:0}
+.tools select{font:600 13px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.variants{display:flex;gap:6px;flex-wrap:wrap}
+.variants button{border:1px solid var(--line);background:var(--surface);color:var(--muted);font:600 12px var(--f-body);border-radius:999px;padding:5px 11px;cursor:pointer}
+.variants button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ai-out{font-size:13px;color:var(--muted)}
+.persona{display:grid;gap:16px;max-width:760px;margin-top:14px}
+.persona label{display:grid;gap:6px;font-weight:600}
+.persona .hint{font-weight:400;color:var(--muted);font-size:13px}
+@media (max-width:520px){.line{grid-template-columns:54px 1fr}.views{font-size:24px}.sh-top{flex-wrap:wrap}}
+@media (prefers-reduced-motion:no-preference){.card{transition:border-color .15s}.card:hover{border-color:var(--muted)}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1>ARUT <b>Viral</b> Radar</h1><span class="meta" id="meta">Загрузка базы…</span></div>
+    <form class="addbar" id="addform" autocomplete="off">
+      <label for="addurl" class="label">Нашёл ролик сам? Вставь ссылку, и радар разберёт его в ближайший запуск</label>
+      <div class="addrow">
+        <input class="f" id="addurl" type="url" inputmode="url" placeholder="https://www.instagram.com/reel/…" required>
+        <input class="f" id="addnote" type="text" placeholder="Что зацепило или какой поворот хочешь (необязательно)">
+        <button class="btn primary" type="submit">В очередь</button>
+      </div>
+      <div class="queue" id="queue"></div>
+    </form>
+  </header>
+  <nav class="tabs" role="tablist" aria-label="Разделы">
+    <button class="tab" role="tab" id="tab-reels" aria-selected="true" data-tab="reels">Залёты <span class="n" id="n-reels">0</span></button>
+    <button class="tab red" role="tab" id="tab-redpill" aria-selected="false" data-tab="redpill">Red Pill <span class="n" id="n-redpill">0</span></button>
+    <button class="tab" role="tab" id="tab-work" aria-selected="false" data-tab="work">В работе <span class="n" id="n-work">0</span></button>
+    <button class="tab" role="tab" id="tab-shot" aria-selected="false" data-tab="shot">Снято <span class="n" id="n-shot">0</span></button>
+    <button class="tab" role="tab" id="tab-persona" aria-selected="false" data-tab="persona">Персонаж</button>
+  </nav>
+  <p class="lede" id="lede"></p>
+  <div class="tools" id="tools">
+    <input class="f" id="search" type="search" placeholder="Поиск по названию, автору, ключу">
+    <select id="sort" aria-label="Сортировка"><option value="views">По просмотрам</option><option value="new">Сначала новые</option></select>
+  </div>
+  <main id="list" class="grid" aria-live="polite"></main>
+  <div id="empty" class="empty" hidden></div>
+  <form class="persona" id="persona" hidden autocomplete="off">
+    <label for="p-facts">Реальные факты обо мне
+      <span class="hint">Возраст, город детства, первые шаги в музыке и трейдинге, реальные цифры и даты. Радар и кнопка «Переписать» подставляют их вместо пропусков [в скобках] и никогда не выдумывают биографию.</span>
+      <textarea class="f" id="p-facts" rows="7"></textarea></label>
+    <label for="p-voice">Мой голос и подача
+      <span class="hint">Как ты говоришь: короткие фразы, юмор, любимые выражения, язык роликов.</span>
+      <textarea class="f" id="p-voice" rows="4"></textarea></label>
+    <label for="p-taboo">Нельзя
+      <span class="hint">Темы, слова и форматы, которые ты не используешь.</span>
+      <textarea class="f" id="p-taboo" rows="3"></textarea></label>
+    <div><button class="btn primary" type="submit">Сохранить персонажа</button></div>
+  </form>
+</div>
+
+<div id="sheet" class="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-title" hidden>
+  <div class="sheet-head"><div class="inner">
+    <div class="sh-top">
+      <button class="btn small" id="close" type="button">← Назад</button>
+      <div class="seg" role="group" aria-label="Статус">
+        <button type="button" class="s-new" data-st="new" aria-pressed="false">Новое</button>
+        <button type="button" class="s-work" data-st="work" aria-pressed="false">В работе</button>
+        <button type="button" class="s-shot" data-st="shot" aria-pressed="false">Снято</button>
+      </div>
+    </div>
+    <h2 class="sh-title" id="sh-title"></h2>
+    <nav class="jump" id="jump" aria-label="Разделы адаптации"></nav>
+  </div></div>
+  <div class="sheet-body" id="sheet-body"></div>
+</div>
+<div id="toast" class="toast" hidden></div>
+
+<script>
+const LEDE={
+  reels:"Ролики от 10M просмотров из Instagram Reels. Нажми «Адаптация»: хук, сценарий, сториборд с промптами, подпись и экспертный слой.",
+  redpill:"Сюжеты, подтверждённые документами и решениями судов: на что отвлекали внимание людей. Каждый упакован в поп-формат с источниками.",
+  work:"То, что ты взял в работу.",
+  shot:"Отснятые ролики.",
+  persona:"Заполни один раз. Радар и кнопка «Переписать под мою идею» берут отсюда реальные факты и твой голос."
+};
+const ST={new:["Новое","st-new"],work:["В работе","st-work"],shot:["Снято","st-shot"]};
+const state={reels:[],redpill:[],queue:[],persona:null,tab:"reels",open:null,variant:0,draft:null,canWrite:true,q:"",sort:"views",loaded:{reels:false,redpill:false}};
+let db=null,sample=null,aiCtl=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtN=n=>{if(n==null)return"—";if(n>=1e6)return(n/1e6).toFixed(n>=1e7?1:2).replace(/\.0+$/,"")+"M";if(n>=1e3)return(n/1e3).toFixed(n>=1e4?0:1).replace(/\.0$/,"")+"K";return String(n)};
+const fmtD=s=>{if(!s)return"";const m=/^(\d{4})-(\d{2})-(\d{2})/.exec(s);if(!m)return s;const mo=["янв","фев","мар","апр","мая","июн","июл","авг","сен","окт","ноя","дек"][+m[2]-1];return`${+m[3]} ${mo} ${m[1]}`};
+const all=()=>[...state.reels,...state.redpill];
+const colOf=kind=>kind==="reel"?"reels":"redpill";
+function find(kind,id){return(kind==="reel"?state.reels:state.redpill).find(x=>x.id===id)}
+function visible(){
+  let items=state.tab==="reels"?state.reels.filter(d=>d.status!=="shot"):state.tab==="redpill"?state.redpill.filter(d=>d.status!=="shot"):all().filter(d=>d.status===state.tab);
+  const q=state.q.trim().toLowerCase();
+  if(q)items=items.filter(d=>[d.title,d.lane,d.source?.author,d.adaptation?.keyword,d.adaptation?.hook,d.era].join(" ").toLowerCase().includes(q));
+  const byNew=(a,b)=>String(b.foundAt||"").localeCompare(String(a.foundAt||""))||(a.rank??0)-(b.rank??0);
+  if(state.sort==="new")return items.sort(byNew);
+  return items.sort((a,b)=>(b.source?.views||0)-(a.source?.views||0)||(a.rank??0)-(b.rank??0));
+}
+function counts(){
+  $("#n-reels").textContent=state.reels.filter(d=>d.status!=="shot").length;
+  $("#n-redpill").textContent=state.redpill.filter(d=>d.status!=="shot").length;
+  $("#n-work").textContent=all().filter(d=>d.status==="work").length;
+  $("#n-shot").textContent=all().filter(d=>d.status==="shot").length;
+  const last=all().map(d=>d.foundAt||"").sort().pop();
+  $("#meta").textContent=last?`Обновлено ${fmtD(last)} · ${new Date(last).toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit",timeZone:"Asia/Dubai"})} Дубай · поиск в 08:58 и 19:58`:"База пока пустая";
+}
+function renderQueue(){
+  const el=$("#queue");
+  const items=[...state.queue].sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt))).slice(0,8);
+  el.innerHTML=items.map(q=>{const cls=q.status==="done"?"done":q.status==="error"?"error":"";const label=q.status==="done"?"готово":q.status==="error"?(q.message||"не удалось"):"ждёт запуска";
+    return`<span class="q ${cls}" title="${esc(q.url)}">${esc(q.url.replace(/^https?:\/\/(www\.)?/,"").slice(0,42))} · ${esc(label)}</span>`}).join("");
+}
+function card(d){
+  const st=ST[d.status]||ST.new;
+  const top=d.kind==="reel"?`<div class="views">${fmtN(d.source?.views)}<small>просмотров</small></div>`:`<div class="era">${esc(d.era)}</div>`;
+  const sub=d.kind==="reel"?`@${esc(d.source?.author)} · ${esc(fmtD(d.source?.date))} · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)}`:esc(d.lane);
+  const why=d.kind==="reel"?(d.why||[])[0]:d.distraction;
+  const link=d.kind==="reel"&&d.source?.url?`<a class="btn" href="${esc(d.source.url)}" target="_blank" rel="noopener">Оригинал ↗</a>`:"";
+  const extra=[d.kind==="reel"?`<span class="chip">${esc(d.lane)}</span>`:"",`<span class="chip">Ключ: ${esc(d.adaptation?.keyword)}</span>`,(d.variants||[]).length?`<span class="chip">Вариантов: ${d.variants.length+1}</span>`:"",d.notes?`<span class="chip">Есть заметка</span>`:""].join("");
+  return`<article class="card"><div class="row">${top}<span class="status ${st[1]}">${st[0]}</span></div>
+    <h3>${esc(d.title)}</h3><div class="sub">${sub}</div><p class="why">${esc(why)}</p><div class="chips">${extra}</div>
+    <div class="actions"><button class="btn primary" type="button" data-open="${esc(d.kind)}|${esc(d.id)}">Адаптация</button>${link}</div></article>`;
+}
+function render(){
+  counts();renderQueue();
+  document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.tab===state.tab));
+  $("#lede").textContent=LEDE[state.tab];
+  const isPersona=state.tab==="persona";
+  $("#persona").hidden=!isPersona;$("#tools").hidden=isPersona;$("#list").hidden=isPersona;
+  if(isPersona){$("#empty").hidden=true;fillPersona();if(state.open)renderSheet();return}
+  const items=visible();
+  $("#list").innerHTML=items.map(card).join("");
+  const empty=$("#empty");
+  const loading=!state.loaded.reels||!state.loaded.redpill;
+  if(!items.length){
+    empty.hidden=false;
+    empty.textContent=!db?"База недоступна в этом окне. Открой страницу в claude.ai.":loading?"Загружаю ролики…":state.q?"Ничего не нашлось по запросу.":
+      state.tab==="shot"?"Пока ничего не снято. Открой адаптацию и нажми «Снято», когда ролик готов.":
+      state.tab==="work"?"Нет роликов в работе. Открой адаптацию и нажми «В работе».":"Новые ролики появятся после следующего запуска поиска (08:58 и 19:58 по Дубаю).";
+  }else empty.hidden=true;
+  if(state.open)renderSheet();
+}
+let personaFilled=false;
+function fillPersona(){
+  if(personaFilled||!state.persona)return;
+  $("#p-facts").value=state.persona.facts||"";$("#p-voice").value=state.persona.voice||"";$("#p-taboo").value=state.persona.taboo||"";personaFilled=true;
+}
+const copyBtn=(text,label="Копировать")=>`<button class="btn small" type="button" data-copy="${esc(text)}">${label}</button>`;
+function currentAdaptation(d){
+  const vs=[d.adaptation,...(d.variants||[]).map(v=>v.adaptation)];
+  if(state.draft)return state.draft.adaptation;
+  return vs[Math.min(state.variant,vs.length-1)]||d.adaptation||{};
+}
+function renderSheet(){
+  const [kind,id]=state.open;const d=find(kind,id);
+  if(!d){closeSheet();return}
+  document.querySelectorAll(".seg button").forEach(b=>{b.setAttribute("aria-pressed",b.dataset.st===(d.status||"new"));b.disabled=!state.canWrite});
+  const ae=document.activeElement;
+  if(ae&&$("#sheet-body").contains(ae)&&(ae.tagName==="TEXTAREA"||ae.tagName==="INPUT"))return;
+  const a=currentAdaptation(d);
+  $("#sh-title").textContent=d.title;
+  const vo=a.vo||[];
+  const fullScript=`HOOK: ${a.hook}\n\n`+vo.map(l=>`[${l.t}s] ${l.text}`).join("\n")+`\n\nCAPTION:\n${a.caption}`;
+  const sections=[],jump=[];
+  const add=(sid,name,html)=>{jump.push(`<a href="#s-${sid}">${name}</a>`);sections.push(`<section class="block" id="s-${sid}">${html}</section>`)};
+  if(d.kind==="reel"){
+    add("src","Почему залетел",`<div class="label">Почему залетел <a class="btn small" href="${esc(d.source?.url)}" target="_blank" rel="noopener">Оригинал ↗</a></div>
+      <div class="sub">@${esc(d.source?.author)} · ${fmtN(d.source?.views)} просмотров · ♥ ${fmtN(d.source?.likes)} · 💬 ${fmtN(d.source?.comments)} · ${esc(fmtD(d.source?.date))}</div>
+      <ul class="list">${(d.why||[]).map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`);
+  }else{
+    add("facts","Факты",`<div class="label">От чего отвлекали</div><p class="distr">${esc(d.distraction)}</p>
+      <div class="label">Подтверждённые факты</div><ul class="list">${(d.facts||[]).map(f=>`<li>${esc(f)}</li>`).join("")}</ul>
+      <div class="src"><b>Источники:</b> ${(d.sources||[]).map(esc).join(" · ")}</div>`);
+  }
+  const names=["Основной",...(d.variants||[]).map((v,i)=>`Вариант ${i+1}`)];
+  const vbar=state.draft?`<div class="variants"><button type="button" aria-pressed="true">Новый вариант (не сохранён)</button></div>
+      <div class="actions"><button class="btn primary" type="button" id="save-draft">Сохранить вариант</button><button class="btn" type="button" id="drop-draft">Отменить</button></div>`
+    :names.length>1?`<div class="variants">${names.map((n,i)=>`<button type="button" data-variant="${i}" aria-pressed="${i===state.variant}">${esc(n)}</button>`).join("")}</div>`:"";
+  const idea=state.draft?.idea||(d.variants||[])[state.variant-1]?.idea;
+  add("hook","Хук",`<div class="label">Хук и идея ${copyBtn(a.hook)}</div>${vbar}${idea?`<div class="ai-out">Твоя идея: ${esc(idea)}</div>`:""}
+    <p class="hook">${esc(a.hook)}</p><p class="concept">${esc(a.concept)}</p><div class="fmt">${esc(a.format)}</div>`);
+  add("script","Сценарий",`<div class="label">Сценарий / текст ${copyBtn(fullScript,"Копировать всё")}</div>
+    <div class="script">${vo.map(l=>`<div class="line"><span class="t">${esc(l.t)} с</span><span class="x">${esc(l.text)}</span></div>`).join("")}</div>`);
+  add("board","Сториборд",`<div class="label">Сториборд · ${(a.storyboard||[]).length} кадров ${copyBtn((a.storyboard||[]).map(s=>`#${s.n} (${s.dur}) ${s.prompt}`).join("\n\n"),"Все промпты")}</div>
+    <div class="shots">${(a.storyboard||[]).map(s=>`<div class="shot"><div class="num">${esc(s.n)}<small>${esc(s.dur)}</small></div><div class="body">
+      <div>${esc(s.frame)}</div>${s.overlay?`<span class="ovl">${esc(s.overlay)}</span>`:""}
+      <div class="prompt">${esc(s.prompt)}</div><div>${copyBtn(s.prompt,"Копировать промпт")}</div></div></div>`).join("")}</div>
+    <p class="note">[ARUT character reference] — подставь свой персонаж (Soul ID или фото-референсы) в Higgsfield, Kling или Hypit.</p>`);
+  add("caption","Подпись",`<div class="label">Подпись и ключ ${copyBtn(a.caption)}</div><pre class="caption">${esc(a.caption)}</pre>
+    <div>Ключевое слово: <span class="kw">${esc(a.keyword)}</span></div>${a.cta?`<p class="concept">${esc(a.cta)}</p>`:""}
+    ${a.prompt_gift?`<div class="label">Что отправлять по ключу ${copyBtn(a.prompt_gift)}</div><div class="prompt">${esc(a.prompt_gift)}</div>`:""}`);
+  const e=d.expert||{};
+  add("expert","Экспертный слой",`<div class="label">Экспертный слой</div><div class="exp">
+    <div><h4>Рынки</h4><p>${esc(e.markets)}</p></div><div><h4>Макро</h4><p>${esc(e.macro)}</p></div><div><h4>Политика</h4><p>${esc(e.politics)}</p></div></div>`);
+  if((d.risks||[]).length)add("risks","Риски",`<div class="label">Проверь перед съёмкой</div><div class="risk"><ul>${d.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>${d.note?`<p class="note">${esc(d.note)}</p>`:""}`);
+  if(sample)add("mine","Моя версия",`<div class="label">Переписать под мою идею</div>
+    <textarea class="f" id="idea" rows="3" placeholder="Например: сделай про золото вместо биткоина; добавь мою жену в финал; короче, 12 секунд; на русском"></textarea>
+    <div class="actions"><button class="btn primary" type="button" id="rewrite">Переписать</button><button class="btn" type="button" id="stop" hidden>Стоп</button></div>
+    <div class="ai-out" id="ai-out">Claude перепишет хук, сценарий, сториборд и подпись с учётом вкладки «Персонаж». Тратит лимит твоего аккаунта Claude.</div>`);
+  add("notes","Заметки",`<div class="label">Мои заметки</div>
+    <textarea class="f" id="notes" rows="4" placeholder="Локация, кто снимает, музыка, что поменять">${esc(d.notes||"")}</textarea>
+    <div><button class="btn" type="button" id="save-notes"${state.canWrite?"":" disabled"}>Сохранить заметку</button></div>`);
+  $("#jump").innerHTML=jump.join("");
+  $("#sheet-body").innerHTML=sections.join("");
+}
+function openSheet(kind,id){state.open=[kind==="reel"?"reel":"redpill",id];state.variant=0;state.draft=null;renderSheet();$("#sheet").hidden=false;$("#sheet").scrollTop=0;document.body.style.overflow="hidden";$("#close").focus();try{history.replaceState(null,"","#"+id)}catch(_){}}
+function closeSheet(){aiCtl?.abort();state.open=null;state.draft=null;$("#sheet").hidden=true;document.body.style.overflow="";try{history.replaceState(null,"",location.pathname+location.search)}catch(_){}}
+let tt;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2000)}
+async function save(col,id,patch){
+  if(!db)throw{code:"unavailable"};
+  try{await db.doc(`${col}/${id}`).update(patch)}catch(e){if(e&&e.code==="invalid_argument")state.canWrite=false;throw e}
+}
+function reelIdFromUrl(u){const m=/instagram\.com\/(?:[^/]+\/)?reels?\/([A-Za-z0-9_-]+)/.exec(u);return m?m[1]:null}
+async function rewrite(){
+  const[kind,id]=state.open;const d=find(kind,id);const idea=$("#idea").value.trim();
+  if(!idea){toast("Опиши идею в одном-двух предложениях");return}
+  const out=$("#ai-out"),btn=$("#rewrite"),stop=$("#stop");
+  aiCtl=new AbortController();btn.disabled=true;stop.hidden=false;out.textContent="Claude думает… обычно 30–90 секунд.";
+  const p=state.persona||{};
+  const base=d.adaptation;
+  const prompt=`You are the screenwriter, short-form video director, professional trader, macro analyst and political scientist behind ARUT (Arut Nazaryan): 38, Dubai, media personality, three-time platinum recording artist, investor and crypto/forex trader, founder of ARUT ACADEMY (100K+ students), 3.8M Instagram followers, husband and father of two, boxing, fitness, AI, longevity. Tagline: "One name. Many worlds. I AM ARUT."
+
+Real facts about Arut (use only these for anything personal; if a personal detail is needed and missing, write it as [real fact]):
+${p.facts||"(not filled yet)"}
+His voice: ${p.voice||"short sentences, confident, pop culture, sharp humor, never insulting"}
+Never use: ${p.taboo||"other brands' logos, movie characters, real public figures in frame, income promises, invented biography"}
+
+Source ${d.kind==="reel"?"viral reel":"documented story"}: ${d.title}. ${d.kind==="reel"?`@${d.source?.author}, ${d.source?.views} views. Why it went viral: ${(d.why||[]).join(" ")}`:`Facts: ${(d.facts||[]).join(" ")} Sources: ${(d.sources||[]).join("; ")}`}
+
+Current adaptation (JSON):
+${JSON.stringify(base)}
+
+Arut's request for a new version: ${idea}
+
+Rewrite the adaptation following his request. Keep facts accurate; do not invent numbers you cannot be sure of. Hook, vo texts, overlays, prompts and caption in English unless he asks for another language; concept, format and frame descriptions in Russian. Storyboard prompts must contain [ARUT character reference] where Arut appears. Reply with only one JSON object with exactly these keys: {"concept": string, "format": string, "hook": string, "vo": [{"t": "0–3", "text": string}], "storyboard": [{"n": 1, "dur": "3 с", "frame": string, "overlay": string, "prompt": string}], "caption": string, "keyword": string, "cta": string}`;
+  try{
+    const res=await sample.json(prompt,{signal:aiCtl.signal,cache:false,onText:()=>{out.textContent="Пишет вариант…"}});
+    if(!res||typeof res!=="object"||!res.hook||!Array.isArray(res.vo)||!Array.isArray(res.storyboard))throw{code:"invalid_json"};
+    state.draft={idea,adaptation:res};state.open&&(document.activeElement?.blur?.(),renderSheet());
+    document.querySelector("#s-hook")?.scrollIntoView({behavior:"smooth",block:"start"});
+    toast("Новый вариант готов");
+  }catch(e){
+    const map={cancelled:"Остановлено.",not_granted:"Доступ к Claude для этой страницы не разрешён.",rate_limited:"Слишком много запросов или закончился лимит. Попробуй позже.",invalid_json:"Ответ пришёл в неверном формате. Нажми «Переписать» ещё раз.",refused:"Claude не стал писать такой вариант. Измени формулировку."};
+    out.textContent=map[e?.code]||"Не получилось. Попробуй ещё раз позже.";
+    if(e?.code==="not_granted"||e?.code==="sampling_disabled"){sample=null}
+  }finally{btn&&(btn.disabled=false);stop&&(stop.hidden=true);aiCtl=null}
+}
+document.addEventListener("click",async ev=>{
+  const tab=ev.target.closest(".tab");if(tab){state.tab=tab.dataset.tab;render();return}
+  const o=ev.target.closest("[data-open]");if(o){const[k,i]=o.dataset.open.split("|");openSheet(k,i);return}
+  if(ev.target.closest("#close")){closeSheet();return}
+  const j=ev.target.closest(".jump a");if(j){ev.preventDefault();document.querySelector(j.getAttribute("href"))?.scrollIntoView({behavior:"smooth",block:"start"});return}
+  const c=ev.target.closest("[data-copy]");if(c){try{await navigator.clipboard.writeText(c.dataset.copy);toast("Скопировано")}catch(_){const p=c.closest(".block")?.querySelector(".prompt,.caption,.hook");if(p){const r=document.createRange();r.selectNodeContents(p);const s=getSelection();s.removeAllRanges();s.addRange(r)}toast("Выдели и скопируй вручную")}return}
+  const v=ev.target.closest("[data-variant]");if(v){state.variant=+v.dataset.variant;renderSheet();return}
+  if(ev.target.closest("#rewrite")){rewrite();return}
+  if(ev.target.closest("#stop")){aiCtl?.abort();return}
+  if(ev.target.closest("#drop-draft")){state.draft=null;renderSheet();return}
+  if(ev.target.closest("#save-draft")&&state.open&&state.draft){
+    const[kind,id]=state.open;const d=find(kind,id);const variants=[...(d.variants||[]),{idea:state.draft.idea,createdAt:new Date().toISOString(),adaptation:state.draft.adaptation}];
+    try{await save(colOf(kind),id,{variants});d.variants=variants;state.variant=variants.length;state.draft=null;renderSheet();toast("Вариант сохранён")}catch(_){toast("Не получилось сохранить вариант")}
+    return}
+  if(ev.target.closest("#save-notes")&&state.open){
+    const[kind,id]=state.open;const d=find(kind,id);const notes=$("#notes").value;
+    try{await save(colOf(kind),id,{notes});d.notes=notes;toast("Заметка сохранена")}catch(_){toast("Не получилось сохранить заметку")}
+    return}
+  const sb=ev.target.closest(".seg button");if(sb&&state.open&&db){
+    const[kind,id]=state.open;const d=find(kind,id);
+    if(!d||d.status===sb.dataset.st)return;
+    const prev=d.status;d.status=sb.dataset.st;render();
+    try{await save(colOf(kind),id,{status:sb.dataset.st,statusAt:new Date().toISOString()});toast(sb.dataset.st==="shot"?"Отмечено: снято":sb.dataset.st==="work"?"Взято в работу":"Вернул в новые")}
+    catch(_){d.status=prev;render();toast("Не получилось сохранить статус")}
+  }
+});
+$("#search").addEventListener("input",e=>{state.q=e.target.value;render()});
+$("#sort").addEventListener("change",e=>{state.sort=e.target.value;render()});
+$("#addform").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const url=$("#addurl").value.trim(),note=$("#addnote").value.trim();
+  const rid=reelIdFromUrl(url);
+  if(!rid){toast("Нужна ссылка на Instagram Reels");return}
+  if(all().some(d=>d.id===rid)){toast("Этот ролик уже в базе");return}
+  if(!db){toast("База недоступна в этом окне");return}
+  try{await db.doc(`queue/${rid}`).set({url:url.split("?")[0],note,addedAt:new Date().toISOString(),status:"pending"});$("#addurl").value="";$("#addnote").value="";toast("Добавлено. Разберу в ближайший запуск")}
+  catch(_){toast("Не получилось добавить")}
+});
+$("#persona").addEventListener("submit",async e=>{
+  e.preventDefault();if(!db){toast("База недоступна в этом окне");return}
+  const data={facts:$("#p-facts").value,voice:$("#p-voice").value,taboo:$("#p-taboo").value,updatedAt:new Date().toISOString()};
+  try{await db.doc("config/persona").set(data);state.persona=data;toast("Персонаж сохранён")}catch(_){toast("Не получилось сохранить")}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&state.open)closeSheet()});
+render();
+(async()=>{
+  try{db=await window.claude?.use?.("db")}catch(_){db=null}
+  try{sample=await window.claude?.use?.("sample")}catch(_){sample=null}
+  if(!db){render();return}
+  try{const u=await window.claude.use("user");const c=u?await u.can("data.write"):null;if(c===false)state.canWrite=false}catch(_){}
+  for(const col of["reels","redpill"]){
+    db.collection(col).onSnapshot(snap=>{
+      state[col]=snap.docs.map(s=>({...s.data(),id:s.id}));state.loaded[col]=true;render();
+      const h=location.hash.slice(1);if(h&&!state.open){const d=find(col==="reels"?"reel":"redpill",h);if(d)openSheet(d.kind,d.id)}
+    },()=>{state.loaded[col]=true;render()});
+  }
+  db.collection("queue").onSnapshot(snap=>{state.queue=snap.docs.map(s=>({...s.data(),id:s.id}));renderQueue()},()=>{});
+  db.doc("config/persona").onSnapshot(s=>{state.persona=s.exists?s.data():{};if(state.tab==="persona")fillPersona()},()=>{});
+})();
+</script>

@@ -1,0 +1,52 @@
+# Структура базы дашборда
+
+База живёт внутри артефакта claude.ai. Коллекции:
+
+| Коллекция | Документ | Кто пишет |
+| --- | --- | --- |
+| `reels` | один залёт, id = ID ролика из ссылки | радар создаёт; Арут меняет `status`, `notes`, `variants` |
+| `redpill` | один сюжет, id = `slug-год` | то же |
+| `queue` | ссылка, которую Арут добавил вручную, id = ID ролика | Арут добавляет, радар ставит `done` или `error` |
+| `config/creators` | `{list: [...]}` — аккаунты для слежки | радар |
+| `config/persona` | `{facts, voice, taboo}` — реальные факты и голос Арута | Арут |
+
+## reels
+
+```json
+{
+  "id": "Dd-Mwh6o7Kx",
+  "kind": "reel",
+  "title": "Свой сериал из 2000-х",
+  "lane": "AI-визуал · ностальгия",
+  "status": "new | work | shot",
+  "foundAt": "2026-10-18T19:10:00+04:00",
+  "rank": 0,
+  "source": {"author": "...", "url": "...", "views": 57400000, "likes": 2000000, "comments": 9311, "date": "2026-10-01", "caption": "..."},
+  "why": ["..."],
+  "adaptation": {
+    "concept": "...", "format": "...", "hook": "...",
+    "vo": [{"t": "0–3", "text": "..."}],
+    "storyboard": [{"n": 1, "dur": "3 с", "frame": "...", "overlay": "...", "prompt": "... [ARUT character reference] ..."}],
+    "caption": "...", "keyword": "SERIES", "cta": "...", "prompt_gift": "(необязательно)"
+  },
+  "expert": {"markets": "...", "macro": "...", "politics": "..."},
+  "risks": ["..."],
+  "note": "как сделан разбор",
+  "notes": "заметки Арута",
+  "variants": [{"idea": "...", "createdAt": "...", "adaptation": {"...": "..."}}]
+}
+```
+
+## redpill
+
+Как `reels`, но вместо `source` и `why`:
+
+```json
+{"era": "Ноябрь 1910", "distraction": "От чего отвлекали", "facts": ["..."], "sources": ["..."]}
+```
+
+## queue
+
+```json
+{"url": "https://www.instagram.com/reel/ID/", "note": "пожелание", "addedAt": "...", "status": "pending | done | error", "message": "причина ошибки"}
+```
