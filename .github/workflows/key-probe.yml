@@ -1,0 +1,20 @@
+# Names-only check (Arut allowed 2026-11-13): which AI keys this repository holds. Never prints a key.
+name: key-probe
+on: {push: {branches: ["claude/project-thread-yqqaot"], paths: [".github/workflows/key-probe.yml"]}}
+permissions: {contents: read}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          A: ${{ secrets.OPENAI_API_KEY }}
+          B: ${{ secrets.OPENAI_KEY }}
+          C: ${{ secrets.OPENAI_TOKEN }}
+          D: ${{ secrets.OPENAI }}
+          E: ${{ secrets.GPT_API_KEY }}
+          F: ${{ secrets.CHATGPT_API_KEY }}
+          G: ${{ secrets.OPEN_AI_KEY }}
+          H: ${{ secrets.OPEN_AI_API_KEY }}
+        run: |
+          for v in A:OPENAI_API_KEY B:OPENAI_KEY C:OPENAI_TOKEN D:OPENAI E:GPT_API_KEY F:CHATGPT_API_KEY G:OPEN_AI_KEY H:OPEN_AI_API_KEY; do
+            n=${v#*:}; k=${v%%:*}; [ -n "${!k}" ] && echo "FOUND $n" || echo "no $n"; done
